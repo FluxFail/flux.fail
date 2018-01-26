@@ -8,6 +8,9 @@ module.exports = {
   output: {
     filename: `${distPath}/app.js`,
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   context: __dirname,
   module: {
     loaders: [
