@@ -22,7 +22,19 @@ const fluxfailTheme = getMuiTheme({
   },
 });
 
-const store = createStore(fluxFailStore, {}, applyMiddleware(loggerMiddleware));
+const initialState = {
+  delays: [
+    {
+      city: 'Berlin',
+      direction: 'Wittenau',
+      line: 'U8',
+      minutes: 3,
+      date: new Date(),
+    },
+  ],
+};
+
+const store = createStore(fluxFailStore, initialState, applyMiddleware(loggerMiddleware));
 
 const App = () => (
     <MuiThemeProvider muiTheme={fluxfailTheme}>
