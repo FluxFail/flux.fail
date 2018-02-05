@@ -32,3 +32,10 @@ export const deleteDelay = (id) => {
     id,
   };
 };
+
+export const navigate = (target) => {
+  return {
+    type: 'NAVIGATE_TO',
+    target,
+  };
+};

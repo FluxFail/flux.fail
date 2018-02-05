@@ -31,6 +31,13 @@ class Navigation extends React.Component {
     };
   }
 
+  onNavigate(target) {
+    this.setState({
+      open: false
+    });
+    this.props.onNavigate(target);
+  }
+
   render() {
     let fab = null;
     if (this.props.allowAddDelay) {
@@ -61,17 +68,21 @@ class Navigation extends React.Component {
           <MenuItem
             primaryText="Home"
             leftIcon={<Home />}
+            onClick={_ => this.onNavigate('home')}
           />
           <MenuItem
             primaryText="Statistics"
             leftIcon={<Statistics />}
+            onClick={_ => this.onNavigate('stats')}
           />
           <Divider />
           <MenuItem
             primaryText="Log out"
+            onClick={_ => this.onNavigate('logout')}
           />
           <MenuItem
             primaryText="About Flux.Fail"
+            onClick={_ => this.onNavigate('about')}
           />
         </Drawer>
         {fab}

@@ -26,6 +26,7 @@ const FluxFail = (props) => {
   return (
     <div>
       <Navigation
+        onNavigate={props.onNavigate}
         allowAddDelay={allowAddDelay}
         onAddDelay={props.onAddDelay}
       />
@@ -43,6 +44,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onNavigate: (target) => {
+      dispatch(actions.navigate(target));
+    },
     onAddDelay: () => {
       dispatch(actions.addDelay());
     },
