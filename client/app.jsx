@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FluxFail from './elements/FluxFail';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import fluxFailStore from './reducers/index';
+import loggerMiddleware from './middleware/logger';
 
 const fluxfailTheme = getMuiTheme({
   palette: {
@@ -21,7 +22,7 @@ const fluxfailTheme = getMuiTheme({
   },
 });
 
-const store = createStore(fluxFailStore);
+const store = createStore(fluxFailStore, {}, applyMiddleware(loggerMiddleware));
 
 const App = () => (
     <MuiThemeProvider muiTheme={fluxfailTheme}>
