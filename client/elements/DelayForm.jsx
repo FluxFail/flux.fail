@@ -171,7 +171,7 @@ class DelayForm extends React.Component {
 }
 
 DelayForm.defaultProps = {
-  type: 'bus',
+  type: 'unknown',
   id: '',
   date: new Date(),
   minutes: 5,
