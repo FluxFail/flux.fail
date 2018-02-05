@@ -87,7 +87,7 @@ class DelayForm extends React.Component {
         />
         <div style={toolbarStyle}>
           <RaisedButton
-            label="Report delay"
+            label={this.state.id ? "Save changes" : "Report delay"}
             primary
             onClick={() => this.props.onSaveDelay(this.state)}
           />
