@@ -1,0 +1,89 @@
+import React from 'react';
+import DatePicker from 'material-ui/DatePicker';
+import TimePicker from 'material-ui/TimePicker';
+import Slider from 'material-ui/Slider';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+
+class DelayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: props.date || new Date(),
+      minutes: props.minutes || 5,
+      city: props.city || '',
+      line: props.line || '',
+      direction: props.direction || '',
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>When did the delay happen?</h2>
+        <DatePicker
+          hintText={this.state.date.toLocaleDateString()}
+          value={this.state.date}
+          onChange={(event, date) => this.setState({
+            date,
+          })}
+        />
+        <TimePicker
+          hintText={this.state.date.toLocaleTimeString()}
+          format="24hr"
+          value={this.state.date}
+          onChange={(event, date) => this.setState({
+            date,
+          })}
+        />
+        <h2>How long were you delayed?</h2>
+        <Slider
+          min={1}
+          max={90}
+          step={1}
+          value={this.state.minutes}
+          onChange={(event, minutes) => this.setState({
+            minutes,
+          })}
+        />
+        <p id="current-delay">
+          {this.state.minutes} minutes
+        </p>
+        <h2>Where was this?</h2>
+        <TextField
+          floatingLabelText="City"
+          value={this.state.city}
+          onChange={(event, city) => this.setState({
+            city,
+          })}
+        /><br />
+        <TextField
+          floatingLabelText="Line"
+          value={this.state.line}
+          onChange={(event, line) => this.setState({
+            line,
+          })}
+        /><br />
+        <TextField
+          floatingLabelText="Direction"
+          value={this.state.direction}
+          onChange={(event, direction) => this.setState({
+            direction,
+          })}
+        />
+        <div>
+          <RaisedButton
+            label="Report delay"
+            primary
+          />
+          <FlatButton
+            label="Cancel"
+          />
+        </div>
+      </div>
+    );
+  }
+}
+
+export default DelayForm;
