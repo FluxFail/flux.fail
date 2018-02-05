@@ -14,9 +14,23 @@ const toolbarStyle = {
   marginBottom: '24px',
 };
 
+const combinedField = {
+  display: 'flex',
+  flexDirection: 'row',
+};
+
 const minutesStyle = {
   textAlign: 'center',
+  marginTop: 0,
+  paddingTop: 0,
 };
+
+const datePickerStyle = {
+  width: '40vw',
+}
+const timePickerStyle = {
+  width: '20vw',
+}
 
 class DelayForm extends React.Component {
   constructor(props) {
@@ -35,21 +49,25 @@ class DelayForm extends React.Component {
     return (
       <div>
         <h2>When did the delay happen?</h2>
-        <DatePicker
-          hintText={this.state.date.toLocaleDateString()}
-          value={this.state.date}
-          onChange={(event, date) => this.setState({
-            date,
-          })}
-        />
-        <TimePicker
-          hintText={this.state.date.toLocaleTimeString()}
-          format="24hr"
-          value={this.state.date}
-          onChange={(event, date) => this.setState({
-            date,
-          })}
-        />
+        <div style={combinedField}>
+          <DatePicker
+            hintText={this.state.date.toLocaleDateString()}
+            value={this.state.date}
+            onChange={(event, date) => this.setState({
+              date,
+            })}
+            textFieldStyle={datePickerStyle}
+          />
+          <TimePicker
+            hintText={this.state.date.toLocaleTimeString()}
+            format="24hr"
+            value={this.state.date}
+            onChange={(event, date) => this.setState({
+              date,
+            })}
+            textFieldStyle={timePickerStyle}
+          />
+        </div>
         <h2>How long were you delayed?</h2>
         <Slider
           min={1}
@@ -64,20 +82,22 @@ class DelayForm extends React.Component {
           {this.state.minutes} minutes
         </p>
         <h2>Where was this?</h2>
+        <div style={combinedField}>
         <TextField
           floatingLabelText="City"
           value={this.state.city}
           onChange={(event, city) => this.setState({
             city,
           })}
-        /><br />
+        />
         <TextField
           floatingLabelText="Line"
           value={this.state.line}
           onChange={(event, line) => this.setState({
             line,
           })}
-        /><br />
+        />
+        </div>
         <TextField
           floatingLabelText="Direction"
           value={this.state.direction}
