@@ -10,6 +10,12 @@ import PropTypes from 'prop-types';
 const toolbarStyle = {
   display: 'flex',
   justifyContent: 'space-between',
+  marginTop: '24px',
+  marginBottom: '24px',
+};
+
+const minutesStyle = {
+  textAlign: 'center',
 };
 
 class DelayForm extends React.Component {
@@ -53,7 +59,7 @@ class DelayForm extends React.Component {
             minutes,
           })}
         />
-        <p id="current-delay">
+        <p style={minutesStyle}>
           {this.state.minutes} minutes
         </p>
         <h2>Where was this?</h2>
