@@ -4,6 +4,8 @@ const currentDelay = (state = {}, action) => {
       return {
         date: action.date,
       };
+    case 'EDIT_DELAY':
+      return action.props;
     case 'CANCEL_DELAY':
       return {};
     case 'SAVE_DELAY':

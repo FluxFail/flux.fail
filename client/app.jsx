@@ -7,6 +7,7 @@ import FluxFail from './elements/FluxFail';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import fluxFailStore from './reducers/index';
 import loggerMiddleware from './middleware/logger';
+import delaysMiddleware from './middleware/delays';
 
 const fluxfailTheme = getMuiTheme({
   palette: {
@@ -35,7 +36,7 @@ const initialState = {
   ],
 };
 
-const store = createStore(fluxFailStore, initialState, applyMiddleware(loggerMiddleware));
+const store = createStore(fluxFailStore, initialState, applyMiddleware(loggerMiddleware, delaysMiddleware));
 
 const App = () => (
     <MuiThemeProvider muiTheme={fluxfailTheme}>

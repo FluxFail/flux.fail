@@ -3,7 +3,7 @@ import Navigation from './Navigation';
 import DelayList from './DelayList';
 import DelayForm from './DelayForm';
 import { connect } from 'react-redux'
-import { addDelay, saveDelay, cancelDelay } from '../actions';
+import * as actions from '../actions';
 
 const FluxFail = (props) => {
   let delayForm = null;
@@ -19,6 +19,8 @@ const FluxFail = (props) => {
   } else {
     delayList = <DelayList
       delays={props.delays}
+      onEditDelay={props.onEditDelay}
+      onDeleteDelay={props.onDeleteDelay}
     />;
   }
   return (
@@ -42,13 +44,19 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAddDelay: () => {
-      dispatch(addDelay());
+      dispatch(actions.addDelay());
     },
     onSaveDelay: (props) => {
-      dispatch(saveDelay(props));
+      dispatch(actions.saveDelay(props));
     },
     onCancelDelay: () => {
-      dispatch(cancelDelay());
+      dispatch(actions.cancelDelay());
+    },
+    onEditDelay: (id) => {
+      dispatch(actions.editDelay(id));
+    },
+    onDeleteDelay: (id) => {
+      dispatch(actions.deleteDelay(id));
     },
   };
 };

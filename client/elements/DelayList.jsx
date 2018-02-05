@@ -24,10 +24,15 @@ const DelayCard = ({ id, date, minutes, city, line, direction, onEditDelay, onDe
   </Card>
 );
 
-const DelayList = ({ delays }) => (
+const DelayList = ({ delays, onEditDelay, onDeleteDelay }) => (
   <div>
     {delays.map((delay) => (
-      <DelayCard key={delay.id} {...delay} />
+      <DelayCard
+        key={delay.id}
+        onEditDelay={onEditDelay}
+        onDeleteDelay={onDeleteDelay}
+        {...delay}
+      />
     ))}
   </div>
 );

@@ -18,3 +18,17 @@ export const saveDelay = (props) => {
   };
   return action;
 };
+
+export const editDelay = (id) => {
+  return {
+    type: 'EDIT_DELAY',
+    id,
+  };
+};
+
+export const deleteDelay = (id) => {
+  return {
+    type: 'DELETE_DELAY',
+    id,
+  };
+};

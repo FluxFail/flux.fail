@@ -22,6 +22,7 @@ class DelayForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: props.id,
       date: props.date,
       minutes: props.minutes,
       city: props.city,
@@ -101,6 +102,7 @@ class DelayForm extends React.Component {
 }
 
 DelayForm.defaultProps = {
+  id: '',
   date: new Date(),
   minutes: 5,
   city: '',
@@ -109,6 +111,7 @@ DelayForm.defaultProps = {
 };
 
 DelayForm.propTypes = {
+  id: PropTypes.string,
   date: PropTypes.instanceOf(Date),
   minutes: PropTypes.number,
   city: PropTypes.string,

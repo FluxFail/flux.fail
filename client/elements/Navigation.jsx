@@ -68,9 +68,6 @@ class Navigation extends React.Component {
           />
           <Divider />
           <MenuItem
-            primaryText="Account"
-          />
-          <MenuItem
             primaryText="Log out"
           />
           <MenuItem
