@@ -88,9 +88,11 @@ class DelayForm extends React.Component {
           <RaisedButton
             label="Report delay"
             primary
+            onClick={() => this.props.onSaveDelay(this.state)}
           />
           <FlatButton
             label="Cancel"
+            onClick={() => this.props.onCancelDelay()}
           />
         </div>
       </div>
@@ -112,6 +114,8 @@ DelayForm.propTypes = {
   city: PropTypes.string,
   line: PropTypes.string,
   direction: PropTypes.string,
+  onSaveDelay: PropTypes.func,
+  onCancelDelay: PropTypes.func,
 };
 
 export default DelayForm;

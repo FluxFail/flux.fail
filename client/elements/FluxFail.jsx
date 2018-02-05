@@ -2,20 +2,24 @@ import React from 'react';
 import Navigation from './Navigation';
 import DelayForm from './DelayForm';
 import { connect } from 'react-redux'
-import { addDelay } from '../actions';
+import { addDelay, saveDelay, cancelDelay } from '../actions';
 
-const FluxFail = ({ currentDelay, onAddDelay }) => {
+const FluxFail = (props) => {
   let delayForm = null;
   let allowAddDelay = true;
-  if (currentDelay.date) {
-    delayForm = <DelayForm {...currentDelay} />;
+  if (props.currentDelay.date) {
+    delayForm = <DelayForm
+      onSaveDelay={props.onSaveDelay}
+      onCancelDelay={props.onCancelDelay}
+      {...props.currentDelay}
+    />;
     allowAddDelay = false;
   }
   return (
     <div>
       <Navigation
         allowAddDelay={allowAddDelay}
-        onAddDelay={onAddDelay}
+        onAddDelay={props.onAddDelay}
       />
       <main>
         {delayForm}
@@ -32,6 +36,12 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddDelay: () => {
       dispatch(addDelay());
+    },
+    onSaveDelay: (props) => {
+      dispatch(saveDelay(props));
+    },
+    onCancelDelay: () => {
+      dispatch(cancelDelay());
     },
   };
 };

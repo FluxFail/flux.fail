@@ -4,6 +4,10 @@ const currentDelay = (state = {}, action) => {
       return {
         date: action.date,
       };
+    case 'CANCEL_DELAY':
+      return {};
+    case 'SAVE_DELAY':
+      return {};
     default:
       return state;
   }
