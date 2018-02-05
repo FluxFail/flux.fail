@@ -7,8 +7,10 @@ const DelayCard = ({ id, date, minutes, city, line, direction, onEditDelay, onDe
     <CardHeader
       title={`${line} to ${direction}`}
       subtitle={`${minutes} minutes`}
+      actAsExpander={true}
+      showExpandableButton={true}
     />
-    <CardText>
+    <CardText expandable={true}>
       {city} at {date.toLocaleDateString()}
     </CardText>
     <CardActions>
