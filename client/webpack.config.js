@@ -30,6 +30,10 @@ module.exports = {
         from: 'index.html',
         to: `${distPath}/index.html`,
       },
+      {
+        from: 'fluxfail.css',
+        to: `${distPath}/fluxfail.css`,
+      },
     ]),
   ],
 };
