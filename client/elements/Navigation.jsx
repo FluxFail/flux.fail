@@ -15,7 +15,7 @@ const appBarStyle = {
 
 const drawerStyle = {
   top: '64px',
-}
+};
 
 const fabStyle = {
   position: 'fixed',
@@ -38,9 +38,8 @@ class Navigation extends React.Component {
           title="Flux.Fail"
           style={appBarStyle}
           onLeftIconButtonClick={(event) => {
-            const newOpen = this.state.open ? false : true;
             this.setState({
-              open: newOpen,
+              open: !this.state.open,
             });
           }}
         />
