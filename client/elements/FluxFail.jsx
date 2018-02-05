@@ -1,11 +1,13 @@
 import React from 'react';
 import Navigation from './Navigation';
+import DelayList from './DelayList';
 import DelayForm from './DelayForm';
 import { connect } from 'react-redux'
 import { addDelay, saveDelay, cancelDelay } from '../actions';
 
 const FluxFail = (props) => {
   let delayForm = null;
+  let delayList = null;
   let allowAddDelay = true;
   if (props.currentDelay.date) {
     delayForm = <DelayForm
@@ -14,6 +16,10 @@ const FluxFail = (props) => {
       {...props.currentDelay}
     />;
     allowAddDelay = false;
+  } else {
+    delayList = <DelayList
+      delays={props.delays}
+    />;
   }
   return (
     <div>
@@ -22,6 +28,7 @@ const FluxFail = (props) => {
         onAddDelay={props.onAddDelay}
       />
       <main>
+        {delayList}
         {delayForm}
       </main>
     </div>
