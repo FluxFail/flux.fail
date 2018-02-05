@@ -24,6 +24,7 @@ const fluxfailTheme = getMuiTheme({
 });
 
 const initialState = {
+  view: 'home',
   delays: [
     {
       type: 'subway',
@@ -35,6 +36,10 @@ const initialState = {
       date: new Date(),
     },
   ],
+  user: {
+    id: '820c6f09-8600-4406-a3a6-f822dc996fe4',
+    email: 'user@domain.com',
+  },
 };
 
 const store = createStore(fluxFailStore, initialState, applyMiddleware(loggerMiddleware, delaysMiddleware));

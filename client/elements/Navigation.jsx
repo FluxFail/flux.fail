@@ -75,13 +75,13 @@ class Navigation extends React.Component {
             primaryText="Statistics"
             leftIcon={<Statistics />}
             onClick={_ => this.onNavigate('stats')}
-            disabled={this.props.view === 'stats'}
+            disabled={this.props.view === 'stats' || !this.props.user.id}
           />
           <Divider />
           <MenuItem
             primaryText="Log out"
             onClick={_ => this.onNavigate('logout')}
-            disabled={this.props.view === 'logout'}
+            disabled={this.props.view === 'logout' || !this.props.user.id}
           />
           <MenuItem
             primaryText="About Flux.Fail"
