@@ -5,6 +5,10 @@ import Slider from 'material-ui/Slider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import MenuItem from 'material-ui/MenuItem';
+import TransportIcon from './TransportIcon';
 import PropTypes from 'prop-types';
 
 const toolbarStyle = {
@@ -31,11 +35,15 @@ const datePickerStyle = {
 const timePickerStyle = {
   width: '20vw',
 }
+const typePickerStyle = {
+  paddingTop: '20px',
+};
 
 class DelayForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      type: props.type,
       id: props.id,
       date: props.date,
       minutes: props.minutes,
@@ -83,6 +91,47 @@ class DelayForm extends React.Component {
         </p>
         <h2>Where was this?</h2>
         <div style={combinedField}>
+        <IconMenu
+          iconButtonElement={<IconButton><TransportIcon type={this.state.type} /></IconButton>}
+          style={typePickerStyle}
+        >
+          <MenuItem
+            leftIcon={<TransportIcon type="bus" padding={0} />}
+            onClick={(event) => this.setState({
+              type: 'bus',
+            })}
+          />
+          <MenuItem
+            leftIcon={<TransportIcon type="ferry" padding={0} />}
+            onClick={(event) => this.setState({
+              type: 'ferry',
+            })}
+          />
+          <MenuItem
+            leftIcon={<TransportIcon type="flight" padding={0} />}
+            onClick={(event) => this.setState({
+              type: 'flight',
+            })}
+          />
+          <MenuItem
+            leftIcon={<TransportIcon type="subway" padding={0} />}
+            onClick={(event) => this.setState({
+              type: 'subway',
+            })}
+          />
+          <MenuItem
+            leftIcon={<TransportIcon type="train" padding={0} />}
+            onClick={(event) => this.setState({
+              type: 'train',
+            })}
+          />
+          <MenuItem
+            leftIcon={<TransportIcon type="tram" padding={0} />}
+            onClick={(event) => this.setState({
+              type: 'tram',
+            })}
+          />
+        </IconMenu>
         <TextField
           floatingLabelText="City"
           value={this.state.city}
@@ -122,6 +171,7 @@ class DelayForm extends React.Component {
 }
 
 DelayForm.defaultProps = {
+  type: 'bus',
   id: '',
   date: new Date(),
   minutes: 5,
@@ -131,6 +181,7 @@ DelayForm.defaultProps = {
 };
 
 DelayForm.propTypes = {
+  type: PropTypes.string,
   id: PropTypes.string,
   date: PropTypes.instanceOf(Date),
   minutes: PropTypes.number,

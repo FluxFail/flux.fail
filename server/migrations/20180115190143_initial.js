@@ -10,6 +10,8 @@
 exports.up = knex => knex.schema.createTable('delay', (t) => {
   // Time information
   t.timestamps();
+  // Transport type
+  t.string('type').index();
   // Country (ISO 3166-1 alpha-2)
   t.string('country', 2).index();
   // City

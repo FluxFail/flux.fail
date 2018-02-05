@@ -26,6 +26,7 @@ const fluxfailTheme = getMuiTheme({
 const initialState = {
   delays: [
     {
+      type: 'subway',
       id: 'd52d4760-6fc3-4aec-b924-cb53242c55d4',
       city: 'Berlin',
       direction: 'Wittenau',

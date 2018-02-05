@@ -1,10 +1,12 @@
 import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import TransportIcon from './TransportIcon';
 
-const DelayCard = ({ id, date, minutes, city, line, direction, onEditDelay, onDeleteDelay }) => (
+const DelayCard = ({ id, type, date, minutes, city, line, direction, onEditDelay, onDeleteDelay }) => (
   <Card>
     <CardHeader
+      avatar={<TransportIcon type={type} />}
       title={`${line} to ${direction}`}
       subtitle={`${minutes} minutes`}
       actAsExpander={true}
