@@ -7,6 +7,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import PropTypes from 'prop-types';
 
+const toolbarStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+};
+
 class DelayForm extends React.Component {
   constructor(props) {
     super(props);
@@ -73,7 +78,7 @@ class DelayForm extends React.Component {
             direction,
           })}
         />
-        <div>
+        <div style={toolbarStyle}>
           <RaisedButton
             label="Report delay"
             primary
