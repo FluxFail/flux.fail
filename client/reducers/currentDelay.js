@@ -12,6 +12,8 @@ const currentDelay = (state = {}, action) => {
       return {};
     case 'NAVIGATE_TO':
       return {};
+    case 'USER_LOGOUT':
+      return {};
     default:
       return state;
   }

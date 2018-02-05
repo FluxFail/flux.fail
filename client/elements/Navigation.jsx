@@ -38,6 +38,13 @@ class Navigation extends React.Component {
     this.props.onNavigate(target);
   }
 
+  onLogout(target) {
+    this.setState({
+      open: false
+    });
+    this.props.onLogout();
+  }
+
   render() {
     let fab = null;
     if (this.props.allowAddDelay) {
@@ -80,8 +87,8 @@ class Navigation extends React.Component {
           <Divider />
           <MenuItem
             primaryText="Log out"
-            onClick={_ => this.onNavigate('logout')}
-            disabled={this.props.view === 'logout' || !this.props.user.id}
+            onClick={_ => this.onLogout()}
+            disabled={!this.props.user.id}
           />
           <MenuItem
             primaryText="About Flux.Fail"

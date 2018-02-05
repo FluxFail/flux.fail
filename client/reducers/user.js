@@ -1,11 +1,8 @@
 const user = (state = {}, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case 'USER_LOGIN':
       return action.user;
-    case 'NAVIGATE_TO':
-      if (action.target !== 'logout') {
-        return state;
-      }
+    case 'USER_LOGOUT':
       return {};
     default:
       return state;

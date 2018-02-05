@@ -11,6 +11,9 @@ import * as actions from '../actions';
 const FluxFail = (props) => {
   let currentView = null;
   let allowAddDelay = true;
+  if (!props.user.id) {
+    allowAddDelay = false;
+  }
   if (props.currentDelay.date) {
     currentView = <DelayForm
       onSaveDelay={props.onSaveDelay}
@@ -29,7 +32,6 @@ const FluxFail = (props) => {
       default:
         if (!props.user.id) {
           currentView = <Login />;
-          allowAddDelay = false;
         } else {
           currentView = <DelayList
             delays={props.delays}
@@ -45,6 +47,7 @@ const FluxFail = (props) => {
         user={props.user}
         view={props.view}
         onNavigate={props.onNavigate}
+        onLogout={props.onLogout}
         allowAddDelay={allowAddDelay}
         onAddDelay={props.onAddDelay}
       />
@@ -63,6 +66,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onNavigate: (target) => {
       dispatch(actions.navigate(target));
+    },
+    onLogout: () => {
+      dispatch(actions.userLogout());
     },
     onAddDelay: () => {
       dispatch(actions.addDelay());

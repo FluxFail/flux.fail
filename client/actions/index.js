@@ -1,3 +1,9 @@
+export const userLogout = () => {
+  return {
+    type: 'USER_LOGOUT',
+  };
+};
+
 export const addDelay = () => {
   return {
     type: 'ADD_DELAY',

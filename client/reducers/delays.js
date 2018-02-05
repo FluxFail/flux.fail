@@ -2,6 +2,8 @@ import uuid from 'uuid/v4';
 
 const delays = (state = [], action) => {
   switch (action.type) {
+    case 'USER_LOGOUT':
+      return [];
     case 'SAVE_DELAY':
       let saveState = state.slice(0);
       if (!action.props.id) {
