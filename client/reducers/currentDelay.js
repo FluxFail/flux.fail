@@ -10,6 +10,8 @@ const currentDelay = (state = {}, action) => {
       return {};
     case 'SAVE_DELAY':
       return {};
+    case 'NAVIGATE_TO':
+      return {};
     default:
       return state;
   }

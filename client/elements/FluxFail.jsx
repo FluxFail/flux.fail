@@ -26,6 +26,7 @@ const FluxFail = (props) => {
   return (
     <div>
       <Navigation
+        view={props.view}
         onNavigate={props.onNavigate}
         allowAddDelay={allowAddDelay}
         onAddDelay={props.onAddDelay}
