@@ -5,16 +5,17 @@ import Slider from 'material-ui/Slider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import PropTypes from 'prop-types';
 
 class DelayForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: props.date || new Date(),
-      minutes: props.minutes || 5,
-      city: props.city || '',
-      line: props.line || '',
-      direction: props.direction || '',
+      date: props.date,
+      minutes: props.minutes,
+      city: props.city,
+      line: props.line,
+      direction: props.direction,
     };
   }
 
@@ -85,5 +86,21 @@ class DelayForm extends React.Component {
     );
   }
 }
+
+DelayForm.defaultProps = {
+  date: new Date(),
+  minutes: 5,
+  city: '',
+  line: '',
+  direction: '',
+};
+
+DelayForm.propTypes = {
+  date: PropTypes.instanceOf(Date),
+  minutes: PropTypes.number,
+  city: PropTypes.string,
+  line: PropTypes.string,
+  direction: PropTypes.string,
+};
 
 export default DelayForm;
