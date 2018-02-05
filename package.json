@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config client/webpack.config.js",
     "pretest": "eslint server/*.js server/migrations/*.js client/*.js client/elements/*.jsx",
-    "start": "http-server client/dist -p 8080 -s",
+    "start": "http-server client/dist -p 8080 -s -c-1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
