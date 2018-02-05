@@ -32,6 +32,17 @@ class Navigation extends React.Component {
   }
 
   render() {
+    let fab = null;
+    if (this.props.allowAddDelay) {
+      fab = (
+        <FloatingActionButton
+          style={fabStyle}
+          onClick={this.props.onAddDelay}
+        >
+          <ContentAdd />
+        </FloatingActionButton>
+      );
+    }
     return (
       <nav>
         <AppBar
@@ -66,9 +77,7 @@ class Navigation extends React.Component {
             primaryText="About Flux.Fail"
           />
         </Drawer>
-        <FloatingActionButton style={fabStyle}>
-          <ContentAdd />
-        </FloatingActionButton>
+        {fab}
       </nav>
     );
   }

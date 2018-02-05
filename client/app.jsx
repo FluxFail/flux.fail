@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FluxFail from './elements/FluxFail';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import fluxFailStore from './reducers/index';
 
 const fluxfailTheme = getMuiTheme({
   palette: {
@@ -18,9 +21,13 @@ const fluxfailTheme = getMuiTheme({
   },
 });
 
+const store = createStore(fluxFailStore);
+
 const App = () => (
     <MuiThemeProvider muiTheme={fluxfailTheme}>
-      <FluxFail />
+      <Provider store={store}>
+        <FluxFail />
+      </Provider>
     </MuiThemeProvider>
 );
 
