@@ -19,8 +19,8 @@ const drawerStyle = {
 
 const fabStyle = {
   position: 'fixed',
-  right: '42px',
-  bottom: '42px',
+  right: '24px',
+  bottom: '24px',
 };
 
 class Navigation extends React.Component {

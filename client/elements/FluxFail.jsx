@@ -1,27 +1,37 @@
 import React from 'react';
 import Navigation from './Navigation';
 import DelayList from './DelayList';
+import Statistics from './Statistics';
+import About from './About';
 import DelayForm from './DelayForm';
 import { connect } from 'react-redux'
 import * as actions from '../actions';
 
 const FluxFail = (props) => {
-  let delayForm = null;
-  let delayList = null;
+  let currentView = null;
   let allowAddDelay = true;
   if (props.currentDelay.date) {
-    delayForm = <DelayForm
+    currentView = <DelayForm
       onSaveDelay={props.onSaveDelay}
       onCancelDelay={props.onCancelDelay}
       {...props.currentDelay}
     />;
     allowAddDelay = false;
   } else {
-    delayList = <DelayList
-      delays={props.delays}
-      onEditDelay={props.onEditDelay}
-      onDeleteDelay={props.onDeleteDelay}
-    />;
+    switch (props.view) {
+      case 'stats':
+        currentView = <Statistics />;
+        break;
+      case 'about':
+        currentView = <About />;
+        break;
+      default:
+        currentView = <DelayList
+          delays={props.delays}
+          onEditDelay={props.onEditDelay}
+          onDeleteDelay={props.onDeleteDelay}
+        />;
+    }
   }
   return (
     <div>
@@ -32,8 +42,7 @@ const FluxFail = (props) => {
         onAddDelay={props.onAddDelay}
       />
       <main>
-        {delayList}
-        {delayForm}
+        {currentView}
       </main>
     </div>
   );
