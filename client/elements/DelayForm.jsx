@@ -5,9 +5,7 @@ import Slider from 'material-ui/Slider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import MenuItem from 'material-ui/MenuItem';
+import {Tabs, Tab} from 'material-ui/Tabs';
 import TransportIcon from './TransportIcon';
 import PropTypes from 'prop-types';
 
@@ -56,6 +54,43 @@ class DelayForm extends React.Component {
   render() {
     return (
       <div>
+        <Tabs
+          value={this.state.type}
+          onChange={(type) => {
+            this.setState({
+              type,
+            });
+          }}
+        >
+          <Tab
+            icon={<TransportIcon type="bus" padding={0} />}
+            value="bus"
+          />
+          <Tab
+            icon={<TransportIcon type="ferry" padding={0} />}
+            value="ferry"
+          />
+          <Tab
+            icon={<TransportIcon type="flight" padding={0} />}
+            value="flight"
+          />
+          <Tab
+            icon={<TransportIcon type="subway" padding={0} />}
+            value="subway"
+          />
+          <Tab
+            icon={<TransportIcon type="train" padding={0} />}
+            value="train"
+          />
+          <Tab
+            icon={<TransportIcon type="tram" padding={0} />}
+            value="tram"
+          />
+          <Tab
+            icon={<TransportIcon type="other" padding={0} />}
+            value="other"
+          />
+        </Tabs>
         <h2>When did the delay happen?</h2>
         <div style={combinedField}>
           <DatePicker
@@ -91,47 +126,6 @@ class DelayForm extends React.Component {
         </p>
         <h2>Where was this?</h2>
         <div style={combinedField}>
-        <IconMenu
-          iconButtonElement={<IconButton><TransportIcon type={this.state.type} /></IconButton>}
-          style={typePickerStyle}
-        >
-          <MenuItem
-            leftIcon={<TransportIcon type="bus" padding={0} />}
-            onClick={(event) => this.setState({
-              type: 'bus',
-            })}
-          />
-          <MenuItem
-            leftIcon={<TransportIcon type="ferry" padding={0} />}
-            onClick={(event) => this.setState({
-              type: 'ferry',
-            })}
-          />
-          <MenuItem
-            leftIcon={<TransportIcon type="flight" padding={0} />}
-            onClick={(event) => this.setState({
-              type: 'flight',
-            })}
-          />
-          <MenuItem
-            leftIcon={<TransportIcon type="subway" padding={0} />}
-            onClick={(event) => this.setState({
-              type: 'subway',
-            })}
-          />
-          <MenuItem
-            leftIcon={<TransportIcon type="train" padding={0} />}
-            onClick={(event) => this.setState({
-              type: 'train',
-            })}
-          />
-          <MenuItem
-            leftIcon={<TransportIcon type="tram" padding={0} />}
-            onClick={(event) => this.setState({
-              type: 'tram',
-            })}
-          />
-        </IconMenu>
         <TextField
           floatingLabelText="City"
           value={this.state.city}
