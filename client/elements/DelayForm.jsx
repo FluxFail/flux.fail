@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import TransportIcon from './TransportIcon';
+import formatDelay from '../utils/delay';
 import PropTypes from 'prop-types';
 
 const toolbarStyle = {
@@ -136,7 +137,7 @@ class DelayForm extends React.Component {
           }}
         />
         <p style={minutesStyle}>
-          {this.state.minutes} minutes
+          {formatDelay(this.state.minutes)}
         </p>
         <h2>Where was this?</h2>
         <div style={combinedField}>
