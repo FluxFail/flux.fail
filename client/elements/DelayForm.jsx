@@ -52,6 +52,7 @@ class DelayForm extends React.Component {
       city: props.city,
       line: props.line,
       direction: props.direction,
+      max: 30,
     };
   }
 
@@ -120,12 +121,19 @@ class DelayForm extends React.Component {
         <h2>How long were you delayed?</h2>
         <Slider
           min={1}
-          max={90}
+          max={this.state.max}
           step={1}
           value={this.state.minutes}
-          onChange={(event, minutes) => this.setState({
-            minutes,
-          })}
+          onChange={(event, minutes) => {
+            let max = this.state.max;
+            if (minutes >= this.state.max - 5) {
+              max += 10;
+            }
+            this.setState({
+              minutes,
+              max,
+            });
+          }}
         />
         <p style={minutesStyle}>
           {this.state.minutes} minutes
@@ -158,7 +166,12 @@ class DelayForm extends React.Component {
           <RaisedButton
             label={this.state.id ? "Save changes" : "Report delay"}
             primary
-            onClick={() => this.props.onSaveDelay(this.state)}
+            onClick={() => {
+              const delay = JSON.parse(JSON.stringify(this.state));
+              delay.date = new Date(delay.date);
+              delete delay.max;
+              this.props.onSaveDelay(delay)
+            }}
           />
           <FlatButton
             label="Cancel"
