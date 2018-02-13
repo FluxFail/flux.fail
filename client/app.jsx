@@ -11,10 +11,10 @@ import delaysMiddleware from './middleware/delays';
 
 const fluxfailTheme = getMuiTheme({
   palette: {
-    primary1Color: '#fdd835',
-    primary2Color: '#ffff6b',
-    primary3Color: '#c6a700',
-    pickerHeaderColor: '#fdd835',
+    primary1Color: '#1e88e5',
+    primary2Color: '#6ab7ff',
+    primary3Color: '#005cb2',
+    pickerHeaderColor: '#1e88e5',
     accent1Color: '#78909c',
     accent2Color: '#a7c0cd',
     accent3Color: '#4b636e',
