@@ -23,7 +23,7 @@ const combinedField = {
 
 const minutesStyle = {
   textAlign: 'center',
-  marginTop: 0,
+  marginTop: -24,
   paddingTop: 0,
 };
 
@@ -33,8 +33,12 @@ const datePickerStyle = {
 const timePickerStyle = {
   width: '20vw',
 }
+const typePickerAreaStyle = {
+  marginLeft: -24,
+  marginRight: -24,
+}
 const typePickerStyle = {
-  paddingTop: '20px',
+  backgroundColor: 'transparent',
 };
 
 class DelayForm extends React.Component {
@@ -61,6 +65,8 @@ class DelayForm extends React.Component {
               type,
             });
           }}
+          style={typePickerAreaStyle}
+          tabItemContainerStyle={typePickerStyle}
         >
           <Tab
             icon={<TransportIcon type="bus" padding={0} />}
