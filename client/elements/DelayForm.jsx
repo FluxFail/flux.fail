@@ -5,10 +5,10 @@ import Slider from 'material-ui/Slider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import PropTypes from 'prop-types';
 import TransportIcon from './TransportIcon';
 import formatDelay from '../utils/delay';
-import PropTypes from 'prop-types';
 
 const toolbarStyle = {
   display: 'flex',
@@ -30,14 +30,14 @@ const minutesStyle = {
 
 const datePickerStyle = {
   width: '40vw',
-}
+};
 const timePickerStyle = {
   width: '20vw',
-}
+};
 const typePickerAreaStyle = {
   marginLeft: -24,
   marginRight: -24,
-}
+};
 const typePickerStyle = {
   backgroundColor: 'transparent',
 };
@@ -126,7 +126,7 @@ class DelayForm extends React.Component {
           step={1}
           value={this.state.minutes}
           onChange={(event, minutes) => {
-            let max = this.state.max;
+            let { max } = this.state;
             if (minutes >= this.state.max - 5) {
               max += 10;
             }
@@ -141,20 +141,20 @@ class DelayForm extends React.Component {
         </p>
         <h2>Where was this?</h2>
         <div style={combinedField}>
-        <TextField
-          floatingLabelText="City"
-          value={this.state.city}
-          onChange={(event, city) => this.setState({
-            city,
-          })}
-        />
-        <TextField
-          floatingLabelText="Line"
-          value={this.state.line}
-          onChange={(event, line) => this.setState({
-            line,
-          })}
-        />
+          <TextField
+            floatingLabelText="City"
+            value={this.state.city}
+            onChange={(event, city) => this.setState({
+              city,
+            })}
+          />
+          <TextField
+            floatingLabelText="Line"
+            value={this.state.line}
+            onChange={(event, line) => this.setState({
+              line,
+            })}
+          />
         </div>
         <TextField
           floatingLabelText="Direction"
@@ -165,13 +165,13 @@ class DelayForm extends React.Component {
         />
         <div style={toolbarStyle}>
           <RaisedButton
-            label={this.state.id ? "Save changes" : "Report delay"}
+            label={this.state.id ? 'Save changes' : 'Report delay'}
             primary
             onClick={() => {
               const delay = JSON.parse(JSON.stringify(this.state));
               delay.date = new Date(delay.date);
               delete delay.max;
-              this.props.onSaveDelay(delay)
+              this.props.onSaveDelay(delay);
             }}
           />
           <FlatButton
@@ -192,8 +192,9 @@ DelayForm.defaultProps = {
   city: '',
   line: '',
   direction: '',
+  onSaveDelay: () => {},
+  onCancelDelay: () => {},
 };
-
 DelayForm.propTypes = {
   type: PropTypes.string,
   id: PropTypes.string,

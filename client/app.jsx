@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import FluxFail from './elements/FluxFail';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import FluxFail from './elements/FluxFail';
 import fluxFailStore from './reducers/index';
 import loggerMiddleware from './middleware/logger';
 import delaysMiddleware from './middleware/delays';
@@ -42,14 +42,15 @@ const initialState = {
   },
 };
 
-const store = createStore(fluxFailStore, initialState, applyMiddleware(loggerMiddleware, delaysMiddleware));
+const middleware = applyMiddleware(loggerMiddleware, delaysMiddleware);
+const store = createStore(fluxFailStore, initialState, middleware);
 
 const App = () => (
-    <MuiThemeProvider muiTheme={fluxfailTheme}>
-      <Provider store={store}>
-        <FluxFail />
-      </Provider>
-    </MuiThemeProvider>
+  <MuiThemeProvider muiTheme={fluxfailTheme}>
+    <Provider store={store}>
+      <FluxFail />
+    </Provider>
+  </MuiThemeProvider>
 );
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

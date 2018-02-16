@@ -2,5 +2,8 @@
   "extends": "airbnb",
   "rules": {
     "no-unused-vars": 1
+  },
+  "globals": {
+    "document": false
   }
 }
