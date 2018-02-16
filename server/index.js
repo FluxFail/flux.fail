@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
 const cors = require('cors');
+const loginRoutes = require('./routes/login');
 
 function getApp() {
   const app = express();
@@ -9,6 +10,8 @@ function getApp() {
   app.use(bodyParser.json());
 
   app.use(cors());
+
+  app.post('/login/email', loginRoutes.passwordless);
 
   // 404 handling
   app.use((req, res, next) => {
