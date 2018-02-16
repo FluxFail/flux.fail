@@ -1,11 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
+const cors = require('cors');
 
 function getApp() {
   const app = express();
 
   app.use(bodyParser.json());
+
+  app.use(cors());
 
   // 404 handling
   app.use((req, res, next) => {
