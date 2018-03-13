@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const http = require('http');
 const cors = require('cors');
+const auth = require('./utils/auth');
 const loginRoutes = require('./routes/login');
 
 function getApp() {
@@ -10,6 +12,8 @@ function getApp() {
   app.use(bodyParser.json());
 
   app.use(cors());
+
+  app.use(passport.initialize());
 
   app.post('/login/email', loginRoutes.passwordless);
 
