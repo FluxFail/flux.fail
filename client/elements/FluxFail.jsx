@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import DelayList from './DelayList';
 import Statistics from './Statistics';
 import About from './About';
 import Login from './Login';
 import DelayForm from './DelayForm';
-import { connect } from 'react-redux'
 import * as actions from '../actions';
 
 const FluxFail = (props) => {
@@ -15,11 +16,13 @@ const FluxFail = (props) => {
     allowAddDelay = false;
   }
   if (props.currentDelay.date) {
-    currentView = <DelayForm
-      onSaveDelay={props.onSaveDelay}
-      onCancelDelay={props.onCancelDelay}
-      {...props.currentDelay}
-    />;
+    currentView = (
+      <DelayForm
+        onSaveDelay={props.onSaveDelay}
+        onCancelDelay={props.onCancelDelay}
+        {...props.currentDelay}
+      />
+    );
     allowAddDelay = false;
   } else {
     switch (props.view) {
@@ -33,11 +36,13 @@ const FluxFail = (props) => {
         if (!props.user.id) {
           currentView = <Login />;
         } else {
-          currentView = <DelayList
-            delays={props.delays}
-            onEditDelay={props.onEditDelay}
-            onDeleteDelay={props.onDeleteDelay}
-          />;
+          currentView = (
+            <DelayList
+              delays={props.delays}
+              onEditDelay={props.onEditDelay}
+              onDeleteDelay={props.onDeleteDelay}
+            />
+          );
         }
     }
   }
@@ -56,36 +61,63 @@ const FluxFail = (props) => {
       </main>
     </div>
   );
-}
-
-const mapStateToProps = state => {
-  return state;
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onNavigate: (target) => {
-      dispatch(actions.navigate(target));
-    },
-    onLogout: () => {
-      dispatch(actions.userLogout());
-    },
-    onAddDelay: () => {
-      dispatch(actions.addDelay());
-    },
-    onSaveDelay: (props) => {
-      dispatch(actions.saveDelay(props));
-    },
-    onCancelDelay: () => {
-      dispatch(actions.cancelDelay());
-    },
-    onEditDelay: (id) => {
-      dispatch(actions.editDelay(id));
-    },
-    onDeleteDelay: (id) => {
-      dispatch(actions.deleteDelay(id));
-    },
-  };
+const mapStateToProps = state => state;
+
+const mapDispatchToProps = dispatch => ({
+  onNavigate: (target) => {
+    dispatch(actions.navigate(target));
+  },
+  onLogout: () => {
+    dispatch(actions.userLogout());
+  },
+  onAddDelay: () => {
+    dispatch(actions.addDelay());
+  },
+  onSaveDelay: (props) => {
+    dispatch(actions.saveDelay(props));
+  },
+  onCancelDelay: () => {
+    dispatch(actions.cancelDelay());
+  },
+  onEditDelay: (id) => {
+    dispatch(actions.editDelay(id));
+  },
+  onDeleteDelay: (id) => {
+    dispatch(actions.deleteDelay(id));
+  },
+});
+
+FluxFail.defaultProps = {
+  allowAddDelay: false,
+  currentDelay: null,
+  delays: [],
+  user: {},
+  view: 'home',
+};
+
+FluxFail.propTypes = {
+  allowAddDelay: PropTypes.bool,
+  currentDelay: PropTypes.shape({
+    id: PropTypes.string,
+    date: PropTypes.instanceOf(Date),
+  }),
+  delays: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    date: PropTypes.instanceOf(Date),
+  })),
+  onAddDelay: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
+  onNavigate: PropTypes.func.isRequired,
+  onEditDelay: PropTypes.func.isRequired,
+  onDeleteDelay: PropTypes.func.isRequired,
+  onSaveDelay: PropTypes.func.isRequired,
+  onCancelDelay: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+  view: PropTypes.string,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FluxFail);

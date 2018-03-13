@@ -20,19 +20,19 @@ const TransportIcon = ({ type, padding = 7 }) => {
   }
   switch (type) {
     case 'bus':
-      return <BusIcon style={iconStyle} />
+      return <BusIcon style={iconStyle} />;
     case 'ferry':
-      return <FerryIcon style={iconStyle} />
+      return <FerryIcon style={iconStyle} />;
     case 'flight':
-      return <FlightIcon style={iconStyle} />
+      return <FlightIcon style={iconStyle} />;
     case 'subway':
-      return <SubwayIcon style={iconStyle} />
+      return <SubwayIcon style={iconStyle} />;
     case 'train':
-      return <TrainIcon style={iconStyle} />
+      return <TrainIcon style={iconStyle} />;
     case 'tram':
-      return <TramIcon style={iconStyle} />
+      return <TramIcon style={iconStyle} />;
     default:
-      return <FallbackIcon style={iconStyle} />
+      return <FallbackIcon style={iconStyle} />;
   }
 };
 

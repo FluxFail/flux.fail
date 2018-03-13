@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -33,14 +34,14 @@ class Navigation extends React.Component {
 
   onNavigate(target) {
     this.setState({
-      open: false
+      open: false,
     });
     this.props.onNavigate(target);
   }
 
   onLogout(target) {
     this.setState({
-      open: false
+      open: false,
     });
     this.props.onLogout();
   }
@@ -75,24 +76,24 @@ class Navigation extends React.Component {
           <MenuItem
             primaryText="Home"
             leftIcon={<Home />}
-            onClick={_ => this.onNavigate('home')}
+            onClick={() => this.onNavigate('home')}
             disabled={this.props.view === 'home'}
           />
           <MenuItem
             primaryText="Statistics"
             leftIcon={<Statistics />}
-            onClick={_ => this.onNavigate('stats')}
+            onClick={() => this.onNavigate('stats')}
             disabled={this.props.view === 'stats' || !this.props.user.id}
           />
           <Divider />
           <MenuItem
             primaryText="Log out"
-            onClick={_ => this.onLogout()}
+            onClick={() => this.onLogout()}
             disabled={!this.props.user.id}
           />
           <MenuItem
             primaryText="About Flux.Fail"
-            onClick={_ => this.onNavigate('about')}
+            onClick={() => this.onNavigate('about')}
             disabled={this.props.view === 'about'}
           />
         </Drawer>
@@ -101,5 +102,22 @@ class Navigation extends React.Component {
     );
   }
 }
+
+Navigation.defaultProps = {
+  allowAddDelay: false,
+  user: {},
+  view: 'home',
+};
+
+Navigation.propTypes = {
+  allowAddDelay: PropTypes.bool,
+  onAddDelay: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
+  onNavigate: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+  view: PropTypes.string,
+};
 
 export default Navigation;

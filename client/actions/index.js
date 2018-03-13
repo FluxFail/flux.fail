@@ -1,47 +1,32 @@
-export const userLogout = () => {
-  return {
-    type: 'USER_LOGOUT',
-  };
-};
+export const userLogout = () => ({
+  type: 'USER_LOGOUT',
+});
 
-export const addDelay = () => {
-  return {
-    type: 'ADD_DELAY',
-    date: new Date(),
-  };
-};
+export const addDelay = () => ({
+  type: 'ADD_DELAY',
+  date: new Date(),
+});
 
-export const cancelDelay = () => {
-  return {
-    type: 'CANCEL_DELAY',
-  };
-};
+export const cancelDelay = () => ({
+  type: 'CANCEL_DELAY',
+});
 
-export const saveDelay = (props) => {
-  const action = {
-    type: 'SAVE_DELAY',
-    props,
-  };
-  return action;
-};
+export const saveDelay = props => ({
+  type: 'SAVE_DELAY',
+  props,
+});
 
-export const editDelay = (id) => {
-  return {
-    type: 'EDIT_DELAY',
-    id,
-  };
-};
+export const editDelay = id => ({
+  type: 'EDIT_DELAY',
+  id,
+});
 
-export const deleteDelay = (id) => {
-  return {
-    type: 'DELETE_DELAY',
-    id,
-  };
-};
+export const deleteDelay = id => ({
+  type: 'DELETE_DELAY',
+  id,
+});
 
-export const navigate = (target) => {
-  return {
-    type: 'NAVIGATE_TO',
-    target,
-  };
-};
+export const navigate = target => ({
+  type: 'NAVIGATE_TO',
+  target,
+});

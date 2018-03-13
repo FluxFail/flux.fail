@@ -2,32 +2,32 @@ import uuid from 'uuid/v4';
 
 const delays = (state = [], action) => {
   switch (action.type) {
-    case 'USER_LOGOUT':
+    case 'USER_LOGOUT': {
       return [];
-    case 'SAVE_DELAY':
-      let saveState = state.slice(0);
+    }
+    case 'SAVE_DELAY': {
+      const saveState = state.slice(0);
       if (!action.props.id) {
-        action.props.id = uuid();
-        saveState.unshift(action.props);
+        const newAction = {
+          ...action.props,
+          id: uuid(),
+        };
+        saveState.unshift(newAction);
         return saveState;
       }
-      saveState.forEach((delay, idx) => {
+      return saveState.map((delay) => {
         if (delay.id !== action.props.id) {
-          return;
+          return delay;
         }
-        saveState[idx] = action.props;
+        return action.props;
       });
-      return saveState;
-    case 'DELETE_DELAY':
-      let found = state.filter(delay => delay.id === action.id);
-      if (!found.length) {
-        return state;
-      }
-      let deleteState = state.slice(0);
-      deleteState.splice(deleteState.indexOf(found[0]), 1);
-      return deleteState;
-    default:
+    }
+    case 'DELETE_DELAY': {
+      return state.filter(delay => delay.id !== action.id);
+    }
+    default: {
       return state;
+    }
   }
 };
 

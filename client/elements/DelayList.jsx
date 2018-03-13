@@ -1,37 +1,50 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TransportIcon from './TransportIcon';
 import formatDelay from '../utils/delay';
 
-const DelayCard = ({ id, type, date, minutes, city, line, direction, onEditDelay, onDeleteDelay }) => (
+const DelayCard = props => (
   <Card>
     <CardHeader
-      avatar={<TransportIcon type={type} />}
-      title={`${line} to ${direction}`}
-      subtitle={formatDelay(minutes)}
-      actAsExpander={true}
-      showExpandableButton={true}
+      avatar={<TransportIcon type={props.type} />}
+      title={`${props.line} to ${props.direction}`}
+      subtitle={formatDelay(props.minutes)}
+      actAsExpander
+      showExpandableButton
     />
-    <CardText expandable={true}>
-      {city} at {date.toLocaleDateString()}
+    <CardText expandable>
+      {props.city} at {props.date.toLocaleDateString()}
     </CardText>
     <CardActions>
       <FlatButton
         label="Edit"
-        onClick={() => onEditDelay(id)}
+        onClick={() => props.onEditDelay(props.id)}
       />
       <FlatButton
         label="Delete"
-        onClick={() => onDeleteDelay(id)}
+        onClick={() => props.onDeleteDelay(props.id)}
       />
     </CardActions>
   </Card>
 );
 
+DelayCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  line: PropTypes.string.isRequired,
+  direction: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  minutes: PropTypes.number.isRequired,
+  date: PropTypes.instanceOf(Date).isRequired,
+  onEditDelay: PropTypes.func.isRequired,
+  onDeleteDelay: PropTypes.func.isRequired,
+};
+
 const DelayList = ({ delays, onEditDelay, onDeleteDelay }) => (
   <div>
-    {delays.map((delay) => (
+    {delays.map(delay => (
       <DelayCard
         key={delay.id}
         onEditDelay={onEditDelay}
@@ -41,5 +54,23 @@ const DelayList = ({ delays, onEditDelay, onDeleteDelay }) => (
     ))}
   </div>
 );
+
+DelayList.defaultProps = {
+  delays: [],
+};
+
+DelayList.propTypes = {
+  delays: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    line: PropTypes.string.isRequired,
+    direction: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    minutes: PropTypes.number.isRequired,
+    date: PropTypes.instanceOf(Date),
+  })),
+  onEditDelay: PropTypes.func.isRequired,
+  onDeleteDelay: PropTypes.func.isRequired,
+};
 
 export default DelayList;

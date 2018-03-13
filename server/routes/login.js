@@ -63,12 +63,10 @@ exports.exchange = (req, res, next) => {
       const [grant] = rows;
       // TODO: Expiry time for grants?
       return jwt.sign(grant.user)
-        .then((accessToken) => {
-          return db('auth')
+        .then(accessToken => db('auth')
           .del()
           .where('grant', req.body.token)
-          .then(() => accessToken)
-        });
+          .then(() => accessToken));
     })
     .asCallback((err, accessToken) => {
       if (err) {
