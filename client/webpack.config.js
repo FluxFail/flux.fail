@@ -20,6 +20,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           presets: ['env', 'react'],
+          plugins: ['transform-object-rest-spread'],
         },
       },
     ],
