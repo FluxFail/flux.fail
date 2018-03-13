@@ -2,6 +2,7 @@ const { isEmail } = require('validator');
 const uuid = require('uuid/v4');
 const generatePassword = require('password-generator');
 const db = require('../db');
+const jwt = require('../utils/jwt');
 
 exports.passwordless = (req, res, next) => {
   if (!isEmail(req.body.email)) {
@@ -44,5 +45,38 @@ exports.passwordless = (req, res, next) => {
       // TODO: Send email
       console.log(grantToken);
       res.status(202).end();
+    });
+};
+
+exports.exchange = (req, res, next) => {
+  if (!req.body.token) {
+    next(new Error('Missing grant token'));
+    return;
+  }
+  db('auth')
+    .select()
+    .where('grant', req.body.token)
+    .then((rows) => {
+      if (!rows.length) {
+        throw new Error('Invalid grant token');
+      }
+      const [grant] = rows;
+      // TODO: Expiry time for grants?
+      return jwt.sign(grant.user)
+        .then((accessToken) => {
+          return db('auth')
+          .del()
+          .where('grant', req.body.token)
+          .then(() => accessToken)
+        });
+    })
+    .asCallback((err, accessToken) => {
+      if (err) {
+        next(err);
+        return;
+      }
+      res.json({
+        token: accessToken,
+      });
     });
 };

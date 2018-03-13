@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config client/webpack.config.js",
-    "pretest": "eslint server/*.js server/migrations/*.js server/routes/*.js client/*.jsx client/elements/*.jsx client/actions/*.js client/reducers/*.js client/middleware/*.js",
+    "pretest": "eslint server/*.js server/migrations/*.js server/routes/*.js server/utils/*.js client/*.jsx client/elements/*.jsx client/actions/*.js client/reducers/*.js client/middleware/*.js",
     "start": "http-server client/dist -p 8080 -s -c-1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
