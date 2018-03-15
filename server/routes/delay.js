@@ -70,3 +70,33 @@ exports.list = [
       }, err => next(err));
   },
 ];
+
+exports.del = [
+  passport.authenticate('bearer', {
+    session: false,
+    failWithError: true,
+  }),
+  (req, res, next) => {
+    db('delay')
+      .select('user')
+      .where('id', req.params.id)
+      .then((rows) => {
+        if (!rows.length) {
+          const err = new Error(`Delay ${req.params.id} not found`);
+          err.httpCode = 404;
+          throw err;
+        }
+        if (rows[0].user !== req.user.id) {
+          const err = new Error('Unauthorized');
+          err.httpCode = 403;
+          throw err;
+        }
+        return db('delay')
+          .del()
+          .where('id', req.params.id);
+      })
+      .then(() => {
+        res.status(204).end();
+      }, err => next(err));
+  },
+];

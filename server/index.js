@@ -20,6 +20,7 @@ function getApp() {
 
   app.post('/delay', delayRoutes.save);
   app.get('/delay', delayRoutes.list);
+  app.delete('/delay/:id', delayRoutes.del);
 
   // 404 handling
   app.use((req, res, next) => {
