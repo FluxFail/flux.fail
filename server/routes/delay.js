@@ -1,6 +1,7 @@
 const passport = require('passport');
 const uuid = require('uuid/v4');
 const db = require('../db');
+const { validateDelay } = require('../utils/validate');
 
 exports.save = [
   passport.authenticate('bearer', {
@@ -11,10 +12,8 @@ exports.save = [
     if (!req.body.id) {
       req.body.id = uuid();
     }
-    // TODO: Validate req.body against JSON schema
-    db('delay')
-      .select('user')
-      .where('id', req.body.id)
+    validateDelay(req.body)
+      .then(() => db('delay').select('user').where('id', req.body.id))
       .then((rows) => {
         if (!rows.length) {
           // New delay entry, save

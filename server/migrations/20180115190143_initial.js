@@ -20,9 +20,8 @@ exports.up = knex => knex.schema.createTable('user', (t) => {
   .then(() => knex.schema.createTable('delay', (t) => {
     t.uuid('id').primary();
     t.uuid('user').notNullable().references('id').inTable('user');
+    // When the delay happened
     t.timestamp('date').notNullable().index();
-    // Time information
-    t.timestamps();
     // Transport type
     t.string('type').index();
     // Country (ISO 3166-1 alpha-2)
@@ -37,6 +36,8 @@ exports.up = knex => knex.schema.createTable('user', (t) => {
     t.integer('delay');
     // Total delay caused by this segment
     t.integer('total_delay');
+    // Time information
+    t.timestamps();
   }));
 
 exports.down = knex => knex.schema.dropTable('delay')

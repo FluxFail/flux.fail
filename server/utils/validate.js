@@ -1,7 +1,8 @@
 const tv4 = require('tv4');
-const { isEmail, isUUID } = require('validator');
+const { isEmail, isUUID, isISO8601 } = require('validator');
 const schemaPasswordless = require('../schema/passwordless.json');
 const schemaExchange = require('../schema/exchange.json');
+const schemaDelay = require('../schema/delay.json');
 
 exports.initialize = () => {
   tv4.addFormat({
@@ -16,6 +17,12 @@ exports.initialize = () => {
         return null;
       }
       return 'invalid UUID';
+    },
+    iso8601: (value) => {
+      if (isISO8601(value)) {
+        return null;
+      }
+      return 'invalid date format';
     },
   });
 };
@@ -40,3 +47,4 @@ function validate(schema, payload) {
 
 exports.validatePasswordless = payload => validate(schemaPasswordless, payload);
 exports.validateExchange = payload => validate(schemaExchange, payload);
+exports.validateDelay = payload => validate(schemaDelay, payload);

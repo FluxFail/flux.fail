@@ -1,0 +1,59 @@
+{
+  "title": "Public transport delay",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "user": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "date": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "type": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "city": {
+      "type": "string"
+    },
+    "line": {
+      "type": "string"
+    },
+    "direction": {
+      "type": "string"
+    },
+    "delay": {
+      "type": "integer"
+    },
+    "total_delay": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "iso8601"
+    }
+  },
+  "required": [
+    "date",
+    "type",
+    "country",
+    "city",
+    "line",
+    "direction",
+    "delay"
+  ],
+  "additionalProperties": false
+}
