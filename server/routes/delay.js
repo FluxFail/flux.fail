@@ -39,7 +39,9 @@ exports.save = [
           .where('id', req.body.id);
       })
       .then(() => {
-        res.status(202).end();
+        res.status(202).set({
+          location: `/delay/${req.body.id}`,
+        }).end();
       }, err => next(err));
   },
 ];
