@@ -1,16 +1,14 @@
 language: node_js
 node_js: 'lts/*'
 services:
-  - postgresql
   - docker
 before_script:
-  - psql -c 'create database fluxfail;' -U postgres
+  # Build the server container
   - cp package.json server/package.json
   - docker build -t fluxfail/server server/
-  - docker run -d -p 127.0.01:8080:8080 fluxfail/server
+  # Build the client container
   - npm run build
   - docker build -t fluxfail/client client/
-  - docker run -d -p 127.0.01:8081:80 fluxfail/client
-env:
-  matrix:
-    - DATABASE_URL=postgres://postgres:@localhost/fluxfail
+  # Start the whole service
+  - docker-compose up -d
+  - docker-compose ps

@@ -1,6 +1,6 @@
 const url = require('url');
 
-const dbUrl = process.env.DATABASE_URL || 'postgres://postgres:localhost/fluxfail';
+const dbUrl = process.env.DATABASE_URL || 'postgres://postgres:@localhost/fluxfail';
 const dbConfig = url.parse(dbUrl);
 const [dbUser, dbPass] = (dbConfig.auth || '').split(':');
 const dbName = dbConfig.path.substr(1);

@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    container_name: fluxfail-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: fluxfail
+      POSTGRES_DB: fluxfail
+  server:
+    image: fluxfail/server
+    environment:
+      DATABASE_URL: 'postgres://fluxfail:@fluxfail-postgres/fluxfail'
+      PORT: 8080
+    links:
+      - db
+    ports:
+      - '127.0.0.1:8080:8080'
+  client:
+    image: fluxfail/client
+    ports:
+      - '127.0.0.1:8081:80'
