@@ -1,26 +1,13 @@
-const { isEmail } = require('validator');
 const uuid = require('uuid/v4');
 const generatePassword = require('password-generator');
 const db = require('../db');
 const jwt = require('../utils/jwt');
 const { sendLogin } = require('../utils/email');
+const { validatePasswordless, validateExchange } = require('../utils/validate');
 
 exports.passwordless = (req, res, next) => {
-  if (!req.body.email) {
-    const err = new Error('Missing email address');
-    err.httpCode = 422;
-    next(err);
-    return;
-  }
-  if (!isEmail(req.body.email)) {
-    const err = new Error('Invalid email address');
-    err.httpCode = 422;
-    next(err);
-    return;
-  }
-  db('user')
-    .select('id')
-    .where('email', req.body.email)
+  validatePasswordless(req.body)
+    .then(() => db('user').select('id').where('email', req.body.email))
     .then((rows) => {
       if (rows.length) {
         // Existing user
@@ -53,13 +40,8 @@ exports.passwordless = (req, res, next) => {
 };
 
 exports.exchange = (req, res, next) => {
-  if (!req.body.token) {
-    next(new Error('Missing grant token'));
-    return;
-  }
-  db('auth')
-    .select()
-    .where('grant', req.body.token)
+  validateExchange(req.body)
+    .then(() => db('auth').select().where('grant', req.body.token))
     .then((rows) => {
       if (!rows.length) {
         throw new Error('Invalid grant token');
@@ -72,13 +54,9 @@ exports.exchange = (req, res, next) => {
           .where('grant', req.body.token)
           .then(() => accessToken));
     })
-    .asCallback((err, accessToken) => {
-      if (err) {
-        next(err);
-        return;
-      }
+    .then((accessToken) => {
       res.json({
         token: accessToken,
       });
-    });
+    }, err => next(err));
 };

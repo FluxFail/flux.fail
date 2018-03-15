@@ -19,7 +19,7 @@ describe('FluxFail API', () => {
           .send({})
           .expect(422)
           .then((res) => {
-            expect(res.body.message).to.contain('Missing email');
+            expect(res.body.message).to.contain('Missing required property: email');
           })
       });
     });
@@ -32,7 +32,7 @@ describe('FluxFail API', () => {
           })
           .expect(422)
           .then((res) => {
-            expect(res.body.message).to.contain('Invalid email');
+            expect(res.body.message).to.contain('invalid email');
           })
       });
     });

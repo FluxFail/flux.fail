@@ -1,0 +1,14 @@
+{
+  "title": "OAuth token exchange",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "token"
+  ],
+  "additionalProperties": false
+}
+

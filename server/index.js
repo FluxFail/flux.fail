@@ -4,11 +4,13 @@ const passport = require('passport');
 const http = require('http');
 const cors = require('cors');
 const auth = require('./utils/auth');
+const validate = require('./utils/validate');
 const loginRoutes = require('./routes/login');
 const delayRoutes = require('./routes/delay');
 
 function getApp() {
   const app = express();
+  validate.initialize();
 
   app.use(bodyParser.json());
 
