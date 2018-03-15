@@ -58,7 +58,7 @@ exports.startServer = (port) => {
 
 if (!module.parent) {
   // Run as standalone
-  const httpPort = process.env.PORT || 5000;
+  const httpPort = process.env.PORT || 8080;
   exports.startServer(httpPort)
     .then(() => {
       console.log(`Listening on ${httpPort}`);
