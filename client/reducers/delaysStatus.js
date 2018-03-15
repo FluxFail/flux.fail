@@ -10,12 +10,21 @@ const delaysStatus = (state = 'ok', action) => {
       return 'error';
     }
     case 'SAVING_DELAY': {
-      return 'ok';
+      return 'loading';
     }
     case 'SAVE_DELAY': {
       return 'ok';
     }
     case 'SAVE_DELAY_ERROR': {
+      return 'error';
+    }
+    case 'DELETING_DELAY': {
+      return 'loading';
+    }
+    case 'DELETE_DELAY': {
+      return 'ok';
+    }
+    case 'DELETE_DELAY_ERROR': {
       return 'error';
     }
     default: {

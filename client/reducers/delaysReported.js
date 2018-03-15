@@ -1,5 +1,3 @@
-import uuid from 'uuid/v4';
-
 const delays = (state = [], action) => {
   switch (action.type) {
     case 'USER_LOGOUT': {
@@ -10,12 +8,11 @@ const delays = (state = [], action) => {
     }
     case 'SAVE_DELAY': {
       const saveState = state.slice(0);
-      if (!action.props.id) {
-        const newAction = {
+      const matching = saveState.filter((d) => d.id === action.props.id);
+      if (!matching.length) {
+        saveState.unshift({
           ...action.props,
-          id: uuid(),
-        };
-        saveState.unshift(newAction);
+        });
         return saveState;
       }
       return saveState.map((delay) => {

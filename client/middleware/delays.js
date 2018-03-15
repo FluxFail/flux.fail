@@ -1,3 +1,5 @@
+import uuid from 'uuid/v4';
+
 function findDelay(id, store) {
   const state = store.getState();
   if (!state.delays) {
@@ -32,8 +34,12 @@ const delays = store => next => (action) => {
         });
         return;
       }
+      const delay = {
+        ...action.props,
+        id: action.props.id || uuid(),
+      };
       fetch(`${API_URL}/delay`, {
-        body: JSON.stringify(action.props),
+        body: JSON.stringify(delay),
         headers: {
           authorization: `Bearer ${user.token}`,
           'content-type': 'application/json',
@@ -47,10 +53,47 @@ const delays = store => next => (action) => {
           return res.text();
         })
         .then(() => {
-          next(action);
+          next({
+            ...action,
+            props: delay,
+          });
         }, (err) => {
           next({
             type: 'SAVE_DELAY_ERROR',
+            message: err.message,
+          });
+        });
+      return;
+    }
+    case 'DELETE_DELAY': {
+      next({
+        type: 'DELETING_DELAY',
+      });
+      const { user } = store.getState();
+      if (!user.token) {
+        next({
+          type: 'DELETE_DELAY_ERROR',
+          message: 'Must be logged in',
+        });
+        return;
+      }
+      fetch(`${API_URL}/delay/${action.id}`, {
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+        method: 'DELETE',
+      })
+        .then((res) => {
+          if (res.status !== 204) {
+            throw new Error(res.statusText);
+          }
+          return res.text();
+        })
+        .then(() => {
+          next(action);
+        }, (err) => {
+          next({
+            type: 'DELETE_DELAY_ERROR',
             message: err.message,
           });
         });

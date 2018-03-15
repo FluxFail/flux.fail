@@ -1,4 +1,5 @@
 const currentDelay = (state = {}, action) => {
+  console.log(action.type, action.message);
   switch (action.type) {
     case 'ADD_DELAY':
       return {
