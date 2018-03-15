@@ -76,7 +76,12 @@ const delays = store => next => (action) => {
         .then((storedDelays) => {
           next({
             type: 'DELAYS_LOADED',
-            delays: storedDelays,
+            delays: storedDelays.map(delay => ({
+              ...delay,
+              date: new Date(delay.date),
+              created_at: new Date(delay.created_at),
+              updated_at: new Date(delay.updated_at),
+            })),
           });
         }, (err) => {
           next({
