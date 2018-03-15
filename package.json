@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config client/webpack.config.js",
-    "client": "http-server client/dist -p 8080 -s -c-1",
+    "client": "http-server client/dist -p 8081 -s -c-1",
     "migrate": "knex migrate:latest --cwd server",
     "start": "node server/",
     "smtp": "fake-smtp-server",
