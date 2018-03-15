@@ -35,6 +35,10 @@ module.exports = {
         from: 'fluxfail.css',
         to: `${distPath}/fluxfail.css`,
       },
+      {
+        from: 'robots.txt',
+        to: `${distPath}/robots.txt`,
+      },
     ]),
   ],
 };
