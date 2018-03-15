@@ -49,7 +49,9 @@ describe('FluxFail API', () => {
           .send({
             email: 'user@example.com',
           })
-          .expect(202);
+          .then((res) => {
+            console.log(res.body);
+          });
       });
       it('should have sent an email with grant token', () => {
         return email
