@@ -20,6 +20,42 @@ const delays = store => next => (action) => {
       });
       return;
     }
+    case 'SAVE_DELAY': {
+      next({
+        type: 'SAVING_DELAY',
+      });
+      const { user } = store.getState();
+      if (!user.token) {
+        next({
+          type: 'SAVE_DELAY_ERROR',
+          message: 'Must be logged in',
+        });
+        return;
+      }
+      fetch(`${API_URL}/delay`, {
+        body: JSON.stringify(action.props),
+        headers: {
+          authorization: `Bearer ${user.token}`,
+          'content-type': 'application/json',
+        },
+        method: 'POST',
+      })
+        .then((res) => {
+          if (res.status !== 202) {
+            throw new Error(res.statusText);
+          }
+          return res.text();
+        })
+        .then(() => {
+          next(action);
+        }, (err) => {
+          next({
+            type: 'SAVE_DELAY_ERROR',
+            message: err.message,
+          });
+        });
+      return;
+    }
     case 'USER_LOGIN': {
       next(action);
       // Load existing delays for user

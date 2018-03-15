@@ -9,6 +9,15 @@ const delaysStatus = (state = 'ok', action) => {
     case 'DELAYS_LOAD_ERROR': {
       return 'error';
     }
+    case 'SAVING_DELAY': {
+      return 'ok';
+    }
+    case 'SAVE_DELAY': {
+      return 'ok';
+    }
+    case 'SAVE_DELAY_ERROR': {
+      return 'error';
+    }
     default: {
       return state;
     }
