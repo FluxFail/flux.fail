@@ -5,6 +5,7 @@ services:
   - docker
 before_script:
   - psql -c 'create database fluxfail;' -U postgres
+  - cp package.json server/package.json
   - docker build -t fluxfail/server server/
   - docker run -d -p 127.0.01:8080:8080 fluxfail/server
 env:

@@ -8,7 +8,7 @@ ENV NODE_ENV production
 WORKDIR /opt/fluxfail
 
 # Install runtime dependencies
-COPY ../package.json ./
+COPY package.json ./
 RUN npm install --only=production
 
 # Copy server source code
