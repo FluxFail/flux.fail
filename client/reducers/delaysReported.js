@@ -18,7 +18,7 @@ const delays = (state = [], action) => {
     }
     case 'SAVE_DELAY': {
       const saveState = state.slice(0);
-      const matching = saveState.filter((d) => d.id === action.props.id);
+      const matching = saveState.filter(d => d.id === action.props.id);
       if (!matching.length) {
         saveState.unshift({
           ...action.props,
