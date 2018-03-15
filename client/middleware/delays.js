@@ -3,7 +3,7 @@ function findDelay(id, store) {
   if (!state.delays) {
     return null;
   }
-  const matched = state.delays.filter(delay => delay.id === id);
+  const matched = state.delays.reported.filter(delay => delay.id === id);
   if (!matched.length) {
     return null;
   }

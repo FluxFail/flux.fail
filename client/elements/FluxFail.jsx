@@ -15,12 +15,12 @@ const FluxFail = (props) => {
   if (!props.user.id) {
     allowAddDelay = false;
   }
-  if (props.currentDelay.date) {
+  if (props.delays.current.date) {
     currentView = (
       <DelayForm
         onSaveDelay={props.onSaveDelay}
         onCancelDelay={props.onCancelDelay}
-        {...props.currentDelay}
+        {...props.delays.current}
       />
     );
     allowAddDelay = false;
@@ -38,7 +38,7 @@ const FluxFail = (props) => {
         } else {
           currentView = (
             <DelayList
-              delays={props.delays}
+              delays={props.delays.reported}
               onEditDelay={props.onEditDelay}
               onDeleteDelay={props.onDeleteDelay}
             />
@@ -91,22 +91,28 @@ const mapDispatchToProps = dispatch => ({
 
 FluxFail.defaultProps = {
   allowAddDelay: false,
-  currentDelay: null,
-  delays: [],
+  delays: {
+    status: 'ok',
+    current: null,
+    reported: [],
+  },
   user: {},
   view: 'home',
 };
 
 FluxFail.propTypes = {
   allowAddDelay: PropTypes.bool,
-  currentDelay: PropTypes.shape({
-    id: PropTypes.string,
-    date: PropTypes.instanceOf(Date),
+  delays: PropTypes.shape({
+    status: PropTypes.string,
+    current: PropTypes.shape({
+      id: PropTypes.string,
+      date: PropTypes.instanceOf(Date),
+    }),
+    reported: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      date: PropTypes.instanceOf(Date),
+    })),
   }),
-  delays: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    date: PropTypes.instanceOf(Date),
-  })),
   onAddDelay: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
