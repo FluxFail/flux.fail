@@ -9,63 +9,69 @@ import Login from './Login';
 import DelayForm from './DelayForm';
 import * as actions from '../actions';
 
-const FluxFail = (props) => {
-  let currentView = null;
-  let allowAddDelay = true;
-  if (!props.user.id) {
-    allowAddDelay = false;
+class FluxFail extends React.Component {
+  componentDidMount() {
+    this.props.onInitialize();
   }
-  if (props.delays.status !== 'ok') {
-    allowAddDelay = false;
-  }
-  if (props.delays.current.date) {
-    currentView = (
-      <DelayForm
-        onSaveDelay={props.onSaveDelay}
-        onCancelDelay={props.onCancelDelay}
-        {...props.delays.current}
-      />
-    );
-    allowAddDelay = false;
-  } else {
-    switch (props.view) {
-      case 'stats':
-        currentView = <Statistics />;
-        break;
-      case 'about':
-        currentView = <About />;
-        break;
-      default:
-        if (!props.user.id) {
-          currentView = <Login />;
-        } else {
-          currentView = (
-            <DelayList
-              delays={props.delays.reported}
-              status={props.delays.status}
-              onEditDelay={props.onEditDelay}
-              onDeleteDelay={props.onDeleteDelay}
-            />
-          );
-        }
+
+  render() {
+    let currentView = null;
+    let allowAddDelay = true;
+    if (!this.props.user.id) {
+      allowAddDelay = false;
     }
+    if (this.props.delays.status !== 'ok') {
+      allowAddDelay = false;
+    }
+    if (this.props.delays.current.date) {
+      currentView = (
+        <DelayForm
+          onSaveDelay={this.props.onSaveDelay}
+          onCancelDelay={this.props.onCancelDelay}
+          {...this.props.delays.current}
+        />
+      );
+      allowAddDelay = false;
+    } else {
+      switch (this.props.view) {
+        case 'stats':
+          currentView = <Statistics />;
+          break;
+        case 'about':
+          currentView = <About />;
+          break;
+        default:
+          if (!this.props.user.id) {
+            currentView = <Login />;
+          } else {
+            currentView = (
+              <DelayList
+                delays={this.props.delays.reported}
+                status={this.props.delays.status}
+                onEditDelay={this.props.onEditDelay}
+                onDeleteDelay={this.props.onDeleteDelay}
+              />
+            );
+          }
+      }
+    }
+    return (
+      <div>
+        <Navigation
+          user={this.props.user}
+          view={this.props.view}
+          onNavigate={this.props.onNavigate}
+          onLogout={this.props.onLogout}
+          allowAddDelay={allowAddDelay}
+          onAddDelay={this.props.onAddDelay}
+        />
+        <main>
+          {currentView}
+        </main>
+      </div>
+    );
   }
-  return (
-    <div>
-      <Navigation
-        user={props.user}
-        view={props.view}
-        onNavigate={props.onNavigate}
-        onLogout={props.onLogout}
-        allowAddDelay={allowAddDelay}
-        onAddDelay={props.onAddDelay}
-      />
-      <main>
-        {currentView}
-      </main>
-    </div>
-  );
-};
+}
 
 const mapStateToProps = state => state;
 
@@ -90,6 +96,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onDeleteDelay: (id) => {
     dispatch(actions.deleteDelay(id));
+  },
+  onInitialize: () => {
+    dispatch(actions.initialize());
   },
 });
 
@@ -124,6 +133,7 @@ FluxFail.propTypes = {
   onDeleteDelay: PropTypes.func.isRequired,
   onSaveDelay: PropTypes.func.isRequired,
   onCancelDelay: PropTypes.func.isRequired,
+  onInitialize: PropTypes.func.isRequired,
   user: PropTypes.shape({
     id: PropTypes.string,
   }),

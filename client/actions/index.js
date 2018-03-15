@@ -30,3 +30,7 @@ export const navigate = target => ({
   type: 'NAVIGATE_TO',
   target,
 });
+
+export const initialize = () => ({
+  type: 'INITIALIZE',
+});
