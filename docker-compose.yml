@@ -37,6 +37,7 @@ services:
       - '127.0.0.1:8081:80'
   fakesmtp:
     image: fluxfail/fakesmtp
+    container_name: fakesmtp
     ports:
       - '127.0.0.1:1025:1025'
       - '127.0.0.1:1080:1080'
