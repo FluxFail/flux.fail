@@ -3,6 +3,7 @@ const uuid = require('uuid/v4');
 const generatePassword = require('password-generator');
 const db = require('../db');
 const jwt = require('../utils/jwt');
+const { sendLogin } = require('../utils/email');
 
 exports.passwordless = (req, res, next) => {
   if (!req.body.email) {
@@ -45,15 +46,10 @@ exports.passwordless = (req, res, next) => {
         })
         .then(() => grantToken);
     })
-    .asCallback((err, grantToken) => {
-      if (err) {
-        next(err);
-        return;
-      }
-      // TODO: Send email
-      console.log(grantToken);
+    .then(grantToken => sendLogin(req.body.email, grantToken))
+    .then(() => {
       res.status(202).end();
-    });
+    }, err => next(err));
 };
 
 exports.exchange = (req, res, next) => {

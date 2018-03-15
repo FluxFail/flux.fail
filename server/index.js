@@ -17,6 +17,7 @@ function getApp() {
   app.use(passport.initialize());
 
   app.post('/login/email', loginRoutes.passwordless);
+  app.get('/login/exchange', loginRoutes.exchange);
 
   app.post('/delay', delayRoutes.save);
   app.get('/delay', delayRoutes.list);
