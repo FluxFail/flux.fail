@@ -1,3 +1,13 @@
+const sortDelays = (a, b) => {
+  if (a.date < b.date) {
+    return 1;
+  }
+  if (a.date > b.date) {
+    return -1;
+  }
+  return 0;
+};
+
 const delays = (state = [], action) => {
   switch (action.type) {
     case 'USER_LOGOUT': {
@@ -13,6 +23,7 @@ const delays = (state = [], action) => {
         saveState.unshift({
           ...action.props,
         });
+        saveState.sort(sortDelays);
         return saveState;
       }
       return saveState.map((delay) => {
