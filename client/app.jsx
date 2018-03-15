@@ -24,30 +24,6 @@ const fluxfailTheme = getMuiTheme({
   },
 });
 
-/*
-const initialState = {
-  view: 'home',
-  delays: {
-    status: 'ok',
-    reported: [
-      {
-        type: 'subway',
-        id: 'd52d4760-6fc3-4aec-b924-cb53242c55d4',
-        city: 'Berlin',
-        direction: 'Wittenau',
-        line: 'U8',
-        minutes: 3,
-        date: new Date(),
-      },
-    ],
-  },
-  user: {
-    id: '820c6f09-8600-4406-a3a6-f822dc996fe4',
-    email: 'user@domain.com',
-  },
-};
-*/
-
 const initialState = {};
 
 const middleware = applyMiddleware(loggerMiddleware, userMiddleware, delaysMiddleware);
