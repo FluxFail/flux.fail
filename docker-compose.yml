@@ -16,6 +16,18 @@ services:
       - db
     ports:
       - '127.0.0.1:8080:8080'
+    depends_on:
+      - migration
+      - db
+  migration:
+    image: fluxfail/server
+    command: 'npm run migrate'
+    environment:
+      DATABASE_URL: 'postgres://fluxfail:@fluxfail-postgres/fluxfail'
+    links:
+      - db
+    depends_on:
+      - db
   client:
     image: fluxfail/client
     ports:
