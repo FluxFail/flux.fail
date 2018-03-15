@@ -1,4 +1,4 @@
-export const userRegister = (email) => ({
+export const userRegister = email => ({
   type: 'USER_REGISTER',
   email,
 });

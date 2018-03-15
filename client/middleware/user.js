@@ -11,13 +11,15 @@ const user = store => next => (action) => {
           type: 'USER_LOGIN',
           token,
         });
-        return next(action);
+        next(action);
+        return;
       }
       if (window.location.search && window.location.search.indexOf('?token=') !== -1) {
         // User clicked passwordless link
         const query = queryString.parse(window.location.search.slice(1));
         if (!query.token) {
-          return next(action);
+          next(action);
+          return;
         }
         // Clean up URL
         if (window.history && window.history.replaceState) {
@@ -44,11 +46,11 @@ const user = store => next => (action) => {
             }
             return res.json();
           })
-          .then(({ token }) => {
-            localStorage.setItem('fluxfail_token', token);
+          .then((credentials) => {
+            localStorage.setItem('fluxfail_token', credentials.token);
             next({
               type: 'USER_LOGIN',
-              token,
+              token: credentials.token,
             });
             next(action);
           }, (err) => {
@@ -85,7 +87,6 @@ const user = store => next => (action) => {
           next({
             type: 'USER_REGISTERED',
           });
-          return;
         }, (err) => {
           next({
             type: 'USER_REGISTER_ERROR',
@@ -96,10 +97,11 @@ const user = store => next => (action) => {
     }
     case 'USER_LOGOUT': {
       localStorage.removeItem('fluxfail_token');
-      return next(action);
+      next(action);
+      return;
     }
     default: {
-      return next(action);
+      next(action);
     }
   }
 };

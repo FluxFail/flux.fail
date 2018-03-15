@@ -30,7 +30,7 @@ class Login extends React.Component {
           <TextField
             floatingLabelText="Your email address"
             type="email"
-            onChange={(event) => this.setState({
+            onChange={event => this.setState({
               email: event.target.value,
             })}
           />

@@ -4,6 +4,10 @@
     "no-unused-vars": 1
   },
   "globals": {
-    "document": false
+    "API_URL": false,
+    "document": false,
+    "fetch": false,
+    "localStorage": false,
+    "window": false
   }
 }
