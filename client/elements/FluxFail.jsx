@@ -39,6 +39,7 @@ const FluxFail = (props) => {
           currentView = (
             <DelayList
               delays={props.delays.reported}
+              status={props.delays.status}
               onEditDelay={props.onEditDelay}
               onDeleteDelay={props.onDeleteDelay}
             />
