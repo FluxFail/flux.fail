@@ -25,7 +25,7 @@ Welcome to Flux.Fail!
 
 Use the following link to get started:
 
-http://localhost:8080/login/?token={token}
+http://localhost:8081/?token={token}
 
 With love,
 

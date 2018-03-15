@@ -83,13 +83,13 @@ class Navigation extends React.Component {
             primaryText="Statistics"
             leftIcon={<Statistics />}
             onClick={() => this.onNavigate('stats')}
-            disabled={this.props.view === 'stats' || !this.props.user.id}
+            disabled={this.props.view === 'stats' || !this.props.user.token}
           />
           <Divider />
           <MenuItem
             primaryText="Log out"
             onClick={() => this.onLogout()}
-            disabled={!this.props.user.id}
+            disabled={!this.props.user.token}
           />
           <MenuItem
             primaryText="About Flux.Fail"
@@ -115,7 +115,7 @@ Navigation.propTypes = {
   onLogout: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string,
+    token: PropTypes.string,
   }),
   view: PropTypes.string,
 };

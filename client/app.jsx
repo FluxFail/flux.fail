@@ -7,6 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import FluxFail from './elements/FluxFail';
 import fluxFailStore from './reducers/index';
 import loggerMiddleware from './middleware/logger';
+import userMiddleware from './middleware/user';
 import delaysMiddleware from './middleware/delays';
 
 const fluxfailTheme = getMuiTheme({
@@ -23,6 +24,7 @@ const fluxfailTheme = getMuiTheme({
   },
 });
 
+/*
 const initialState = {
   view: 'home',
   delays: {
@@ -44,8 +46,11 @@ const initialState = {
     email: 'user@domain.com',
   },
 };
+*/
 
-const middleware = applyMiddleware(loggerMiddleware, delaysMiddleware);
+const initialState = {};
+
+const middleware = applyMiddleware(loggerMiddleware, userMiddleware, delaysMiddleware);
 const store = createStore(fluxFailStore, initialState, middleware);
 
 const App = () => (

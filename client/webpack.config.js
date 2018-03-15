@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 const distPath = path.relative(process.cwd(), path.resolve(__dirname, 'dist'));
 
@@ -40,5 +41,8 @@ module.exports = {
         to: `${distPath}/robots.txt`,
       },
     ]),
+    new webpack.DefinePlugin({
+      API_URL: JSON.stringify(process.env.API_URL || 'http://100.115.92.2:8080'),
+    }),
   ],
 };

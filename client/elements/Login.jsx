@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import isEmail from 'validator/lib/isEmail';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,11 +15,18 @@ class Login extends React.Component {
   }
 
   render() {
-    return (
+    let messageView = null;
+    if (this.props.status === 'error') {
+      messageView = (
+        <p>{this.props.message}</p>
+      );
+    }
+
+    let currentView = (
       <div>
-        <h1>Welcome to Flux.Fail</h1>
         <p>Enter your email address below and we will send you a link that will sign you in</p>
         <Paper>
+          {messageView}
           <TextField
             floatingLabelText="Your email address"
             type="email"
@@ -34,7 +43,42 @@ class Login extends React.Component {
         </Paper>
       </div>
     );
+
+    if (this.props.status === 'loading') {
+      currentView = (
+        <CircularProgress
+          size={80}
+          thickness={3}
+        />
+      );
+    }
+
+    if (this.props.status === 'registered') {
+      currentView = (
+        <p>
+          Check your email! There should be a link that will sign you in.
+        </p>
+      );
+    }
+
+    return (
+      <div>
+        <h1>Welcome to Flux.Fail</h1>
+        {currentView}
+      </div>
+    );
   }
 }
+
+Login.defaultProps = {
+  status: 'ok',
+  message: '',
+};
+
+Login.propTypes = {
+  status: PropTypes.string,
+  message: PropTypes.string,
+  onLogin: PropTypes.func.isRequired,
+};
 
 export default Login;

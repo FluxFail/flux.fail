@@ -17,7 +17,7 @@ class FluxFail extends React.Component {
   render() {
     let currentView = null;
     let allowAddDelay = true;
-    if (!this.props.user.id) {
+    if (!this.props.user.token) {
       allowAddDelay = false;
     }
     if (this.props.delays.status !== 'ok') {
@@ -41,9 +41,11 @@ class FluxFail extends React.Component {
           currentView = <About />;
           break;
         default:
-          if (!this.props.user.id) {
+          if (!this.props.user.token) {
             currentView = (
               <Login
+                status={this.props.user.status}
+                message={this.props.user.message}
                 onLogin={this.props.onLogin}
               />
             );
@@ -143,7 +145,9 @@ FluxFail.propTypes = {
   onCancelDelay: PropTypes.func.isRequired,
   onInitialize: PropTypes.func.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string,
+    status: PropTypes.string,
+    message: PropTypes.string,
+    token: PropTypes.string,
   }),
   view: PropTypes.string,
 };
