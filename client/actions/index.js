@@ -1,3 +1,8 @@
+export const userRegister = (email) => ({
+  type: 'USER_REGISTER',
+  email,
+});
+
 export const userLogout = () => ({
   type: 'USER_LOGOUT',
 });

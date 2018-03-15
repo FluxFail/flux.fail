@@ -42,7 +42,11 @@ class FluxFail extends React.Component {
           break;
         default:
           if (!this.props.user.id) {
-            currentView = <Login />;
+            currentView = (
+              <Login
+                onLogin={this.props.onLogin}
+              />
+            );
           } else {
             currentView = (
               <DelayList
@@ -78,6 +82,9 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   onNavigate: (target) => {
     dispatch(actions.navigate(target));
+  },
+  onLogin: (email) => {
+    dispatch(actions.userRegister(email));
   },
   onLogout: () => {
     dispatch(actions.userLogout());
@@ -127,6 +134,7 @@ FluxFail.propTypes = {
     })),
   }),
   onAddDelay: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   onEditDelay: PropTypes.func.isRequired,
