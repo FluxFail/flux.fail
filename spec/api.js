@@ -92,5 +92,81 @@ describe('FluxFail API', () => {
           });
       });
     });
+    describe('when reporting a delay', () => {
+      const delayId = 'd52d4760-6fc3-4aec-b924-cb53242c55d4';
+      it('should be possible to save', () => {
+        return api
+          .post('/delay')
+          .set('Authorization', `Bearer ${apiToken}`)
+          .send({
+            id: delayId,
+            date: new Date(),
+            type: 'subway',
+            city: 'Berlin',
+            line: 'U8',
+            direction: 'Wittenau',
+            delay: 3,
+          })
+          .expect(202);
+      });
+      it('should be included in list of delays', () => {
+        return api
+          .get('/delay')
+          .set('Authorization', `Bearer ${apiToken}`)
+          .expect(200)
+          .then((res) => {
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).equal(1);
+            expect(res.body[0].id).to.equal(delayId);
+            expect(res.body[0].line).to.equal('U8');
+            expect(res.body[0].direction).to.equal('Wittenau');
+          });
+      });
+      it('should be possible to update', () => {
+        return api
+          .post('/delay')
+          .set('Authorization', `Bearer ${apiToken}`)
+          .send({
+            id: delayId,
+            date: new Date(),
+            type: 'subway',
+            city: 'Berlin',
+            line: 'U8',
+            direction: 'Paracelsus-Bad',
+            delay: 3,
+            total_delay: 5,
+          })
+          .expect(202);
+      });
+      it('should have updated in list of delays', () => {
+        return api
+          .get('/delay')
+          .set('Authorization', `Bearer ${apiToken}`)
+          .expect(200)
+          .then((res) => {
+            expect(res.body).to.be.an('array');
+            expect(res.body.length).equal(1);
+            expect(res.body[0].id).to.equal(delayId);
+            expect(res.body[0].line).to.equal('U8');
+            expect(res.body[0].direction).to.equal('Paracelsus-Bad');
+            expect(res.body[0].total_delay).to.equal(5);
+          });
+      });
+      it('should be possible to delete', () => {
+        return api
+          .delete(`/delay/${delayId}`)
+          .set('Authorization', `Bearer ${apiToken}`)
+          .expect(204);
+      });
+      it('should no longer be in list of delays', () => {
+        return api
+          .get('/delay')
+          .set('Authorization', `Bearer ${apiToken}`)
+          .expect(200)
+          .then((res) => {
+            expect(res.body).eql([]);
+          });
+      });
+    });
   });
 });
