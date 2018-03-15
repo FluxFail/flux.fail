@@ -9,6 +9,9 @@ before_script:
   # Build the client container
   - npm run build
   - docker build -t fluxfail/client client/
+  # Build the fake SMTP server used for testing
+  - cp package.json spec/fakesmtp/package.json
+  - docker build -t fluxfail/fakesmtp spec/fakesmtp/
   # Start the whole service
   - docker-compose up -d
   - docker-compose ps

@@ -11,14 +11,17 @@ services:
     image: fluxfail/server
     environment:
       DATABASE_URL: 'postgres://fluxfail:@fluxfail-postgres/fluxfail'
+      SMTP_URL: 'smtp://fakesmtp:1025'
       PORT: 8080
     links:
       - db
+      - fakesmtp
     ports:
       - '127.0.0.1:8080:8080'
     depends_on:
       - migration
       - db
+      - fakesmtp
   migration:
     image: fluxfail/server
     command: 'npm run migrate'
@@ -32,3 +35,8 @@ services:
     image: fluxfail/client
     ports:
       - '127.0.0.1:8081:80'
+  fakesmtp:
+    image: fluxfail/fakesmtp
+    ports:
+      - '127.0.0.1:1025:1025'
+      - '127.0.0.1:1080:1080'
