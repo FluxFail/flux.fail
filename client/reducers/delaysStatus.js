@@ -1,5 +1,9 @@
 const delaysStatus = (state = 'ok', action) => {
-  return state;
-}
+  switch (action.type) {
+    default: {
+      return state;
+    }
+  }
+};
 
 export default delaysStatus;
