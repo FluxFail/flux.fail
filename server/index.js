@@ -31,7 +31,7 @@ function getApp() {
 
   // Provide errors as JSON
   app.use((err, req, res, next) => {
-    const httpCode = err.httpCode || 500;
+    const httpCode = err.httpCode || err.status || 500;
     res.status(httpCode);
     res.json({
       message: err.message,
