@@ -24,6 +24,7 @@ exports.up = (knex) => {
       knex.schema.createTable('delay', (t) => {
         t.uuid('id').primary();
         t.uuid('user').notNullable().references('id').inTable('user');
+        t.timestamp('date').notNullable().index();
         // Time information
         t.timestamps();
         // Transport type

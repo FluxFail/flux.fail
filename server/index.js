@@ -5,6 +5,7 @@ const http = require('http');
 const cors = require('cors');
 const auth = require('./utils/auth');
 const loginRoutes = require('./routes/login');
+const delayRoutes = require('./routes/delay');
 
 function getApp() {
   const app = express();
@@ -16,6 +17,8 @@ function getApp() {
   app.use(passport.initialize());
 
   app.post('/login/email', loginRoutes.passwordless);
+
+  app.post('/delay', delayRoutes.save);
 
   // 404 handling
   app.use((req, res, next) => {
