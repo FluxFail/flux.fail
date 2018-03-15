@@ -1,5 +1,5 @@
 const passport = require('passport');
-const BearerStrategy = require('passport-http-bearer').strategy;
+const { Strategy: BearerStrategy } = require('passport-http-bearer');
 const jwt = require('./jwt');
 
 passport.use(new BearerStrategy((token, done) => {
