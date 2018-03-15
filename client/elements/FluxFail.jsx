@@ -15,6 +15,9 @@ const FluxFail = (props) => {
   if (!props.user.id) {
     allowAddDelay = false;
   }
+  if (props.delays.status !== 'ok') {
+    allowAddDelay = false;
+  }
   if (props.delays.current.date) {
     currentView = (
       <DelayForm
