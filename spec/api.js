@@ -56,14 +56,14 @@ describe('FluxFail API', () => {
           .get('/api/emails')
           .expect(200)
           .then((res) => {
-            expect(res.body.length).to.equal(1);
+            expect(res.body.length, 'Should have received email').to.equal(1);
             const matched = res.body[0].text.match(/\?token=([a-zA-Z0-9]+)/);
             expect(matched).to.be.an('array');
             grantToken = matched[1];
-            expect(grantToken).to.be.a('string');
           });
       });
       it('should enable converting grant token to API token', () => {
+        expect(grantToken, 'Must have grant token').to.be.a('string');
         return api
           .post('/login/exchange')
           .send({
@@ -79,7 +79,7 @@ describe('FluxFail API', () => {
   });
   describe('Delay reporting', () => {
     before(() => {
-      expect(apiToken).to.be.a('string');
+      expect(apiToken, 'Must be logged in').to.be.a('string');
     });
     describe('initially', () => {
       it('should return an empty list of delays', () => {
