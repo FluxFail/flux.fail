@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import CircularProgress from 'material-ui/CircularProgress';
+import ErrorIcon from 'material-ui/svg-icons/alert/error';
+import { red500 } from 'material-ui/styles/colors';
 import TransportIcon from './TransportIcon';
 import formatDelay from '../utils/delay';
 
@@ -43,6 +45,21 @@ DelayCard.propTypes = {
   onDeleteDelay: PropTypes.func.isRequired,
 };
 
+const ErrorCard = props => (
+  <Card>
+    <CardHeader
+      avatar={<ErrorIcon color={red500} />}
+      title="Something went wrong"
+      subtitle="Unable to communicate with the server"
+    />
+    <CardActions>
+      <FlatButton
+        label="Try again"
+      />
+    </CardActions>
+  </Card>
+);
+
 const loadingStyle = {
   display: 'block',
   marginTop: '20vh',
@@ -58,6 +75,11 @@ const DelayList = (props) => {
         thickness={3}
         style={loadingStyle}
       />
+    );
+  }
+  if (props.status === 'error') {
+    return (
+      <ErrorCard />
     );
   }
   return (
