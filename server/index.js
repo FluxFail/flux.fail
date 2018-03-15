@@ -19,6 +19,7 @@ function getApp() {
   app.post('/login/email', loginRoutes.passwordless);
 
   app.post('/delay', delayRoutes.save);
+  app.get('/delay', delayRoutes.list);
 
   // 404 handling
   app.use((req, res, next) => {

@@ -44,3 +44,29 @@ exports.save = [
       }, err => next(err));
   },
 ];
+
+exports.list = [
+  passport.authenticate('bearer', {
+    session: false,
+    failWithError: true,
+  }),
+  (req, res, next) => {
+    const limit = req.query.limit ? parseInt(req.query.limit, 10) : 20;
+    const offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
+    if (limit > 100) {
+      const err = new Error('Limit must be below 100');
+      err.httpCode = 422;
+      next(err);
+      return;
+    }
+    db('delay')
+      .select()
+      .where('user', req.user.id)
+      .orderBy('date', 'desc')
+      .limit(limit)
+      .offset(offset)
+      .then((rows) => {
+        res.json(rows);
+      }, err => next(err));
+  },
+];
