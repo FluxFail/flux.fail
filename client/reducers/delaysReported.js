@@ -5,6 +5,9 @@ const delays = (state = [], action) => {
     case 'USER_LOGOUT': {
       return [];
     }
+    case 'DELAYS_LOADED': {
+      return action.delays;
+    }
     case 'SAVE_DELAY': {
       const saveState = state.slice(0);
       if (!action.props.id) {
