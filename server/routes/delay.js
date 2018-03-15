@@ -62,9 +62,9 @@ exports.list = [
     db('delay')
       .select()
       .where('user', req.user.id)
-      .orderBy('date', 'desc')
       .limit(limit)
       .offset(offset)
+      .orderBy('date', 'desc')
       .then((rows) => {
         res.json(rows);
       }, err => next(err));
