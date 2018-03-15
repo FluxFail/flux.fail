@@ -5,8 +5,16 @@ const db = require('../db');
 const jwt = require('../utils/jwt');
 
 exports.passwordless = (req, res, next) => {
+  if (!req.body.email) {
+    const err = new Error('Missing email address');
+    err.httpCode = 422;
+    next(err);
+    return;
+  }
   if (!isEmail(req.body.email)) {
-    next(new Error('Invalid email address'));
+    const err = new Error('Invalid email address');
+    err.httpCode = 422;
+    next(err);
     return;
   }
   db('user')
