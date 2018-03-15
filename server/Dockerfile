@@ -14,10 +14,7 @@ RUN npm install --only=production
 # Copy server source code
 COPY . ./server
 
-# Ensure latest database migrations are in place
-RUN npm run migrate
-
 # Run the server
 EXPOSE 8080
 ENV PORT=8080
-CMD npm run server
+CMD npm start
