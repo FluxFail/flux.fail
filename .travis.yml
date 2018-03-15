@@ -15,3 +15,5 @@ before_script:
   # Start the whole service
   - docker-compose up -d
   - docker-compose ps
+  # Prepare the database
+  - docker-compose exec server npm run migrate --no-interaction
