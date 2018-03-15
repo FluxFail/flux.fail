@@ -16,4 +16,5 @@ before_script:
   - docker-compose up -d
   - docker-compose ps
   # Prepare the database
+  - sleep 15
   - docker-compose exec server npm run migrate --no-interaction
