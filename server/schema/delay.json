@@ -49,7 +49,6 @@
   "required": [
     "date",
     "type",
-    "country",
     "city",
     "line",
     "direction",
