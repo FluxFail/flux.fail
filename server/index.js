@@ -36,9 +36,13 @@ function getApp() {
   app.use((err, req, res, next) => {
     const httpCode = err.httpCode || err.status || 500;
     res.status(httpCode);
-    res.json({
+    const errorPayload = {
       message: err.message,
-    });
+    };
+    if (httpCode === 422 && err.validationErrors) {
+      errorPayload.validation = err.validationErrors;
+    }
+    res.json(errorPayload);
   });
 
   return app;
