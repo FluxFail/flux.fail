@@ -7,7 +7,7 @@
     "build": "webpack --config client/webpack.config.js",
     "pretest": "eslint server/*.js server/migrations/*.js server/routes/*.js server/utils/*.js client/*.jsx client/elements/*.jsx client/actions/*.js client/reducers/*.js client/middleware/*.js",
     "start": "http-server client/dist -p 8080 -s -c-1",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec spec/*.js"
   },
   "repository": {
     "type": "git",
@@ -45,12 +45,14 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "chai": "^4.1.2",
     "copy-webpack-plugin": "^4.3.1",
     "eslint": "^4.15.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.6.0",
+    "mocha": "^5.0.4",
     "webpack": "^3.10.0"
   }
 }
