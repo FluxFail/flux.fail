@@ -13,7 +13,7 @@ const DelayCard = props => (
     <CardHeader
       avatar={<TransportIcon type={props.type} />}
       title={`${props.line} to ${props.direction}`}
-      subtitle={formatDelay(props.minutes)}
+      subtitle={formatDelay(props.delay)}
       actAsExpander
       showExpandableButton
     />
@@ -39,7 +39,7 @@ DelayCard.propTypes = {
   line: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  minutes: PropTypes.number.isRequired,
+  delay: PropTypes.number.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
   onEditDelay: PropTypes.func.isRequired,
   onDeleteDelay: PropTypes.func.isRequired,
@@ -108,7 +108,7 @@ DelayList.propTypes = {
     line: PropTypes.string.isRequired,
     direction: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
-    minutes: PropTypes.number.isRequired,
+    delay: PropTypes.number.isRequired,
     date: PropTypes.instanceOf(Date),
   })),
   status: PropTypes.string,

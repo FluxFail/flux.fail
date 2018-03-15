@@ -49,7 +49,7 @@ class DelayForm extends React.Component {
       type: props.type,
       id: props.id,
       date: props.date,
-      minutes: props.minutes,
+      delay: props.delay,
       city: props.city,
       line: props.line,
       direction: props.direction,
@@ -124,20 +124,20 @@ class DelayForm extends React.Component {
           min={1}
           max={this.state.max}
           step={1}
-          value={this.state.minutes}
-          onChange={(event, minutes) => {
+          value={this.state.delay}
+          onChange={(event, delay) => {
             let { max } = this.state;
-            if (minutes >= this.state.max - 5) {
+            if (delay >= this.state.max - 5) {
               max += 10;
             }
             this.setState({
-              minutes,
+              delay,
               max,
             });
           }}
         />
         <p style={minutesStyle}>
-          {formatDelay(this.state.minutes)}
+          {formatDelay(this.state.delay)}
         </p>
         <h2>Where was this?</h2>
         <div style={combinedField}>
@@ -188,7 +188,7 @@ DelayForm.defaultProps = {
   type: 'unknown',
   id: '',
   date: new Date(),
-  minutes: 5,
+  delay: 5,
   city: '',
   line: '',
   direction: '',
@@ -199,7 +199,7 @@ DelayForm.propTypes = {
   type: PropTypes.string,
   id: PropTypes.string,
   date: PropTypes.instanceOf(Date),
-  minutes: PropTypes.number,
+  delay: PropTypes.number,
   city: PropTypes.string,
   line: PropTypes.string,
   direction: PropTypes.string,
