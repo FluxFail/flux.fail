@@ -1,20 +1,24 @@
 language: node_js
-node_js: 'lts/*'
+node_js: lts/*
 services:
-  - docker
+- docker
 before_script:
-  # Build the server container
-  - cp package.json server/package.json
-  - docker build -t fluxfail/server server/
-  # Build the client container
-  - npm run build
-  - docker build -t fluxfail/client client/
-  # Build the fake SMTP server used for testing
-  - cp package.json spec/fakesmtp/package.json
-  - docker build -t fluxfail/fakesmtp spec/fakesmtp/
-  # Start the whole service
-  - docker-compose up -d
-  - docker-compose ps
-  # Prepare the database
-  - sleep 15
-  - docker-compose exec server npm run migrate --no-interaction
+- cp package.json server/package.json
+- docker build -t fluxfail/server server/
+- npm run build
+- docker build -t fluxfail/client client/
+- cp package.json spec/fakesmtp/package.json
+- docker build -t fluxfail/fakesmtp spec/fakesmtp/
+- docker-compose up -d
+- docker-compose ps
+- sleep 15
+- docker-compose exec server npm run migrate --no-interaction
+deploy:
+  provider: script
+  script: bash spec/utils/docker_push
+  on:
+    branch: master
+env:
+  global:
+  - secure: lfMBDnfEeC5W8XFKbTq9+ZDYTAw2a1LvSHg/48DqIEVaIQizynDH+2QzSChg6jl8UDhHlrM8HuQ/25AVQpubMJ1aSW+xEJk8KBDN5dBNT/JLN77S36ZPhWkLekH79SVKvuJ/c9+PhwGYq6/6VQq5xdkkqthz91iTwPLROtlj8PSF1vYxlfq84n2jK+1UXPY5WOcpFy5ihvTV+olQwlaH8cx4MVLENCHRNHspNeKWaLeuBKne19o1PXwAy6QYlJoR1NDqykjK67UycnC5kd1WYtGxjdX0Ja7WYUl2aohAz48Ui+YSj8WPz+/kCxBH3ckm7TzpME3qQQtwBAHJOb/bYtbXX/7lgdg2qjfbMWgpkU6bK8vw9yyblk2OPuekJpgS6sHYjptCnkqgT94/Lq2NYqlcVjf+2h2RxaYXV4ZZy84JGKd27s68h8fLmEHqwlUeeKAV7yeUG9azLvebPvX1zFCcURCvo1ovKvxGKE8vqB4CZsI2taThO2TlKOG8Nz3RDSknGZYJ6H8yQZI7LBQMdppCsFHbsoz90BTVGwfOxurJGG5iBD/KcknjrI1pJUqedz9OtXy/rbi5yPe5fbt7Ij4ZiSVkAGH40/fJNDQh/dZOF5cBM4o2E59+FSRWMfCCbUxF7FYWC87Kc/O/XuSwCtl1C4TyUo+JkiHmxOwHg80=
+  - secure: jtvvvIEf5PvdM/imyoFkP1fVV2Bp8X267JzrdVNG3kY0f7dGvoKMKzNv2SLV0px4GOtnz8XHRhv3Zq8+/roawWZtR8JXyIfl3ZvS3TCNnptMTv7QsrCUdRUUku7gIbXmOvNLc8tjKsW+Le/CbKhWDxTpiJU35Ifl4WL+gor9lciAon/IKXcz1otLWuwYwKhmFTdv60Sojo/twajrWmZq4eht6xSxkHRZs3Laq5/Bbh2TsDrzPAqRDVfQfWNyMntFi/65x/EwXoObYQx8c46N/yGdS6P2DtN6U2s0Cp2C6VNmKybswPNYFSe/qKMJp70fP/bncg8YvGq5HnoK/Zae2HPS5Pn0FWK+Fn9V/ghNS0t+8/C0U92qJB1BFGjr229YXx1yELM+AgZ7WGr/+6BpF4HaVpbjb0ciwhon3/uQwbZ8Lq5LqbCo15mj5ogu9Fiw+NRXK65W4UXPp6EJD9n80gWKdi+cO0WEnrVum6Kug/fyqpdUN66w8KId4A/qCRBoIyoDoMYGpWafaVJ3i+oJ5GDTfD1jdw4Rm0Gn4Xx6KPdTqxOryiMhJXi4hY7igLaXZ1y2o+9T6hwm5YVT+6RMJA9/z2sxGUdIMU2EjEto3HZ8XXhUF//EA+vbNe6kYoVEbnY06h0lqgHbf3ZP83RtrL22EhmYXwKpCfGJTXVs4lk=
