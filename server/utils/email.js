@@ -25,7 +25,7 @@ Welcome to Flux.Fail!
 
 Use the following link to get started:
 
-http://localhost:8081/?token={token}
+{app_url}?token={token}
 
 With love,
 
@@ -39,6 +39,7 @@ exports.sendLogin = (email, grantToken) => {
     subject: 'Your login link for Flux.Fail',
     text: format(tokenEmail, {
       token: grantToken,
+      app_url: process.env.APP_URL || 'http://localhost:8081',
     }),
     from: 'noreply@flux.fail',
     to: email,
