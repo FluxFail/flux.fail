@@ -12,6 +12,7 @@ services:
     environment:
       DATABASE_URL: 'postgres://fluxfail:@fluxfail-postgres/fluxfail'
       SMTP_URL: 'smtp://fakesmtp:1025'
+      APP_URL: 'http://localhost:8081'
       PORT: 8080
       NODE_TLS_REJECT_UNAUTHORIZED: '0'
     links:
