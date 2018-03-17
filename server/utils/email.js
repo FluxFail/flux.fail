@@ -25,7 +25,7 @@ Welcome to Flux.Fail!
 
 Use the following link to get started:
 
-{app_url}?token={token}
+{app_url}/?token={token}
 
 With love,
 
