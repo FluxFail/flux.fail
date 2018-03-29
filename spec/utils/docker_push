@@ -1,4 +1,8 @@
 #!/bin/bash
 docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+if [ $TRAVIS_TAG ]; then
+  docker tag fluxfail/server fluxfail/server:$TRAVIS_TAG
+  docker tag fluxfail/client fluxfail/client:$TRAVIS_TAG
+fi
 docker push fluxfail/server
 docker push fluxfail/client
