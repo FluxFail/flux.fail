@@ -112,7 +112,9 @@ const delays = store => next => (action) => {
       })
         .then((res) => {
           if (res.status !== 200) {
-            throw new Error(res.statusText);
+            const err = new Error(res.statusText);
+            err.httpCode = res.status;
+            throw err;
           }
           return res.json();
         })
@@ -127,6 +129,13 @@ const delays = store => next => (action) => {
             })),
           });
         }, (err) => {
+          if (err.httpCode === 401) {
+            // Invalid token, log user out
+            next({
+              type: 'USER_LOGOUT',
+            });
+            return;
+          }
           next({
             type: 'DELAYS_LOAD_ERROR',
             message: err.message,
