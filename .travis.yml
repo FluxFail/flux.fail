@@ -14,10 +14,16 @@ before_script:
 - sleep 15
 - docker-compose exec server npm run migrate --no-interaction
 deploy:
-  provider: script
-  script: bash spec/utils/docker_push
-  on:
-    branch: master
+  -
+    provider: script
+    script: bash spec/utils/docker_push
+    on:
+      branch: master
+  -
+    provider: script
+    script: bash spec/utils/docker_push
+    on:
+      tags: true
 env:
   global:
   - API_URL=https://api.flux.fail
