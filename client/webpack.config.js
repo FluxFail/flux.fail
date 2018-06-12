@@ -40,6 +40,18 @@ module.exports = {
         from: 'robots.txt',
         to: `${distPath}/robots.txt`,
       },
+      {
+        from: 'assets/Icon.svg',
+        to: `${distPath}/img/Icon.svg`,
+      },
+      {
+        from: 'assets/Logo.svg',
+        to: `${distPath}/img/Logo.svg`,
+      },
+      {
+        from: 'assets/Icon_32x32.png',
+        to: `${distPath}/favicon.png`,
+      },
     ]),
     new webpack.DefinePlugin({
       API_URL: JSON.stringify(process.env.API_URL || 'http://100.115.92.2:8080'),

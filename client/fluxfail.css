@@ -15,3 +15,8 @@ main h2 {
   padding-bottom: 0;
   margin-bottom: 0;
 }
+
+.nav-logo {
+  height: 32px;
+  padding-top: 16px
+}

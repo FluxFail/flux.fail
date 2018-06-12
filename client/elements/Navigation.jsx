@@ -61,7 +61,7 @@ class Navigation extends React.Component {
     return (
       <nav>
         <AppBar
-          title="Flux.Fail"
+          title={(<img className="nav-logo" src="/img/Logo.svg" alt="flux.fail logo" />)}
           style={appBarStyle}
           onLeftIconButtonClick={(event) => {
             this.setState({
