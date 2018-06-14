@@ -67,6 +67,39 @@ const loadingStyle = {
   marginRight: 'auto',
 };
 
+const noDelaysReported = props => (
+  <div>
+    <h1>Welcome to flux.fail</h1>
+    <h2>Great to have you on board!</h2>
+    <h3>
+      Every new reporter increases our overall coverage. Your reports matter!
+    </h3>
+    <p>
+      Getting started is easy:
+    </p>
+    <ol>
+      <li>
+        Report trips and delays by clicking the plus sign in the bottom right
+        corner
+      </li>
+      <li>
+        Report bugs and request features on&nbsp;
+        <a
+          href="https://github.com/FluxFail/flux.fail/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Github
+        </a>
+      </li>
+      <li>
+        Stay tuned as this site is still beta-software, under heavy development
+        and frankly subject to frequent changes
+      </li>
+    </ol>
+  </div>
+);
+
 const DelayList = (props) => {
   if (props.status === 'loading') {
     return (
@@ -81,6 +114,9 @@ const DelayList = (props) => {
     return (
       <ErrorCard />
     );
+  }
+  if (props.delays.length === 0) {
+    return noDelaysReported();
   }
   return (
     <div>

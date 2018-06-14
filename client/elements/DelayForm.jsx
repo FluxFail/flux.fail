@@ -121,7 +121,7 @@ class DelayForm extends React.Component {
         </div>
         <h2>How long were you delayed?</h2>
         <Slider
-          min={1}
+          min={0}
           max={this.state.max}
           step={1}
           value={this.state.delay}
@@ -188,7 +188,7 @@ DelayForm.defaultProps = {
   type: 'unknown',
   id: '',
   date: new Date(),
-  delay: 5,
+  delay: 0,
   city: '',
   line: '',
   direction: '',
