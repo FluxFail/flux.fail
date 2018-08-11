@@ -1,0 +1,189 @@
+swagger: "2.0"
+info:
+  description: "This is the swagger file to genererate the api core for flux.fail"
+  version: "1.0.0"
+  title: "flux.fail"
+  contact:
+    email: "cem@sqrls.de"
+host: "localhost:8081"
+basePath: "/v1"
+tags:
+- name: "login"
+  description: "Access to login via e-mail"
+- name: "delay"
+  description: "Access to delay services"
+schemes:
+- "https"
+paths:
+  /login/email:
+    post:
+      tags:
+      - "login"
+      summary: "Registers a new user with his e-mail adress"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "email"
+        description: "e-mail adress of new user"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        202:
+          description: "Registration accepted"
+  /login/exchange:
+    post:
+      tags:
+      - "login"
+      summary: "Sends grant token to retrieve access token"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "token"
+        description: "the grant token"
+        required: true
+        schema:
+          $ref: "#/definitions/Token"
+      responses:
+        200:
+          description: "Access token"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Token"
+        405:
+          description: "Invalid input"
+  /delay:
+    post:
+      tags:
+      - "delay"
+      summary: "Informs system about a delay"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "id"
+        description: "The id of the delay. Null if delay didn't exist"
+        required: false
+        schema:
+          $ref: "#/definitions/Delay"
+      responses:
+        202:
+          description: "Received delay successfully"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Delay"
+        405:
+          description: "Invalid input"
+    get:
+      tags:
+      - "delay"
+      summary: "Requests a limited list of delays starting with an offset"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "The maximum amount of delays that are expected"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "The offset of delays"
+        required: false
+        type: "string"
+      - name: "userid"
+        in: "query"
+        description: "The id of the requesting user"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Delay"
+        422:
+          description: "Limit must be below 100"
+    delete:
+      tags:
+      - "delay"
+      summary: "Deletes a delay"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the delay which should be deleted"
+        required: true
+        type: "integer"
+      - name: "userid"
+        in: "path"
+        description: "Id of the user who wants to delete"
+        required: true
+        type: "integer"
+      responses:
+        204:
+          description: "Action has been enacted and response doesn't include entity"
+        403:
+          description: "Unauthorized. Deleting person is not person, who saved delay"
+        404:
+          description: "Delay not found"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+    xml:
+      name: "User"
+  Token:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Token"
+  Delay:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      user:
+        type: "integer"
+        format: "int64"
+      created_at: 
+        type: "string"
+      location:
+        type: "string"
+    xml:
+      name: "Delay"
