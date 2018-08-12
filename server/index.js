@@ -1,12 +1,18 @@
+const auth = require('./utils/auth');
+const loginRoutes = require('./routes/login');
+const delayRoutes = require('./routes/delay');
+const v1ApiDoc = require('./api-v1/api-doc.yml');
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const http = require('http');
 const cors = require('cors');
-const auth = require('./utils/auth');
 const validate = require('./utils/validate');
-const loginRoutes = require('./routes/login');
-const delayRoutes = require('./routes/delay');
+const openapi = require('express-openapi');
+const v1DelayService = require('./api-v1/services/delayService');
+const YAML = require('yamljs');
 
 function getApp() {
   const app = express();
@@ -18,7 +24,18 @@ function getApp() {
 
   app.use(passport.initialize());
 
-  app.post('/login/email', loginRoutes.passwordless);
+  const yamlObject = YAML.load('./server/api-v1/api-doc.yml');
+
+  openapi.initialize({
+    apiDoc: yamlObject,
+    app: app,
+    dependencies: {
+      delayService: v1DelayService
+    },
+    paths: './server/api-v1/paths'
+  });
+  
+  /*app.post('/login/email', loginRoutes.passwordless);
   app.post('/login/exchange', loginRoutes.exchange);
 
   app.post('/delay', delayRoutes.save);
@@ -30,7 +47,7 @@ function getApp() {
     const err = new Error(`${req.path} not found`);
     err.httpCode = 404;
     next(err);
-  });
+  }); */
 
   // Provide errors as JSON
   app.use((err, req, res, next) => {
