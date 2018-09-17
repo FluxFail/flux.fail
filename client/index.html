@@ -1,14 +1,215 @@
-<!doctype html>
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flux.Fail</title>
-    <link rel="stylesheet" href="fluxfail.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#005cb2">
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="app.js"></script>
-  </body>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="background-image" style="background: linear-gradient( rgba(0,0,0,0.6), rgba(0, 0, 0, 0.6) ),url(../assets/trainstation.jpg) no-repeat center center fixed;
+        "></div>
+
+        <div class="hero-content-area">
+            <img src='./assets/logo.png' />
+            <h1>Worauf wartest du</h1>
+
+            <a href="#" class="btn">LOG IN</a>
+        </div>
+    </section>
+    <section>
+        <img class="logo_sub" src='./assets/logo_text.png' />
+        <h3>DIE APP ZUM MELDEN VON VERSPÄTUNGEN ÖFFENTLICHER VERKEHRSMITTEL.<br>
+            OHNE ANGABE PERSÖNLICHER DATEN.<br>
+            FOREVER FREE.
+        </h3>
+    </section>
+    <section>
+        <div class="grid">
+            <div class="col col-center">
+                <img class="screenshot" src='./assets/screenshot1.png' />
+            </div>
+            <div class="col">
+                <h3>Alle Aktuell gemeldeten Verspätungen im Delay-Stream</h3>
+
+                <p>
+                    Wird irgendwo über flux.fail eine Verspätung gemeldet, taucht sie umgehend im flux.fail
+                    Delay-Stream auf. Die Information steht nun allen Nutzern zur Verfügung und wird auch für die
+                    allgemeinen Statistiken verwertet.
+                </p>
+                <p>
+                    Selbstverständlich können problemlos Informationen zu einzelnen Linien angefragt werden, bzw.
+                    häufig genutzte Linien als Favouriten abgespeichert werden.
+                </p>
+                <div class="info">
+                    <h4>Empower Yourself!</h4>
+                    <p>Lade Freunde dazu ein, auf deiner Linie mitzumachen.
+                        So bekommst du mehr aktuelle Informationen.
+                        Je mehr Nutzer, desto mehr Verspätungs-Meldungen.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section>
+        <div class="grid">
+            <div class="col col-center">
+                <img class="screenshot" src="./assets/screenshot2.png" />
+            </div>
+            <div class="col">
+                <h3>Erhalte Angebote zu Alternativen Verkehrsmitteln</h3>
+                <p>Sobald Du eine Verspätung gemeldet hast, werden Dir - sofern vorhanden - alternative Linien oder
+                    Verkehrsmittel angeboten. Das kann eine andere Verbindung mit den öffentlichen Verkehrsmitteln
+                    sein, aber auch ein Angebot von Dritten, z.B. Taxi-Anbieter, Fahrradverleih oder
+                    Car-Sharing-Unternehmen.
+                </p>
+                <p>Die Möglichkeit Angebote über alternative Verkehrsmittel zu erhalten ist optional und kann über
+                    Deine Account-Einstellungen deaktiviert werden.</p>
+                <div class="info">
+                    <h4>Anders fahren, Zeit sparen!</h4>
+                    <p>Es kann viel Zeit sparen, über aktuelle Ausweichmöglichkeiten informiert zu sein.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="grid">
+            <div class="col col-center">
+                <img class="screenshot" src="./assets/screenshot3.png" />
+            </div>
+            <div class="col">
+                <h3>Sammel Flux-Punkte und erhalte Vergünstigungen</h3>
+                <p>Für jede gemeldete Verspätung erhälst Du einen Flux-Punkt. Besonders zeitraubende Verspätungen
+                    werden mit mehr Punkten gewertet, sobald die Meldung als konfirmiert gilt. (Jede Verspätung kann
+                    natürlich nur einmal pro User gemeldet werden.)</p>
+                <p>Du kannst Verspätungs-König des Tages, deiner Linie oder sogar Deiner Stadt werden. - Wer will das
+                    schon? Eigentlich niemand. Aber zumindest können ausreichend gesammelte Punkte bei vielen
+                    alternativen Transportunternehmen eingetauscht werden. Freie Taxifahrt gefällig?</p>
+                <div class="info">
+                    <h4>Mach aus dem Ärgernis ein kleines Spiel.</h4>
+                    <p>Punkte sammeln bringt nicht nur Vorteile, sondern macht auch Spaß.
+                        Schon wieder zu spät? Vielleicht wirst Du dadurch ja wenigstens einmal König.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section>
+        <div class="grid">
+            <div class="col col-center">
+                <img class="screenshot" src="./assets/screenshot4.png" />
+            </div>
+            <div class="col">
+                <h3>Hilf mit, die Statistiken zu verbessern</h3>
+                <p>Jede konfirmierte, gemeldete Verspätung geht in die allgemeinen Statistiken über. Auf flux.fail kann
+                    jeder die Verspätungs-Statistiken einzelner Linien, Städte und Anbieter einsehen. Die Werte werden
+                    auch an Dritte weitergegeben, sofern diese daraus Nutzen ziehen können
+                </p>
+                <div class="info">
+                    <h4>Deine Persönlichen Ergebnisse:</h4>
+                    <p>Dein Profil erstellt automatisch Deine ganz eigenen Statistiken.
+                        So bekommst Du einen persönlichen Überblick.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h3>Das ist flux.fail</h3>
+        <p>
+            flux.fail ist eine App, mit der die Benutzer in einem spielerischen Format kostenlos die Verspätungen ihrer
+            öffentlichen Verkehrsmittel melden und verfolgen können. Die User erhalten dafür Punkte und Belohnungen.
+            Gemeldete Verspätungen werden öffentlich gemacht, so dass andere Spieler diese sehen und die Benutzer sich
+            somit in Echtzeit über derzeit auftretende Verspätungen informieren und gegebenenfalls rechtzeitig auf
+            alternative Verbindungen ausweichen können. Außerdem wird dem wartenden Fahrgast mit der App eine
+            Möglichkeit geboten, seiner Frustration Ausdruck zu verleihen und das Versagen der Verkehrsanbieter an
+            angebrachter Stelle auch öffentlich anzuprangern.
+        </p>
+    </section>
+    <section>
+        <h3>Die Ausgangslage</h3>
+        <div class="grid">
+
+            <div class="col">
+                <p>Im Jahr 2017 gab es in Deutschland 18,5 Millionen Pendler, die zum Teil längere Arbeitswege in Kauf
+                    nahmen. Das ist ein neuer Rekord und umfasst bald 60% aller Beschäftigten. Dabei zählen als Pendler
+                    aber nur diejenigen, die auf dem Arbeitsweg das Ortsschild passieren, was alle Beschäftigten, die
+                    innerhalb deutscher Großstädte pendeln, vollständig ausschließt. Nach einer Statistik des
+                    Bundesinstituts für Bau-, Stadt- und Raumforschung, wählen dabei nur circa 45% das eigene Auto.
+                    Alle anderen Pendler sind auf öffentliche Verkehrsmittel angewiesen, hauptsächlich Bus, Bahn,
+                    U-Bahn, S-Bahn und Tram.
+                </p>
+                <p>Öffentliche Verkehrmittel unterliegen jedoch häufig andauernden und wiederkehrenden Verspätungen
+                    oder sogar Ausfällen. Busse verspäten sich, weil wochenlang nicht angemessen auf erhöhtes
+                    Verkehraufkommen oder Baustellen reagiert wird. Bahnen fallen aus, weil Gleise, Weichen oder
+                    Waggons nicht ausreichend gewartet wurden.</p>
+            </div>
+            <div class="col">
+
+                <p>Auf die Fahrplanauskünfte der Anbieter können sich die Fahrgäste dabei leider viel zu selten
+                    verlassen, Online Buchungs-Systeme informieren nicht immer rechtzeitig über auftretende Störungen.
+                    Fahrgäste, die häufiger den Verspätungen der öffentlichen Verkehrsmittel ausgeliefert sind, sind
+                    oft zu recht verärgert und fühlen sich machtlos.</p>
+                <img class="logo_sub" src='./assets/logo_sub.png' />
+            </div>
+        </div>
+    </section>
+    <section>
+        <h3>Daten als Unternehmenswert</h3>
+        <p>Mit flux.fail wird die Datenquelle für aktuelle Verkehrsinformationen dezentralisiert und an die Fahrgäste
+            gekoppelt. Die Nutzer erfahren im besten Fall sofort von Verspätungen, denen sie aktuell ausgeliefert sind.
+            Wird eine Verspätung ausreichend häufig gemeldet, kann sie als bestätigt angesehen werden und anderen
+            Plattformen oder Anbietern wie z.B. SD4M als sehr zuverlässige Verkehrsinformation übermittelt werden.
+        </p>
+        <p>Das Projekt „SD4M - Smart Data for Mobility“ entwickelt nach eigenen Aussagen eine branchenübergreifende
+            Serviceplattform, die sowohl Daten unterschiedlicher Mobilitätsanbieter als auch Daten aus sozialen
+            Netzwerken integriert, aufbereitet und dann den Nutzern zur Verfügung stellt. Ziel ist es, aus den
+            verschiedenen Quellen Verkehrsinformationen zu aggregieren, zu veredeln und anschließend zielgerichtet an
+            die individuellen Verkehrsteilnehmer zu übermitteln. Das Projekt ist auf zuverlässige und zeitnahe
+            Verkehrsinformationen angewiesen. Gefördert wird SD4M auch vom Bundesministerium für Wirtschaft und
+            Energie.</p>
+        <p>Innovativ an flux.fail ist, das es eine Plattform ist, die ausschliesslich von Nutzerdaten lebt, während
+            gleichzeitig jedoch keinerlei personenbezoge Nutzerdaten gespeichert werden.</p>
+    </section>
+    <section>
+        <h3>Priorität Datenschutz</h3>
+        <div class="grid">
+
+            <div class="col">
+                <p>Für die Registrierung bei flux.fail ist einzig und allein eine gültige E-Mail Adresse erforderlich.
+                    Diese wird nicht gespeichert. An die Adresse wird eine E-Mail mit einem Login Link versandt, der
+                    nach einmaliger Nutzung verfällt. Mit Klick auf diesen Link wird ein Session-Cookie im Browser des
+                    Benutzers gesetzt. flux-fail errechnet jetzt den Crypto-Hash der E-Mail Adresse und verwendet
+                    diesen Hash, um anschliessend weitere Verspätungen zu speichern und der Browser-Session zuzuordnen.
+                    In unserer Datenbank befinden sich also überhaupt keine Benutzer-, bzw. Accountdaten. Es existieren
+                    auch keine Passwörter, die gestohlen werden könnten.
+                </p>
+                <p>Öffentliche Verkehrmittel unterliegen jedoch häufig andauernden und wiederkehrenden Verspätungen
+                    oder sogar Ausfällen. Busse verspäten sich, weil wochenlang nicht angemessen auf erhöhtes
+                    Verkehraufkommen oder Baustellen reagiert wird. Bahnen fallen aus, weil Gleise, Weichen oder
+                    Waggons nicht ausreichend gewartet wurden.</p>
+            </div>
+            <div class="col">
+
+                <p>Benutzerdaten werden erst dann gepeichert, wenn der User sich dazu entscheidet diese optionalen
+                    Daten anzugeben, beispielsweise wenn er den Newsletter abonniert.</p>
+
+                <p>Dem Schutz der persönlichen Daten aller Nutzer wird bei flux.fail allerhöchste Proirität
+                    beigemessen.</p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <img class="no_mobile" src='./assets/logo_big.png' />
+    </section>
+    <footer>
+        <p>Made with ❤ in Berlin</p>
+    </footer>
+</body>
+
 </html>
