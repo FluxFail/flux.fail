@@ -1,189 +1,288 @@
-swagger: "2.0"
+openapi: 3.0.0
+
 info:
-  description: "This is the swagger file to genererate the api core for flux.fail"
-  version: "1.0.0"
-  title: "flux.fail"
-  contact:
-    email: "cem@sqrls.de"
-host: "localhost:8081"
-basePath: "/v1"
-tags:
-- name: "login"
-  description: "Access to login via e-mail"
-- name: "delay"
-  description: "Access to delay services"
-schemes:
-- "https"
+  title: api.flux.fail
+  description: >
+    https://flux.fail/ is a free and open-source platform for reporting and
+    tracking delays in the public transportation system.
+
+  version: 1.0.0
+
+servers:
+  - url: http://api.flux.fail/v1
+
 paths:
-  /login/email:
+  /account/login:
     post:
+      summary: Sends a login link via E-Mail
       tags:
-      - "login"
-      summary: "Registers a new user with his e-mail adress"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "email"
-        description: "e-mail adress of new user"
+        - authentication
+      requestBody:
         required: true
-        schema:
-          $ref: "#/definitions/User"
-      responses:
-        202:
-          description: "Registration accepted"
-  /login/exchange:
-    post:
-      tags:
-      - "login"
-      summary: "Sends grant token to retrieve access token"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "token"
-        description: "the grant token"
-        required: true
-        schema:
-          $ref: "#/definitions/Token"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
       responses:
         200:
-          description: "Access token"
-          schema:
-            type: "object"
-            items:
-              $ref: "#/definitions/Token"
-        405:
-          description: "Invalid input"
-  /delay:
-    post:
-      tags:
-      - "delay"
-      summary: "Informs system about a delay"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "id"
-        description: "The id of the delay. Null if delay didn't exist"
-        required: false
-        schema:
-          $ref: "#/definitions/Delay"
-      responses:
-        202:
-          description: "Received delay successfully"
-          schema:
-            type: "object"
-            items:
-              $ref: "#/definitions/Delay"
-        405:
-          description: "Invalid input"
+          description: You should have received a login link via e-mail.
+
+  /account/login/{token}:
     get:
+      summary: Validates a token and authenticates the user
       tags:
-      - "delay"
-      summary: "Requests a limited list of delays starting with an offset"
-      produces:
-      - "application/json"
+        - authentication
       parameters:
-      - name: "limit"
-        in: "query"
-        description: "The maximum amount of delays that are expected"
-        required: false
-        type: "string"
-      - name: "offset"
-        in: "query"
-        description: "The offset of delays"
-        required: false
-        type: "string"
-      - name: "userid"
-        in: "query"
-        description: "The id of the requesting user"
-        required: true
-        type: "integer"
+        - in: path
+          name: token
+          schema:
+            type: string
+          required: true
+          description: foo
       responses:
         200:
-          description: "successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Delay"
-        422:
-          description: "Limit must be below 100"
-    delete:
+          description: Login successful
+        401:
+          description: Login failed
+
+  /account/{id}:
+    get:
+      summary: Requests account information
       tags:
-      - "delay"
-      summary: "Deletes a delay"
-      produces:
-      - "application/json"
+        - authentication
+      security:
+        - bearerAuth: []
       parameters:
-      - name: "id"
-        in: "path"
-        description: "Id of the delay which should be deleted"
-        required: true
-        type: "integer"
-      - name: "userid"
-        in: "path"
-        description: "Id of the user who wants to delete"
-        required: true
-        type: "integer"
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        404:
+          description: Not found
+
+
+  /delays:
+    get:
+      summary: Requests a limited list of delays
+      description: >
+        Anybody can browse the stream of reported delays.
+        The stream can be filtered to allow for drill-down search.
+      tags:
+        - delays
+      parameters:
+        - name: account
+          description: >
+            List only delays from this account.
+            This is used when users selecta "show only my delays", but can also
+            be used i.e. if moderators want to list the delays of a particular
+            account.
+          in: header
+          schema:
+            type: string
+        - name: country
+          description: List only delays from this country.
+          in: header
+          schema:
+            type: string
+        - name: city
+          description: List only delays from this city.
+          in: header
+          schema:
+            type: string
+        - name: vehicle
+          description: List only delays of this vehicle.
+          in: header
+          schema:
+            $ref: '#/components/schemas/Vehicle'
+        - name: line
+          description: List only delays of this line.
+          in: header
+          schema:
+            type: string
+        - name: direction
+          description: List only delays in this direction.
+          in: header
+          schema:
+            type: string
+        - name: limit
+          description: "Limit the amount of delays returned (max.: 100)."
+          in: query
+          schema:
+            type: integer
+            format: uint8
+        - name: offset
+          description: The offset (page) at which to start listing.
+          in: query
+          schema:
+            type: integer
+            format: uint64
       responses:
         204:
-          description: "Action has been enacted and response doesn't include entity"
+          description: "No content"
+        206:
+          description: "Partial content"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delay'
+
+  /delay:
+    post:
+      summary: Reports a new delay
+      description: >
+        Delays can be reported by anybody.
+        If an anonymous user reports a delay, an account will be generated
+        on-the-fly before logging the user in to that account and reporting the
+        delay under it.
+      tags:
+        - delays
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Delay'
+      responses:
+        202:
+          description: Success
+        405:
+          description: Invalid
+
+    delete:
+      summary: Deletes a delay
+      description: >
+        Delays can only be deleted by the user who created them (or by modss).
+      tags:
+        - delays
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: delay
+          description: The id of the delay to delete
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Success
+        401:
+          description: Unauthorized
         403:
-          description: "Unauthorized. Deleting person is not person, who saved delay"
-        404:
-          description: "Delay not found"
-definitions:
-  User:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      username:
-        type: "string"
-      firstName:
-        type: "string"
-      lastName:
-        type: "string"
-      email:
-        type: "string"
-      password:
-        type: "string"
-      phone:
-        type: "string"
-      userStatus:
-        type: "integer"
-        format: "int32"
-        description: "User Status"
-    xml:
-      name: "User"
-  Token:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-    xml:
-      name: "Token"
-  Delay:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      user:
-        type: "integer"
-        format: "int64"
-      created_at: 
-        type: "string"
-      location:
-        type: "string"
-    xml:
-      name: "Delay"
+          description: Failed
+
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Delay:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the delay.
+        account:
+          type: string
+          description: The unique ID of the account who reported the delay.
+        created_at:
+          type: string
+          format: dateTime
+          description: A timestamp from when the delay was reported (UTC).
+        scheduled_departure:
+          type: string
+          format: dateTime
+          description: What the user reported as scheduled departure time.
+        effective_delay:
+          type: integer
+          format: uint16
+          description: The effective delay in minutes.
+        vehicle_early:
+          type: integer
+          format: uint8
+          description: The amount of minutes the vehicle is running early.
+        vehicle:
+          $ref: '#/components/schemas/Vehicle'
+        location:
+          type: string
+          description: >
+            Where the user reported to be initially affected
+            (bus stop, train station, airport, etc).
+        line:
+          type: string
+          description: The name of the line.
+        direction:
+          type: string
+          description: >
+            The final destination of the line
+            (a.k.a. what direction it is driving).
+
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique account ID.
+        username:
+          type: string
+          description: Optional unique username.
+        userFlags:
+          $ref: '#/components/schemas/AccountFlags'
+        avatar:
+          type: string
+          description: URL to avatar (on-premises).
+        country:
+          type: string
+          description: Optional default country for reports.
+        city:
+          type: string
+          description: Optional default city for reports.
+
+    AccountFlags:
+      description: >
+        An account can have a combination of different flags.
+        These flags manipulate the bahaviour of the account in various ways.
+      type: integer
+      format: uint16
+      # Unfortunately, Swagger seems to not support iota enums.
+      #  - 0   # Normal
+      #  - 1   # Test-User (visible only to self, ignored in statistiscs/metrics)
+      #  - 2   # Muted (visible only to self, ignored in statistics/metrics)
+      #  - 4   # Moderator
+      #  - 8   # Employee / Team-Member
+      #  - 16  # Supporter Account
+
+    Vehicle:
+      description: >
+        Delays can be reported for specific vehicles.
+        When browsing the delays, the user may want to filter by vehicle.
+      type: integer
+      format: uint16
+      # Unfortunately, Swagger seems to not support iota enums.
+      #  - 0   # None
+      #  - 1   # bus
+      #  - 2   # train
+      #  - 4   # underground
+      #  - 8   # tram
+      #  - 16  # lift
+      #  - 32  # ship
+      #  - 64  # airplane
+      #  - 128 # rocket
