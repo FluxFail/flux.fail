@@ -65,7 +65,7 @@ exports.list = [
       .where('user', req.user.id)
       .limit(limit)
       .offset(offset)
-      .orderBy('date', 'desc')
+      .orderBy('scheduled_departure', 'desc')
       .then((rows) => {
         res.json(rows);
       }, err => next(err));
