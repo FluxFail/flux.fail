@@ -9,6 +9,7 @@ import fluxFailStore from './reducers/index';
 import loggerMiddleware from './middleware/logger';
 import userMiddleware from './middleware/user';
 import delaysMiddleware from './middleware/delays';
+import 'antd/dist/antd.css';
 
 const fluxfailTheme = getMuiTheme({
   palette: {
@@ -27,7 +28,11 @@ const fluxfailTheme = getMuiTheme({
 const initialState = {};
 
 const middleware = applyMiddleware(loggerMiddleware, userMiddleware, delaysMiddleware);
-const store = createStore(fluxFailStore, initialState, middleware);
+const store = createStore(
+  fluxFailStore,
+  initialState,
+  middleware,
+);
 
 const App = () => (
   <MuiThemeProvider muiTheme={fluxfailTheme}>

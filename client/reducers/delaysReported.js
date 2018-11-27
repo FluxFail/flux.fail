@@ -1,8 +1,8 @@
 const sortDelays = (a, b) => {
-  if (a.date < b.date) {
+  if (a.scheduled_departure < b.scheduled_departure) {
     return 1;
   }
-  if (a.date > b.date) {
+  if (a.scheduled_departure > b.scheduled_departure) {
     return -1;
   }
   return 0;

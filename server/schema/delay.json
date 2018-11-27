@@ -10,12 +10,16 @@
       "type": "string",
       "format": "uuid"
     },
+    "parent": {
+      "type": "string",
+      "format": "uuid"
+    },
     "scheduled_departure": {
       "type": "string",
       "format": "iso8601"
     },
     "vehicle": {
-      "vehicle": "string"
+      "type": "integer"
     },
     "country": {
       "type": "string",

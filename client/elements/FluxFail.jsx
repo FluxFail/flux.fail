@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Navigation from './Navigation';
-import DelayList from './DelayList';
+import DelayList from './new/DelayList';
 import Statistics from './Statistics';
 import About from './About';
 import Login from './Login';
-import DelayForm from './DelayForm';
+import DelayForm from './new/DelayForm';
 import * as actions from '../actions';
 
 class FluxFail extends React.Component {
@@ -23,9 +23,10 @@ class FluxFail extends React.Component {
     if (this.props.delays.status !== 'ok') {
       allowAddDelay = false;
     }
-    if (this.props.delays.current.date) {
+    if (this.props.delays.current && this.props.delays.current.scheduled_departure) {
       currentView = (
         <DelayForm
+          user={this.props.user.id}
           onSaveDelay={this.props.onSaveDelay}
           onCancelDelay={this.props.onCancelDelay}
           {...this.props.delays.current}
@@ -47,13 +48,15 @@ class FluxFail extends React.Component {
                 status={this.props.user.status}
                 message={this.props.user.message}
                 onLogin={this.props.onLogin}
+                user={this.props.user}
               />
             );
           } else {
             currentView = (
               <DelayList
-                delays={this.props.delays.reported}
                 status={this.props.delays.status}
+                user={this.props.user}
+                delays={this.props.delays.reported}
                 onEditDelay={this.props.onEditDelay}
                 onDeleteDelay={this.props.onDeleteDelay}
               />
@@ -128,11 +131,11 @@ FluxFail.propTypes = {
     status: PropTypes.string,
     current: PropTypes.shape({
       id: PropTypes.string,
-      date: PropTypes.instanceOf(Date),
+      scheduled_departure: PropTypes.instanceOf(Date),
     }),
     reported: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
-      date: PropTypes.instanceOf(Date),
+      scheduled_departure: PropTypes.instanceOf(Date),
     })),
   }),
   onAddDelay: PropTypes.func.isRequired,
@@ -148,6 +151,7 @@ FluxFail.propTypes = {
     status: PropTypes.string,
     message: PropTypes.string,
     token: PropTypes.string,
+    id: PropTypes.string,
   }),
   view: PropTypes.string,
 };

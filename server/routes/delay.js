@@ -21,6 +21,7 @@ exports.save = [
             .insert({
               ...req.body,
               user: req.user.id,
+              parent: (req.body.parent === "") ? null : req.body.parent,
               created_at: new Date(),
             });
         }
@@ -34,6 +35,7 @@ exports.save = [
           .update({
             ...req.body,
             user: req.user.id,
+            parent: (req.body.parent === "") ? null : req.body.parent,
             updated_at: new Date(),
           })
           .where('id', req.body.id);

@@ -1,8 +1,8 @@
 /*
  *   - rename date to scheduled_departure
  */
-exports.up = knex => knex.table('delay', (t) => {
-    t.timestamp('scheduled_departure').notNullable().index();
+exports.up = knex => knex.schema.table('delay', (t) => {
+    t.timestamp('scheduled_departure').defaultTo(knex.fn.now()).notNullable().index();
   })
   .then(() => knex('delay')
     .select('date', 'id')
@@ -11,12 +11,12 @@ exports.up = knex => knex.table('delay', (t) => {
       .update({
         scheduled_departure: r.date,
       })))))
-  .then(() => knex.table('delay', (t) => {
+  .then(() => knex.schema.table('delay', (t) => {
     t.dropColumn('date');
   }))
 
-exports.down = knex => knex.table('delay', (t) => {
-    t.timestamp('date').notNullable().index();
+exports.down = knex => knex.schema.table('delay', (t) => {
+    t.timestamp('date').defaultTo(knex.fn.now()).notNullable().index();
   })
   .then(() => knex('delay')
     .select('scheduled_departure', 'id')
@@ -25,6 +25,6 @@ exports.down = knex => knex.table('delay', (t) => {
       .update({
         date: r.scheduled_departure,
     })))))
-  .then(() => knex.table('delay', (t) => {
+  .then(() => knex.schema.table('delay', (t) => {
     t.dropColumn('scheduled_departure');
   }))

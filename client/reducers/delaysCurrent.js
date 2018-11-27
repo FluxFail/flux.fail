@@ -3,7 +3,7 @@ const currentDelay = (state = {}, action) => {
   switch (action.type) {
     case 'ADD_DELAY':
       return {
-        date: action.date,
+        scheduled_departure: action.scheduled_departure,
       };
     case 'EDIT_DELAY':
       return action.props;

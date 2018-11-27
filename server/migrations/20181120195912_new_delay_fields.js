@@ -4,13 +4,13 @@
  *   - add self reference for delay weight
  *   - add optional comment filed
  */
-exports.up = knex => knex.table('delay', (t) => {
-  t.uuid('parent').references('id').inTable('delay').nullable().index();
-  t.string('location');
-  t.string('comment');
+exports.up = knex => knex.schema.table('delay', (t) => {
+   t.uuid('parent').references('id').inTable('delay').nullable().index();
+   t.string('location');
+   t.string('comment');
 })
 
-exports.down = knex => knex.table('delay', (t) => {
+exports.down = knex => knex.schema.table('delay', (t) => {
   t.dropColumn('comment');
   t.dropColumn('location');
   t.dropColumn('parent');

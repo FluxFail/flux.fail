@@ -5,7 +5,7 @@ function findDelay(id, store) {
   if (!state.delays) {
     return null;
   }
-  const matched = state.delays.reported.filter(delay => delay.id === id);
+  const matched = state.delays.reported.filter(delay => delay.id == id);
   if (!matched.length) {
     return null;
   }
@@ -123,7 +123,7 @@ const delays = store => next => (action) => {
             type: 'DELAYS_LOADED',
             delays: storedDelays.map(delay => ({
               ...delay,
-              date: new Date(delay.date),
+              scheduled_departure: new Date(delay.scheduled_departure),
               created_at: new Date(delay.created_at),
               updated_at: new Date(delay.updated_at),
             })),

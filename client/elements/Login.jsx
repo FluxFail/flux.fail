@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import isEmail from 'validator/lib/isEmail';
 import CircularProgress from 'material-ui/CircularProgress';
+import { Button, Card, Form, Icon, Input, Alert } from 'antd';
+
+const FormItem = Form.Item;
 
 class Login extends React.Component {
   constructor(props) {
@@ -24,23 +24,38 @@ class Login extends React.Component {
 
     let currentView = (
       <div>
-        <p>Enter your email address below and we will send you a link that will sign you in</p>
-        <Paper>
-          {messageView}
-          <TextField
-            floatingLabelText="Your email address"
-            type="email"
-            onChange={event => this.setState({
-              email: event.target.value,
-            })}
-          />
-          <RaisedButton
-            label="Get magic link"
-            primary={isEmail(this.state.email)}
-            disabled={!isEmail(this.state.email)}
-            onClick={() => this.props.onLogin(this.state.email)}
-          />
-        </Paper>
+        <Card title="Login">
+          <Form onSubmit={() => this.props.onLogin(this.state.email)} className="login-form">
+            <p>
+              Enter your email address below and we will send you a link that will sign you in.
+            </p>
+            <FormItem>
+              <Input
+                prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="Your e-mail address"
+                onChange={event => this.setState({
+                  email: event.target.value,
+                })} />
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary w3-block w3-large"
+                htmlType="submit"
+                className="login-form-button"
+                disabled={!isEmail(this.state.email)}
+                onClick={() => this.props.onLogin(this.state.email)}>
+                Send Login Link
+              </Button>
+            </FormItem>
+            <Alert
+              message="Grey-Listing"
+              description="The spam-protection of your mail-provider may delay your very first login e-mail for up to 10 minutes."
+              type="info"
+              showIcon
+              closeText="X" />
+          </Form>
+        </Card>
+        <br />
       </div>
     );
 

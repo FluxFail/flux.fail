@@ -9,7 +9,7 @@ export const userLogout = () => ({
 
 export const addDelay = () => ({
   type: 'ADD_DELAY',
-  date: new Date(),
+  scheduled_departure: new Date(),
 });
 
 export const cancelDelay = () => ({
@@ -30,6 +30,11 @@ export const deleteDelay = id => ({
   type: 'DELETE_DELAY',
   id,
 });
+
+export const plusOneDelay = id => ({
+  type: 'PLUSONE_DELAY',
+  id,
+})
 
 export const navigate = target => ({
   type: 'NAVIGATE_TO',

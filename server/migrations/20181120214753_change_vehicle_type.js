@@ -10,7 +10,7 @@ const VehicleMap = {
   tram: 8,
   gondola: 16,
   ship: 32,
-  plane: 64,
+  flight: 64,
   rocket: 128,
 };
 
@@ -26,30 +26,30 @@ const VehicleRevMap = {
   128: "rocket",
 };
 
-exports.up = knex => knex.table('delay', (t) => {
-        t.integer('vehicle').index();
-    })
-    .then(() => knex('delay')
-         .select('type', 'id')
-         .then((rows) => Promise.all(rows.map((r) => knex('delay')
-             .where('id', r.id)
-             .update({
-                 vehicle: VehicleMap[r.type],
-             })))))
-    .then(() => knex.table('delay', (t) => {
-        t.dropColumn('type')
-    }));
+exports.up = knex => knex.schema.table('delay', (t) => {
+    t.integer('vehicle').index();
+  })
+  .then(() => knex('delay')
+     .select('type', 'id')
+     .then((rows) => Promise.all(rows.map((r) => knex('delay')
+       .where('id', r.id)
+       .update({
+         vehicle: (r.type in VehicleMap) ? VehicleMap[r.type] : 0,
+       })))))
+  .then(() => knex.schema.table('delay', (t) => {
+    t.dropColumn('type')
+  }));
 
-exports.down = knex => knex.table('delay', (t) => {
-        t.string('type').index();
-    })
-    .then(() => knex('delay')
-        .select('vehicle', 'id')
-        .then((rows) => Promise.all(rows.map((r) => knex('delay')
-            .where('id', r.id)
-            .update({
-                type: VehicleRevMap[r.vehicle],
-            })))))
-    .then(() => knex.table('delay', (t) => {
-        t.dropColumn('vehicle');
-    }));
+exports.down = knex => knex.schema.table('delay', (t) => {
+     t.string('type').index();
+   })
+   .then(() => knex('delay')
+     .select('vehicle', 'id')
+     .then((rows) => Promise.all(rows.map((r) => knex('delay')
+       .where('id', r.id)
+       .update({
+         type: (r.vehicle in VehicleRevMap) ? VehicleRevMap[r.vehicle] : 0,
+       })))))
+   .then(() => knex.schema.table('delay', (t) => {
+     t.dropColumn('vehicle');
+   }));
