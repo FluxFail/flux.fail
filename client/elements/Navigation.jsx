@@ -24,6 +24,11 @@ const fabStyle = {
   bottom: '24px',
 };
 
+const logoAppBarStyle = {
+  height: '40%',
+  marginBottom: '9px',
+}
+
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
@@ -61,7 +66,7 @@ class Navigation extends React.Component {
     return (
       <nav>
         <AppBar
-          title="Flux.Fail"
+          title={<img src="/img/Logo.svg" style={logoAppBarStyle}/>}
           style={appBarStyle}
           onLeftIconButtonClick={(event) => {
             this.setState({
