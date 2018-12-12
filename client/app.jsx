@@ -10,6 +10,7 @@ import loggerMiddleware from './middleware/logger';
 import userMiddleware from './middleware/user';
 import delaysMiddleware from './middleware/delays';
 import 'antd/dist/antd.css';
+import 'whatwg-fetch';
 
 const fluxfailTheme = getMuiTheme({
   palette: {
