@@ -2,8 +2,8 @@ import React from 'react';
 
 const About = () => (
   <div>
-    <h1>About Flux.Fail</h1>
     <center>
+      <br />
       <strong>flux.fail wird betrieben von:</strong><br />
       <hr />
       <pre>
@@ -13,7 +13,7 @@ const About = () => (
       </pre>
       Eingetragen beim Amtsgericht Berlin-Charlottenburg unter HRB200262 B.
       <hr />
-      Inhaltlich verantwortlich: Brian Wiborg
+      Inhaltlich verantwortlich: <a href="mailto:hallo@flux.fail">Brian Wiborg</a>
     </center>
   </div>
 );

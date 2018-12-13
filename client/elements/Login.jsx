@@ -48,7 +48,7 @@ class Login extends React.Component {
               </Button>
             </FormItem>
             <Alert
-              message="Grey-Listing"
+              message="Beware of grey-listing!"
               description="The spam-protection of your mail-provider may delay your very first login e-mail for up to 10 minutes."
               type="info"
               showIcon
