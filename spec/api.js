@@ -100,12 +100,14 @@ describe('FluxFail API', () => {
           .set('Authorization', `Bearer ${apiToken}`)
           .send({
             id: delayId,
-            date: new Date(),
-            type: 'subway',
+            scheduled_departure: new Date(),
+            vehicle: 0,
+            country: 'DE',
             city: 'Berlin',
             line: 'U8',
             direction: 'Wittenau',
-            delay: 3,
+            location: 'U Hermannplatz',
+            delay_minutes: 3,
           })
           .expect(202);
       });
@@ -128,13 +130,14 @@ describe('FluxFail API', () => {
           .set('Authorization', `Bearer ${apiToken}`)
           .send({
             id: delayId,
-            date: new Date(),
-            type: 'subway',
+            scheduled_departure: new Date(),
+            vehicle: 0,
+            country: 'DE',
             city: 'Berlin',
             line: 'U8',
             direction: 'Paracelsus-Bad',
-            delay: 3,
-            total_delay: 5,
+            location: 'U Hermannplatz',
+            delay_minutes: 5,
           })
           .expect(202);
       });
@@ -149,7 +152,7 @@ describe('FluxFail API', () => {
             expect(res.body[0].id).to.equal(delayId);
             expect(res.body[0].line).to.equal('U8');
             expect(res.body[0].direction).to.equal('Paracelsus-Bad');
-            expect(res.body[0].total_delay).to.equal(5);
+            expect(res.body[0].delay_minutes).to.equal(5);
           });
       });
       it('should be possible to delete', () => {
