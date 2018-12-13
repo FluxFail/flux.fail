@@ -14,7 +14,7 @@ exports.initialize = () => {
     },
     uuid: (value) => {
       console.log(value);
-      if (value === null || value === "") {
+      if (value === null || value === '') {
         return null;
       }
       if (isUUID(value, 4)) {

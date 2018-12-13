@@ -36,7 +36,7 @@ function getApp() {
   app.use((err, req, res, next) => {
     if (err) {
       console.log(err);
-    };
+    }
     const httpCode = err.httpCode || err.status || 500;
     res.status(httpCode);
     const errorPayload = {

@@ -19,7 +19,7 @@ const drawerStyle = {
 const logoAppBarStyle = {
   height: '40%',
   marginBottom: '9px',
-}
+};
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class Navigation extends React.Component {
     return (
       <nav>
         <AppBar
-          title={<img src="/img/Logo.svg" style={logoAppBarStyle}/>}
+          title={<img src="/img/Logo.svg" alt="" style={logoAppBarStyle} />}
           style={appBarStyle}
           onLeftIconButtonClick={(event) => {
             this.setState({

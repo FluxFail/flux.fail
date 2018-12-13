@@ -35,7 +35,8 @@ class Login extends React.Component {
                 placeholder="Your e-mail address"
                 onChange={event => this.setState({
                   email: event.target.value,
-                })} />
+                })}
+              />
             </FormItem>
             <FormItem>
               <Button
@@ -43,7 +44,8 @@ class Login extends React.Component {
                 htmlType="submit"
                 className="login-form-button"
                 disabled={!isEmail(this.state.email)}
-                onClick={() => this.props.onLogin(this.state.email)}>
+                onClick={() => this.props.onLogin(this.state.email)}
+              >
                 Send Login Link
               </Button>
             </FormItem>
@@ -52,7 +54,8 @@ class Login extends React.Component {
               description="The spam-protection of your mail-provider may delay your very first login e-mail for up to 10 minutes."
               type="info"
               showIcon
-              closeText="X" />
+              closeText="X"
+            />
           </Form>
         </Card>
         <br />

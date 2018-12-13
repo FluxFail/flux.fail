@@ -34,7 +34,7 @@ export const deleteDelay = id => ({
 export const plusOneDelay = id => ({
   type: 'PLUSONE_DELAY',
   id,
-})
+});
 
 export const navigate = target => ({
   type: 'NAVIGATE_TO',
