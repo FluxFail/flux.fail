@@ -65,10 +65,10 @@ exports.list = [
     }
 
     let query = db('delay')
-        .select()
-        .limit(limit)
-        .offset(offset)
-        .orderBy('scheduled_departure', 'desc');
+      .select()
+      .limit(limit)
+      .offset(offset)
+      .orderBy('scheduled_departure', 'desc');
 
     if (!all) {
       query = query.where('user', req.user.id);

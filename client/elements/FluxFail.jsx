@@ -115,7 +115,7 @@ const mapDispatchToProps = dispatch => ({
   },
   onListDelays: (all) => {
     dispatch(actions.listDelays(all));
-  }
+  },
 });
 
 FluxFail.defaultProps = {

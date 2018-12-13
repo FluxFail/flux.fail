@@ -52,13 +52,12 @@ function listDelays(user, next, all = false) {
         });
         return;
       }
-          next({
-            type: 'DELAYS_LOAD_ERROR',
-            message: err.message,
-          });
-        });
-      return;
-      }
+      next({
+        type: 'DELAYS_LOAD_ERROR',
+        message: err.message,
+      });
+    });
+}
 
 const delays = store => next => (action) => {
   switch (action.type) {
