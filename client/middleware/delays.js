@@ -99,6 +99,54 @@ const delays = store => next => (action) => {
         });
       return;
     }
+    case 'LIST_DELAYS': {
+      // Load existing delays for user
+      next({
+        type: 'DELAYS_LOADING',
+      });
+      let query = '';
+      if (action.all) {
+        query = '?all';
+      }
+      const { user } = store.getState();
+      fetch(`${API_URL}/delay${query}`, {
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            const err = new Error(res.statusText);
+            err.httpCode = res.status;
+            throw err;
+          }
+          return res.json();
+        })
+        .then((storedDelays) => {
+          next({
+            type: 'DELAYS_LOADED',
+            delays: storedDelays.map(delay => ({
+              ...delay,
+              scheduled_departure: new Date(delay.scheduled_departure),
+              created_at: new Date(delay.created_at),
+              updated_at: new Date(delay.updated_at),
+            })),
+          });
+        }, (err) => {
+          if (err.httpCode === 401) {
+            // Invalid token, log user out
+            next({
+              type: 'USER_LOGOUT',
+            });
+            return;
+          }
+          next({
+            type: 'DELAYS_LOAD_ERROR',
+            message: err.message,
+          });
+        });
+      return;
+    }
     case 'USER_LOGIN': {
       next(action);
       // Load existing delays for user

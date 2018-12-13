@@ -56,21 +56,26 @@ exports.list = [
   (req, res, next) => {
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : 20;
     const offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
+    const all = Object.keys(req.query).includes('all');
     if (limit > 100) {
       const err = new Error('Limit must be below 100');
       err.httpCode = 422;
       next(err);
       return;
     }
-    db('delay')
-      .select()
-      .where('user', req.user.id)
-      .limit(limit)
-      .offset(offset)
-      .orderBy('scheduled_departure', 'desc')
-      .then((rows) => {
-        res.json(rows);
-      }, err => next(err));
+
+    let query = db('delay')
+        .select()
+        .limit(limit)
+        .offset(offset)
+        .orderBy('scheduled_departure', 'desc');
+
+    if (!all) {
+      query = query.where('user', req.user.id);
+    }
+    query.then((rows) => {
+      res.json(rows);
+    }, err => next(err));
   },
 ];
 

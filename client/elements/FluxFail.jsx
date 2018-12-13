@@ -60,6 +60,7 @@ class FluxFail extends React.Component {
                 onEditDelay={this.props.onEditDelay}
                 onDeleteDelay={this.props.onDeleteDelay}
                 onAddDelay={this.props.onAddDelay}
+                onListDelays={this.props.onListDelays}
               />
             );
           }
@@ -111,6 +112,9 @@ const mapDispatchToProps = dispatch => ({
   onInitialize: () => {
     dispatch(actions.initialize());
   },
+  onListDelays: (all) => {
+    dispatch(actions.listDelays(all));
+  }
 });
 
 FluxFail.defaultProps = {

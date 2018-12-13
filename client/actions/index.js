@@ -44,3 +44,8 @@ export const navigate = target => ({
 export const initialize = () => ({
   type: 'INITIALIZE',
 });
+
+export const listDelays = (all = false) => ({
+  type: 'LIST_DELAYS',
+  all,
+});

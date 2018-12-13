@@ -4,7 +4,7 @@ import { red500 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import { Card, CardActions, CardHeader } from 'material-ui/Card';
-import { Button, Spin } from 'antd';
+import { Button, Spin, Switch } from 'antd';
 import Delay from './Delay';
 
 const ErrorCard = props => (
@@ -27,9 +27,11 @@ class DelayList extends React.Component {
     super(props);
     this.state = {
       openDelay: '',
+      allDelays: false,
     };
 
     this.openDelay = this.openDelay.bind(this);
+    this.listDelays = this.listDelays.bind(this);
   }
 
   openDelay(e, id) {
@@ -42,6 +44,13 @@ class DelayList extends React.Component {
         openDelay: id,
       });
     }
+  }
+
+  listDelays(showAll) {
+    this.setState({
+      allDelays: showAll,
+    });
+    this.props.onListDelays(showAll);
   }
 
   render() {
@@ -63,6 +72,11 @@ class DelayList extends React.Component {
 
     return (
       <div>
+        <div className="w3-right">
+          Show all delays&nbsp;
+          <Switch checked={this.state.allDelays} onChange={this.listDelays} />
+        </div>
+        <br />
         <Button
           className="w3-top w3-margin-top"
           onClick={this.props.onAddDelay}>
