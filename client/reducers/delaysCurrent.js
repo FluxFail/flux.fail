@@ -1,5 +1,4 @@
 const currentDelay = (state = {}, action) => {
-  console.log(action.type, action.message);
   switch (action.type) {
     case 'ADD_DELAY':
       return {
@@ -7,6 +6,13 @@ const currentDelay = (state = {}, action) => {
       };
     case 'EDIT_DELAY':
       return action.props;
+    case 'ONEPLUS_DELAY':
+      return {
+        ...action.props,
+        id: null,
+        user: action.user.id,
+        parent: action.props.id,
+      };
     case 'CANCEL_DELAY':
       return {};
     case 'SAVE_DELAY':

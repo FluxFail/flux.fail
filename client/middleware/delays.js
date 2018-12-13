@@ -69,11 +69,13 @@ const delays = store => next => (action) => {
       });
       return;
     }
-    case 'PLUSONE_DELAY': {
+    case 'ONEPLUS_DELAY': {
       const delay = findDelay(action.id, store);
+      const { user } = store.getState();
       next({
         type: action.type,
         props: delay,
+        user,
       });
       return;
     }
@@ -156,6 +158,7 @@ const delays = store => next => (action) => {
     }
     case 'LIST_DELAYS': {
       const { user } = store.getState();
+      next(action);
       listDelays(user, next, action.all);
       return;
     }

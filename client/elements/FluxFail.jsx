@@ -55,13 +55,14 @@ class FluxFail extends React.Component {
             currentView = (
               <DelayList
                 status={this.props.delays.status}
+                listConfig={this.props.delays.listConfig}
                 user={this.props.user}
                 delays={this.props.delays.reported}
                 onEditDelay={this.props.onEditDelay}
                 onDeleteDelay={this.props.onDeleteDelay}
                 onAddDelay={this.props.onAddDelay}
                 onListDelays={this.props.onListDelays}
-                onOnePlus={this.props.onOnePlusDelay}
+                onOnePlusDelay={this.props.onOnePlusDelay}
               />
             );
           }
@@ -116,12 +117,18 @@ const mapDispatchToProps = dispatch => ({
   onListDelays: (all) => {
     dispatch(actions.listDelays(all));
   },
+  onOnePlusDelay: (id) => {
+    dispatch(actions.onePlusDelay(id));
+  },
 });
 
 FluxFail.defaultProps = {
   allowAddDelay: false,
   delays: {
     status: 'ok',
+    listConfig: {
+      all: false,
+    },
     current: null,
     reported: [],
   },
@@ -133,6 +140,9 @@ FluxFail.propTypes = {
   allowAddDelay: PropTypes.bool,
   delays: PropTypes.shape({
     status: PropTypes.string,
+    listConfig: PropTypes.shape({
+      all: PropTypes.bool,
+    }),
     current: PropTypes.shape({
       id: PropTypes.string,
       scheduled_departure: PropTypes.instanceOf(Date),
@@ -151,6 +161,7 @@ FluxFail.propTypes = {
   onSaveDelay: PropTypes.func.isRequired,
   onCancelDelay: PropTypes.func.isRequired,
   onInitialize: PropTypes.func.isRequired,
+  onOnePlusDelay: PropTypes.func.isRequired,
   user: PropTypes.shape({
     status: PropTypes.string,
     message: PropTypes.string,

@@ -27,7 +27,6 @@ class DelayList extends React.Component {
     super(props);
     this.state = {
       openDelay: '',
-      allDelays: false,
     };
 
     this.openDelay = this.openDelay.bind(this);
@@ -47,9 +46,6 @@ class DelayList extends React.Component {
   }
 
   listDelays(showAll) {
-    this.setState({
-      allDelays: showAll,
-    });
     this.props.onListDelays(showAll);
   }
 
@@ -74,7 +70,7 @@ class DelayList extends React.Component {
       <div>
         <div className="w3-right">
           Show all delays&nbsp;
-          <Switch checked={this.state.allDelays} onChange={this.listDelays} />
+          <Switch checked={this.props.listConfig.all} onChange={this.listDelays} />
         </div>
         <br />
         <Button
@@ -90,7 +86,9 @@ class DelayList extends React.Component {
             isOpen={this.state.openDelay === delay.id}
             onOpenDelay={this.openDelay}
             onEditDelay={this.props.onEditDelay}
-            onDeleteDelay={this.props.onDeleteDelay}/>
+            onDeleteDelay={this.props.onDeleteDelay}
+            onListDelays={this.props.onListDelays}
+            onOnePlusDelay={this.props.onOnePlusDelay}/>
         ))}
       </div>
     )
@@ -99,6 +97,9 @@ class DelayList extends React.Component {
 
 DelayList.defaultProps = {
   delays: [],
+  listConfig: {
+    all: false,
+  },
   status: 'ok',
 };
 
@@ -107,6 +108,9 @@ DelayList.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string,
   }).isRequired,
+  listConfig: PropTypes.shape({
+    all: PropTypes.bool,
+  }),
   delays: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     user: PropTypes.string,
@@ -123,6 +127,8 @@ DelayList.propTypes = {
   })),
   onEditDelay: PropTypes.func.isRequired,
   onDeleteDelay: PropTypes.func.isRequired,
+  onListDelays: PropTypes.func.isRequired,
+  onOnePlusDelay: PropTypes.func.isRequired,
 }
 
 export default DelayList;

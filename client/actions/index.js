@@ -31,8 +31,8 @@ export const deleteDelay = id => ({
   id,
 });
 
-export const plusOneDelay = id => ({
-  type: 'PLUSONE_DELAY',
+export const onePlusDelay = id => ({
+  type: 'ONEPLUS_DELAY',
   id,
 });
 

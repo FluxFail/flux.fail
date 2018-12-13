@@ -28,7 +28,7 @@ class Delay extends React.Component {
     }
   }
 
-  render_details(isMyDelay, country, city, timestamp) {
+  render_details(id, isMyDelay, country, city, timestamp) {
     if (this.props.isOpen === true) {
       let row = "";
       if (isMyDelay === false) {
@@ -36,7 +36,12 @@ class Delay extends React.Component {
           <Row>
             <Col span="24" className="w3-center">
               <ButtonGroup className="w3-bar" style={{width: "100%"}}>
-                <Button className="w3-yellow w3-button" size="large" style={{width: "100%"}} icon="user-add" />
+                <Button
+                  onClick={() => {this.props.onOnePlusDelay(id)}}
+                  className="w3-yellow w3-button"
+                  size="large"
+                  style={{width: "100%"}}
+                  icon="user-add" />
               </ButtonGroup>
             </Col>
           </Row>
@@ -51,13 +56,13 @@ class Delay extends React.Component {
                   size="large"
                   style={{width: "20%"}}
                   icon="delete"
-                  onClick={() => {this.props.onDeleteDelay(this.props.id)}} />
+                  onClick={() => {this.props.onDeleteDelay(id)}} />
                 <Button
                   className="w3-button"
                   size="large"
                   style={{width: "80%"}}
                   icon="edit"
-                  onClick={() => {this.props.onEditDelay(this.props.id)}}>Edit</Button>
+                  onClick={() => {this.props.onEditDelay(id)}}>Edit</Button>
               </ButtonGroup>
             </Col>
           </Row>
@@ -85,6 +90,7 @@ class Delay extends React.Component {
 
   render() {
     const {
+      id,
       isMyDelay,
       scheduled_departure,
       country,
@@ -130,7 +136,7 @@ class Delay extends React.Component {
             {this.render_chevron(country, city, scheduled_departure)}
           </Col>
         </Row>
-        {this.render_details(isMyDelay, country, city, scheduled_departure)}
+        {this.render_details(id, isMyDelay, country, city, scheduled_departure)}
       </div>
     )
   }
@@ -162,6 +168,7 @@ Delay.propTypes = {
   onOpenDelay: PropTypes.func,
   onEditDelay: PropTypes.func,
   onDeleteDelay: PropTypes.func,
+  onOnePulsDelay: PropTypes.func,
 }
 
 export default Delay;
