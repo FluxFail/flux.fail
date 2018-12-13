@@ -4,7 +4,7 @@ import { red500 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import { Card, CardActions, CardHeader } from 'material-ui/Card';
-import { Spin } from 'antd';
+import { Button, Spin } from 'antd';
 import Delay from './Delay';
 
 const ErrorCard = props => (
@@ -63,6 +63,11 @@ class DelayList extends React.Component {
 
     return (
       <div>
+        <Button
+          className="w3-top w3-margin-top"
+          onClick={this.props.onAddDelay}>
+          Add delay
+        </Button>
         {this.props.delays.map(delay => (
           <Delay
             {...delay}

@@ -59,6 +59,7 @@ class FluxFail extends React.Component {
                 delays={this.props.delays.reported}
                 onEditDelay={this.props.onEditDelay}
                 onDeleteDelay={this.props.onDeleteDelay}
+                onAddDelay={this.props.onAddDelay}
               />
             );
           }
@@ -71,8 +72,6 @@ class FluxFail extends React.Component {
           view={this.props.view}
           onNavigate={this.props.onNavigate}
           onLogout={this.props.onLogout}
-          allowAddDelay={allowAddDelay}
-          onAddDelay={this.props.onAddDelay}
         />
         <main>
           {currentView}
