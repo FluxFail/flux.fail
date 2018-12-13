@@ -4,7 +4,7 @@ import { red500 } from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import ErrorIcon from 'material-ui/svg-icons/alert/error';
 import { Card, CardActions, CardHeader } from 'material-ui/Card';
-import { Button, Spin } from 'antd';
+import { Button, Modal, Spin } from 'antd';
 import Delay from './Delay';
 
 const ErrorCard = props => (
@@ -27,9 +27,13 @@ class DelayList extends React.Component {
     super(props);
     this.state = {
       openDelay: '',
+      deleteModalIsOpen: false,
     };
 
     this.openDelay = this.openDelay.bind(this);
+    this.showDeleteModal = this.showDeleteModal.bind(this)
+    this.handleConfirmDelete = this.handleConfirmDelete.bind(this)
+    this.handleCancelDelete = this.handleCancelDelete.bind(this)
   }
 
   openDelay(e, id) {
@@ -42,6 +46,25 @@ class DelayList extends React.Component {
         openDelay: id,
       });
     }
+  }
+
+  showDeleteModal() {
+    this.setState({
+      deleteModalIsOpen: true,
+    })
+  }
+
+  handleConfirmDelete(e) {
+    this.props.onDeleteDelay;
+    this.setState({
+      deleteModalIsOpen: false,
+    });
+  }
+
+  handleCancelDelete(e) {
+    this.setState({
+      deleteModalIsOpen: false,
+    });
   }
 
   render() {
@@ -68,6 +91,14 @@ class DelayList extends React.Component {
           onClick={this.props.onAddDelay}>
           Add delay
         </Button>
+        <Modal
+          title="Are you sure you want to delete this delay?"
+          visible={this.state.deleteModalIsOpen}
+          onOk={this.handleConfirmDelete}
+          onCancel={this.handleCancelDelete}
+          okText="Delete"
+        >
+        </Modal>
         {this.props.delays.map(delay => (
           <Delay
             {...delay}
@@ -76,7 +107,7 @@ class DelayList extends React.Component {
             isOpen={this.state.openDelay === delay.id}
             onOpenDelay={this.openDelay}
             onEditDelay={this.props.onEditDelay}
-            onDeleteDelay={this.props.onDeleteDelay}/>
+            onDeleteDelay={this.showDeleteModal}/>
         ))}
       </div>
     )
