@@ -227,6 +227,7 @@ DelayForm.propTypes = {
   direction: PropTypes.string,
   onSaveDelay: PropTypes.func.isRequired,
   onCancelDelay: PropTypes.func.isRequired,
+  onListDelays: PropTypes.func.isRequired,
 };
 
 export default DelayForm;

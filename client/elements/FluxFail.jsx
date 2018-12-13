@@ -61,6 +61,7 @@ class FluxFail extends React.Component {
                 onDeleteDelay={this.props.onDeleteDelay}
                 onAddDelay={this.props.onAddDelay}
                 onListDelays={this.props.onListDelays}
+                onOnePlus={this.props.onOnePlusDelay}
               />
             );
           }
