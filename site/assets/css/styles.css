@@ -29,7 +29,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
+  background-size: cover !important;
   z-index: -1;
 }
 
@@ -46,7 +46,7 @@ a {
 
 .screenshot {
   max-width: 400px;
-  margin: 0 50px;
+  margin: 0 0px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
