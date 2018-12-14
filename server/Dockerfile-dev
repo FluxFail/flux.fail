@@ -1,0 +1,18 @@
+FROM node:carbon-alpine
+
+
+# Prepare target directory
+WORKDIR /home/fluxserver
+
+# Install runtime dependencies
+COPY package.json .
+RUN npm install && \
+    npm cache clean --force
+
+# Copy server source code
+COPY . .
+RUN npm install
+# Run the server
+EXPOSE 8080
+ENV PORT=8080
+CMD npm run server-dev
