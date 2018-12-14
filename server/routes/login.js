@@ -16,7 +16,6 @@ async function insertUser(userEmail, userId) {
         email: userEmail,
         created_at: new Date(),
       });
-
   } catch (err) {
     console.error('insert user failed', err);
   }
