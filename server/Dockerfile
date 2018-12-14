@@ -7,6 +7,12 @@ ENV NODE_ENV production
 # Prepare target directory
 WORKDIR /opt/fluxfail
 
+#install node-gyp related shtuff
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++
+
 # Install runtime dependencies
 COPY package.json ./
 RUN npm install --only=production
