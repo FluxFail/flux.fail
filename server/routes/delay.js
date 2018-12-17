@@ -70,12 +70,59 @@ exports.list = [
       .offset(offset)
       .orderBy('scheduled_departure', 'desc');
 
-    if (!all) {
-      query = query.where('user', req.user.id);
+    if (all) {
+      query = query.whereNull('parent');
+    } else {
+      query = query.andWhere('user', req.user.id);
     }
-    query.then((rows) => {
-      res.json(rows);
-    }, err => next(err));
+
+    query.then((delays) => {
+      const delayIds = delays.map(r => r.id);
+      return db('delay')
+        .select('parent', 'id', 'user')
+        .whereIn('parent', delayIds)
+        .then((plusOnes) => {
+          return delays.map((delay) => {
+            const plusOnesForDelay = plusOnes.filter(plusOne => plusOne.parent === delay.id);
+            return {
+              ...delay,
+              plusOnes: plusOnesForDelay.map(plusOne => ({
+                id: plusOne.id,
+                user: plusOne.user,
+              })),
+            };
+          });
+        });
+    })
+      .then(delays => res.json(delays))
+      .catch(err => next(err));
+  },
+];
+
+exports.get = [
+  passport.authenticate('bearer', {
+    session: false,
+    failWithError: true,
+  }),
+  (req, res, next) => {
+    db('delay')
+      .select()
+      .where('id', req.params.id)
+      .then((rows) => {
+        if (!rows.length) {
+          const err = new Error(`Delay ${req.params.id} not found`);
+          err.httpCode = 404;
+          throw err;
+        }
+        if (rows[0].user !== req.user.id) {
+          const err = new Error('Unauthorized');
+          err.httpCode = 403;
+        }
+        return rows[0];
+      })
+      .then((delay) => {
+        res.json(delay);
+      }, err => next(err));
   },
 ];
 
