@@ -137,7 +137,6 @@ FluxFail.defaultProps = {
 };
 
 FluxFail.propTypes = {
-  allowAddDelay: PropTypes.bool,
   delays: PropTypes.shape({
     status: PropTypes.string,
     listConfig: PropTypes.shape({

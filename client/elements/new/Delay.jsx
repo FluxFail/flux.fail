@@ -6,6 +6,25 @@ import { VehicleIcon } from '../VehicleIcon';
 
 const ButtonGroup = Button.Group;
 
+function editDelayId(props) {
+  const {sessionUser, user, plusOnes} = props;
+
+  if (user === sessionUser) {
+    return props.id;
+  }
+  const res = plusOnes.map((plusOne) => {
+    if (plusOne.user === sessionUser) {
+      return plusOne.id;
+    }
+  });
+  if (res.length > 0) {
+    return res[0];
+  } else {
+    // there is no editID, delay belongs to another user
+    return '';
+  };
+};
+
 class Delay extends React.Component {
   constructor(props) {
     super(props);
@@ -57,10 +76,10 @@ class Delay extends React.Component {
     }
   }
 
-  render_details(id, isMyDelay, country, city, timestamp) {
+  render_details(id, editId, country, city, timestamp) {
     if (this.props.isOpen === true) {
       let row = "";
-      if (isMyDelay === false) {
+      if (editId === '') {
         row = (
           <Row>
             <Col span="24" className="w3-center">
@@ -70,7 +89,7 @@ class Delay extends React.Component {
                   className="w3-yellow w3-button"
                   size="large"
                   style={{width: "100%"}}
-                  icon="user-add" />
+                  icon="user-add">Yes, I am also affected</Button>
               </ButtonGroup>
             </Col>
           </Row>
@@ -85,13 +104,13 @@ class Delay extends React.Component {
                   size="large"
                   style={{width: "20%"}}
                   icon="delete"
-                  onClick={() => {this.showDeleteModal(id)}} />
+                  onClick={() => {this.showDeleteModal(editId)}} />
                 <Button
                   className="w3-button"
                   size="large"
                   style={{width: "80%"}}
                   icon="edit"
-                  onClick={() => {this.props.onEditDelay(id)}}>Edit</Button>
+                  onClick={() => {this.props.onEditDelay(editId)}}>Edit</Button>
               </ButtonGroup>
             </Col>
           </Row>
@@ -120,7 +139,6 @@ class Delay extends React.Component {
   render() {
     const {
       id,
-      isMyDelay,
       scheduled_departure,
       country,
       city,
@@ -129,8 +147,10 @@ class Delay extends React.Component {
       delay_minutes,
       line,
       vehicle,
-      points
+      plusOnes,
     } = this.props;
+
+    const editId = editDelayId(this.props);
 
     return (
       <div>
@@ -142,7 +162,7 @@ class Delay extends React.Component {
           <Col span="17">
             <br />
             <span className="w3-badge w3-yellow w3-right">
-              {points}
+              {plusOnes.length + 1}
             </span>
             <span>
               <strong>{line}</strong>&nbsp;
@@ -173,7 +193,7 @@ class Delay extends React.Component {
           okText="Delete"
         >
         </Modal>
-        {this.render_details(id, isMyDelay, country, city, scheduled_departure)}
+        {this.render_details(id, editId, country, city, scheduled_departure)}
       </div>
     )
   }
@@ -187,12 +207,14 @@ Delay.defaultProps = {
   city: '',
   scheduled_departure: new Date(),
   location: '',
+  plusOnes: [],
 }
 
 Delay.propTypes = {
-  isMyDelay: PropTypes.bool,
   isOpen: PropTypes.bool,
-  id: PropTypes.string,
+  sessionUser: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
   country: PropTypes.string,
   city: PropTypes.string,
   scheduled_departure: PropTypes.instanceOf(Date),
@@ -201,7 +223,10 @@ Delay.propTypes = {
   delay_minutes: PropTypes.number,
   line: PropTypes.string,
   vehicle: PropTypes.number,
-  points: PropTypes.number,
+  plusOnes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+  })),
   onOpenDelay: PropTypes.func,
   onEditDelay: PropTypes.func,
   onDeleteDelay: PropTypes.func,

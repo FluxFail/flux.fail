@@ -81,8 +81,8 @@ class DelayList extends React.Component {
         {this.props.delays.map(delay => (
           <Delay
             {...delay}
+            sessionUser={this.props.user.id}
             key={delay.id}
-            isMyDelay={this.props.user.id === delay.user}
             isOpen={this.state.openDelay === delay.id}
             onOpenDelay={this.openDelay}
             onEditDelay={this.props.onEditDelay}
@@ -123,7 +123,10 @@ DelayList.propTypes = {
     delay_minutes: PropTypes.number,
     line: PropTypes.string,
     vehicle: PropTypes.number,
-    points: PropTypes.number,
+    plusOnes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      user: PropTypes.string,
+    })),
   })),
   onEditDelay: PropTypes.func.isRequired,
   onDeleteDelay: PropTypes.func.isRequired,

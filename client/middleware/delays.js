@@ -23,7 +23,7 @@ function listDelays(user, next, all = false) {
   }
   fetch(`${API_URL}/delay${query}`, {
     headers: {
-      authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${user.token}`,
     },
   })
     .then((res) => {
@@ -62,7 +62,29 @@ function listDelays(user, next, all = false) {
 const delays = store => next => (action) => {
   switch (action.type) {
     case 'EDIT_DELAY': {
-      const delay = findDelay(action.id, store);
+      const { user } = store.getState();
+      const delay = fetch(`${API_URL}/delay/${action.id}`, {
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            throw new Error(res.statusText);
+          }
+          return res.text();
+        })
+        .then((delay) => {
+          next({
+            ...action,
+            props: delay,
+          });
+        }, (err) => {
+          next({
+            type: 'DELAYS_LOAD_ERROR',
+            message: err.message,
+          });
+        });
       next({
         type: action.type,
         props: delay,
