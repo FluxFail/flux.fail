@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Row, Col, Timeline, Icon, Button } from 'antd';
+import { Row, Col, Timeline, Icon, Button, Modal } from 'antd';
 import { VehicleIcon } from '../VehicleIcon';
 
 const ButtonGroup = Button.Group;
@@ -9,9 +9,38 @@ const ButtonGroup = Button.Group;
 class Delay extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      deleteModalIsOpen: false,
+      idDelete: 0,
+    };
 
     this.render_chevron = this.render_chevron.bind(this);
     this.render_details = this.render_details.bind(this);
+    this.showDeleteModal = this.showDeleteModal.bind(this)
+    this.handleConfirmDelete = this.handleConfirmDelete.bind(this)
+    this.handleCancelDelete = this.handleCancelDelete.bind(this)
+  }
+
+  showDeleteModal(id) {
+    this.setState({
+      deleteModalIsOpen: true,
+      idDelete: id,
+    })
+  }
+
+  handleConfirmDelete(e) {
+    this.props.onDeleteDelay(this.state.idDelete);
+    this.setState({
+      deleteModalIsOpen: false,
+      idDelete: 0,
+    });
+  }
+
+  handleCancelDelete(e) {
+    this.setState({
+      deleteModalIsOpen: false,
+      idDelete: 0,
+    });
   }
 
   render_chevron() {
@@ -56,7 +85,7 @@ class Delay extends React.Component {
                   size="large"
                   style={{width: "20%"}}
                   icon="delete"
-                  onClick={() => {this.props.onDeleteDelay(id)}} />
+                  onClick={() => {this.showDeleteModal(id)}} />
                 <Button
                   className="w3-button"
                   size="large"
@@ -136,6 +165,14 @@ class Delay extends React.Component {
             {this.render_chevron(country, city, scheduled_departure)}
           </Col>
         </Row>
+        <Modal
+          title="Are you sure you want to delete this delay?"
+          visible={this.state.deleteModalIsOpen}
+          onOk={this.handleConfirmDelete}
+          onCancel={this.handleCancelDelete}
+          okText="Delete"
+        >
+        </Modal>
         {this.render_details(id, isMyDelay, country, city, scheduled_departure)}
       </div>
     )
