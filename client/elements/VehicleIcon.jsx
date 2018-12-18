@@ -26,22 +26,22 @@ export const VehicleIcon = ({
 }) => {
   switch (id) {
     case 1:
-      return <BusIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <BusIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
     case 2:
-      return <TrainIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <TrainIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
     case 4:
-      return <SubwayIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <SubwayIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
     case 8:
-      return <TramIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <TramIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
     case 16:
-      return <LiftIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <LiftIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
     case 32:
-      return <FerryIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <FerryIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
     case 64:
-      return <FlightIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <FlightIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
     case 128:
-      return <RocketIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <RocketIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
     default:
-      return <FallbackIcon className={className} style={{ ...style, width: size, height: size }} />;
+      return <FallbackIcon className={className} color="secondary" style={{ ...style, width: size, height: size }} />;
   }
 };
