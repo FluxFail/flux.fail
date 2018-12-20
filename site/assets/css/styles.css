@@ -19,7 +19,7 @@ a {
   position: relative;
   justify-content: center;
   text-align: center;
-  min-height: 70vh;
+  min-height: 30vh;
   color: white;
 }
 
@@ -100,6 +100,7 @@ section h3 {
   max-width: 775px;
   text-align: left;
   text-transform: uppercase;
+  font-size: 24px;
 }
 
 section p {
@@ -141,6 +142,10 @@ h1 {
   margin: 60px 0;
 }
 
+pre {
+  line-height: 1;
+}
+
 footer {
   display: flex;
   align-items: center;
@@ -150,10 +155,11 @@ footer {
   padding: 10px 0;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 640px) {
   section {
     padding: 50px;
   }
+
   img {
       max-width: 280px;
   }
@@ -177,8 +183,13 @@ footer {
     margin-right: 0;
   }
   
+  section h3 {
+    font-size: 18px !important;
+  }
+
 }
 
 .justified {
   margin-right: 0px;
 }
+
