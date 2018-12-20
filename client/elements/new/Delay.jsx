@@ -56,7 +56,7 @@ class Delay extends React.Component {
   }
 
   renderChevron() {
-    if (this.props.isOpen) {
+    if (!this.props.isOpen) {
       return (
         <i className="fas fa-chevron-down w3-large"
           onClick={(e) => {this.props.onOpenDelay(e, this.props.id)}} />
