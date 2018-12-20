@@ -26,14 +26,14 @@ function getDelay(id, user) {
     });
 }
 
-function listDelays(user, next, all = false) {
+function listDelays(user, next, myDelays = false) {
   // Load existing delays for user
   next({
     type: 'DELAYS_LOADING',
   });
   let query = '';
-  if (all) {
-    query = '?all';
+  if (myDelays) {
+    query = '?myDelays';
   }
   fetch(`${API_URL}/delay${query}`, {
     headers: {
@@ -214,13 +214,13 @@ const delays = store => next => (action) => {
     case 'LIST_DELAYS': {
       const { user } = store.getState();
       next(action);
-      listDelays(user, next, action.all);
+      listDelays(user, next, action.myDelays);
       return;
     }
     case 'USER_LOGIN': {
       next(action);
       // Load existing delays for user
-      listDelays(action, next, action.all);
+      listDelays(action, next, action.myDelays);
       return;
     }
     default: {

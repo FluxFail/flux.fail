@@ -69,8 +69,8 @@ class DelayList extends React.Component {
     return (
       <div>
         <div className="w3-right">
-          Show all delays&nbsp;
-          <Switch checked={this.props.listConfig.all} onChange={this.listDelays} />
+          Show my delays only &nbsp;
+          <Switch checked={this.props.listConfig.myDelays} onChange={this.listDelays} />
         </div>
         <br />
         <Button
@@ -98,7 +98,7 @@ class DelayList extends React.Component {
 DelayList.defaultProps = {
   delays: [],
   listConfig: {
-    all: false,
+    myDelays: false,
   },
   status: 'ok',
 };
@@ -109,7 +109,7 @@ DelayList.propTypes = {
     id: PropTypes.string,
   }).isRequired,
   listConfig: PropTypes.shape({
-    all: PropTypes.bool,
+    myDelays: PropTypes.bool,
   }),
   delays: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,

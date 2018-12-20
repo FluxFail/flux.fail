@@ -45,7 +45,7 @@ export const initialize = () => ({
   type: 'INITIALIZE',
 });
 
-export const listDelays = (all = false) => ({
+export const listDelays = (myDelays = false) => ({
   type: 'LIST_DELAYS',
-  all,
+  myDelays,
 });

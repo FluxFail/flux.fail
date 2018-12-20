@@ -114,8 +114,8 @@ const mapDispatchToProps = dispatch => ({
   onInitialize: () => {
     dispatch(actions.initialize());
   },
-  onListDelays: (all) => {
-    dispatch(actions.listDelays(all));
+  onListDelays: (myDelays) => {
+    dispatch(actions.listDelays(myDelays));
   },
   onOnePlusDelay: (id) => {
     dispatch(actions.onePlusDelay(id));
@@ -126,7 +126,7 @@ FluxFail.defaultProps = {
   delays: {
     status: 'ok',
     listConfig: {
-      all: false,
+      myDelays: false,
     },
     current: null,
     reported: [],
@@ -139,7 +139,7 @@ FluxFail.propTypes = {
   delays: PropTypes.shape({
     status: PropTypes.string,
     listConfig: PropTypes.shape({
-      all: PropTypes.bool,
+      myDelays: PropTypes.bool,
     }),
     current: PropTypes.shape({
       id: PropTypes.string,
