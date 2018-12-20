@@ -12,6 +12,20 @@ function findDelay(id, store) {
   return matched[0];
 }
 
+function getDelay(id, user) {
+  return fetch(`${API_URL}/delay/${id}`, {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status !== 200) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    });
+}
+
 function listDelays(user, next, all = false) {
   // Load existing delays for user
   next({
@@ -23,7 +37,7 @@ function listDelays(user, next, all = false) {
   }
   fetch(`${API_URL}/delay${query}`, {
     headers: {
-      authorization: `Bearer ${user.token}`,
+      Authorization: `Bearer ${user.token}`,
     },
   })
     .then((res) => {
@@ -62,11 +76,42 @@ function listDelays(user, next, all = false) {
 const delays = store => next => (action) => {
   switch (action.type) {
     case 'EDIT_DELAY': {
-      const delay = findDelay(action.id, store);
-      next({
-        type: action.type,
-        props: delay,
-      });
+      if (!action.parent) {
+        const delay = findDelay(action.id, store);
+        next({
+          type: action.type,
+          props: delay,
+        });
+        return;
+      }
+
+      const { user } = store.getState();
+      fetch(`${API_URL}/delay/${action.id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            throw new Error(res.statusText);
+          }
+          return res.text();
+        })
+        .then((currentDelay) => {
+          const normalizedDelay = {
+            ...currentDelay,
+            scheduled_departure: new Date(currentDelay.scheduled_departure),
+          };
+          next({
+            ...action,
+            props: normalizedDelay,
+          });
+        }, (err) => {
+          next({
+            type: 'DELAYS_LOAD_ERROR',
+            message: err.message,
+          });
+        });
       return;
     }
     case 'ONEPLUS_DELAY': {
@@ -98,7 +143,7 @@ const delays = store => next => (action) => {
       fetch(`${API_URL}/delay`, {
         body: JSON.stringify(delay),
         headers: {
-          authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
           'content-type': 'application/json',
         },
         method: 'POST',
@@ -110,10 +155,20 @@ const delays = store => next => (action) => {
           return res.text();
         })
         .then(() => {
-          next({
-            ...action,
-            props: delay,
-          });
+          if (!delay.parent) {
+            return next({
+              ...action,
+              props: delay,
+            });
+          }
+          return getDelay(delay.parent, user)
+            .then(parentDelay => next({
+              ...action,
+              props: {
+                ...parentDelay,
+                scheduled_departure: new Date(parentDelay.scheduled_departure),
+              },
+            }));
         }, (err) => {
           next({
             type: 'SAVE_DELAY_ERROR',
@@ -136,7 +191,7 @@ const delays = store => next => (action) => {
       }
       fetch(`${API_URL}/delay/${action.id}`, {
         headers: {
-          authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
         method: 'DELETE',
       })

@@ -9,3 +9,7 @@
 .ant-timeline-item-last .ant-timeline-item-content {
     min-height: 32px !important;
 }
+
+body {
+    line-height: 1 !important;
+}

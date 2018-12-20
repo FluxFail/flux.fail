@@ -6,44 +6,56 @@ import { VehicleIcon } from '../VehicleIcon';
 
 const ButtonGroup = Button.Group;
 
+function editDelayId(id, sessionUser, user, plusOnes) {
+  if (user === sessionUser) {
+    return id;
+  }
+  const res = plusOnes.filter(plusOne => plusOne.user === sessionUser);
+  if (res.length > 0) {
+    return res[0].id;
+  }
+  // there is no editID, delay belongs to another user
+  return null;
+}
+
 class Delay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       deleteModalIsOpen: false,
-      idDelete: 0,
+      idDelete: '',
     };
 
-    this.render_chevron = this.render_chevron.bind(this);
-    this.render_details = this.render_details.bind(this);
-    this.showDeleteModal = this.showDeleteModal.bind(this)
-    this.handleConfirmDelete = this.handleConfirmDelete.bind(this)
-    this.handleCancelDelete = this.handleCancelDelete.bind(this)
+    this.renderChevron = this.renderChevron.bind(this);
+    this.renderDetails = this.renderDetails.bind(this);
+    this.showDeleteModal = this.showDeleteModal.bind(this);
+    this.handleConfirmDelete = this.handleConfirmDelete.bind(this);
+    this.handleCancelDelete = this.handleCancelDelete.bind(this);
   }
 
   showDeleteModal(id) {
     this.setState({
       deleteModalIsOpen: true,
       idDelete: id,
-    })
+    });
   }
 
-  handleConfirmDelete(e) {
+  handleConfirmDelete() {
     this.props.onDeleteDelay(this.state.idDelete);
     this.setState({
       deleteModalIsOpen: false,
-      idDelete: 0,
+      idDelete: '',
     });
   }
 
-  handleCancelDelete(e) {
+  handleCancelDelete() {
     this.setState({
       deleteModalIsOpen: false,
-      idDelete: 0,
+      idDelete: '',
     });
   }
 
-  render_chevron() {
+  renderChevron() {
     if (this.props.isOpen) {
       return (
         <i className="fas fa-chevron-down w3-large"
@@ -57,52 +69,59 @@ class Delay extends React.Component {
     }
   }
 
-  render_details(id, isMyDelay, country, city, timestamp) {
+  renderDetails(id, editId, country, city, timestamp) {
     if (this.props.isOpen === true) {
-      let row = "";
-      if (isMyDelay === false) {
+      let row = '';
+      if (!editId) {
         row = (
           <Row>
             <Col span="24" className="w3-center">
-              <ButtonGroup className="w3-bar" style={{width: "100%"}}>
+              <ButtonGroup className="w3-bar" style={{ width: '100%' }}>
                 <Button
-                  onClick={() => {this.props.onOnePlusDelay(id)}}
+                  onClick={() => { this.props.onOnePlusDelay(id); }}
                   className="w3-yellow w3-button"
                   size="large"
-                  style={{width: "100%"}}
-                  icon="user-add" />
+                  style={{ width: '100%' }}
+                  icon="user-add"
+                >
+                    Yes, I am also affected
+                </Button>
               </ButtonGroup>
             </Col>
           </Row>
-        )
+        );
       } else {
         row = (
           <Row>
             <Col span="24" className="w3-center">
-              <ButtonGroup className="w3-bar" style={{width: "100%"}}>
+              <ButtonGroup className="w3-bar" style={{ width: '100%' }}>
                 <Button
                   className="w3-button w3-red"
                   size="large"
-                  style={{width: "20%"}}
+                  style={{ width: '20%' }}
                   icon="delete"
-                  onClick={() => {this.showDeleteModal(id)}} />
+                  onClick={() => { this.showDeleteModal(editId); }}
+                />
                 <Button
                   className="w3-button"
                   size="large"
-                  style={{width: "80%"}}
+                  style={{ width: '80%' }}
                   icon="edit"
-                  onClick={() => {this.props.onEditDelay(id)}}>Edit</Button>
+                  onClick={() => { this.props.onEditDelay(editId); }}
+                >
+                  Edit
+                </Button>
               </ButtonGroup>
             </Col>
           </Row>
-        )
-      };
+        );
+      }
 
       return (
         <div>
           <Row className="w3-padding">
             <Col span="12" className="w3-left-align">
-              {country}{(! country === "") ? " / " : ""}<br />
+              {country}{(!country === '') ? ' / ' : ''}<br />
               {city}
             </Col>
             <Col span="12" className="w3-right-align">
@@ -112,25 +131,28 @@ class Delay extends React.Component {
           </Row>
           {row}
         </div>
-      )
+      );
     }
-    return (<div></div>);
+    return (<div />);
   }
 
   render() {
     const {
+      sessionUser,
       id,
-      isMyDelay,
+      user,
       scheduled_departure,
       country,
       city,
+      vehicle,
       location,
+      line,
       direction,
       delay_minutes,
-      line,
-      vehicle,
-      points
+      plusOnes,
     } = this.props;
+
+    const editId = editDelayId(id, sessionUser, user, plusOnes);
 
     return (
       <div>
@@ -142,11 +164,11 @@ class Delay extends React.Component {
           <Col span="17">
             <br />
             <span className="w3-badge w3-yellow w3-right">
-              {points}
+              {plusOnes.length + 1}
             </span>
             <span>
               <strong>{line}</strong>&nbsp;
-              <Icon type="arrow-right"/>&nbsp;
+              <Icon type="arrow-right" />&nbsp;
               {direction}
             </span>
             <br />
@@ -155,14 +177,16 @@ class Delay extends React.Component {
               {delay_minutes}min
             </span>
             <div>
-              <small><i>
-                {(location === null || location === "") ? "" : "(ab "+location+")"}
-              </i></small>
+              <small>
+                <i>
+                  {(location === null || location === '') ? '' : '(ab '.concat(location).concat(')')}
+                </i>
+              </small>
             </div>
           </Col>
           <Col span="3" className="w3-center">
             <br /><br />
-            {this.render_chevron(country, city, scheduled_departure)}
+            {this.renderChevron(country, city, scheduled_departure)}
           </Col>
         </Row>
         <Modal
@@ -171,41 +195,48 @@ class Delay extends React.Component {
           onOk={this.handleConfirmDelete}
           onCancel={this.handleCancelDelete}
           okText="Delete"
-        >
-        </Modal>
-        {this.render_details(id, isMyDelay, country, city, scheduled_departure)}
+        />
+        {this.renderDetails(id, editId, country, city, scheduled_departure)}
       </div>
-    )
+    );
   }
 }
 
 Delay.defaultProps = {
-  isMyDelay: false,
+  sessionUser: '',
   isOpen: false,
-  id: '',
+  scheduled_departure: new Date(),
   country: '',
   city: '',
-  scheduled_departure: new Date(),
+  vehicle: 0,
+  line: '',
+  direction: '',
+  delay_minutes: 3,
   location: '',
-}
+  plusOnes: [],
+};
 
 Delay.propTypes = {
-  isMyDelay: PropTypes.bool,
   isOpen: PropTypes.bool,
-  id: PropTypes.string,
+  sessionUser: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
+  scheduled_departure: PropTypes.instanceOf(Date),
   country: PropTypes.string,
   city: PropTypes.string,
-  scheduled_departure: PropTypes.instanceOf(Date),
-  location: PropTypes.string,
-  destination: PropTypes.string,
-  delay_minutes: PropTypes.number,
-  line: PropTypes.string,
   vehicle: PropTypes.number,
-  points: PropTypes.number,
-  onOpenDelay: PropTypes.func,
-  onEditDelay: PropTypes.func,
-  onDeleteDelay: PropTypes.func,
-  onOnePulsDelay: PropTypes.func,
-}
+  location: PropTypes.string,
+  line: PropTypes.string,
+  direction: PropTypes.string,
+  delay_minutes: PropTypes.number,
+  plusOnes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+  })),
+  onOpenDelay: PropTypes.func.isRequired,
+  onEditDelay: PropTypes.func.isRequired,
+  onDeleteDelay: PropTypes.func.isRequired,
+  onOnePlusDelay: PropTypes.func.isRequired,
+};
 
 export default Delay;

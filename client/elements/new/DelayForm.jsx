@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VehicleMap, VehicleIcon } from '../VehicleIcon'
-import { Form, Row, Col, DatePicker, TimePicker, Slider, Input, Button } from 'antd';
 import { Tabs, Tab } from 'material-ui';
+import { Form, Row, Col, DatePicker, TimePicker, Slider, Input, Button } from 'antd';
 import moment from 'moment';
+import { VehicleMap, VehicleIcon } from '../VehicleIcon'
 
 const combinedField = {
   display: 'flex',
@@ -18,14 +18,6 @@ const typePickerAreaStyle = {
   marginLeft: -24,
   marginRight: -24,
 };
-
-const normalize = (delay) => {
-  Object.keys(delay).map((key) => {
-    if (delay[key] === null) {
-      delay[key] = '';
-    };
-  })
-}
 
 class DelayForm extends React.Component {
   constructor(props) {
@@ -185,18 +177,22 @@ class DelayForm extends React.Component {
         <Button
           className="w3-yellow w3-right"
           onClick={() => {
-            const delay = JSON.parse(JSON.stringify(this.state));
+            const delay = { ...this.state };
             delete delay.max;
-            delay.vehicle = this.state.vehicle;
             delay.scheduled_departure = new Date(delay.scheduled_departure);
-            normalize(delay);
+            Object.keys(delay).map((key) => {
+              if (delay[key] === null) {
+                delay[key] = '';
+              }
+            });
             this.props.onSaveDelay(delay);
-          }}>
+          }}
+        >
           {this.state.id ? 'Save changes' : 'Report delay'}
         </Button>
         <Button onClick={this.props.onCancelDelay}>Cancel</Button>
       </Form>
-    )
+    );
   }
 }
 
@@ -215,7 +211,7 @@ DelayForm.defaultProps = {
 
 DelayForm.propTypes = {
   id: PropTypes.string,
-  user: PropTypes.string.isRequired,
+  user: PropTypes.string,
   parent: PropTypes.string,
   scheduled_departure: PropTypes.instanceOf(Date),
   delay_minutes: PropTypes.number,

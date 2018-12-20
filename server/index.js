@@ -23,6 +23,7 @@ function getApp() {
 
   app.post('/delay', delayRoutes.save);
   app.get('/delay', delayRoutes.list);
+  app.get('/delay/:id', delayRoutes.get);
   app.delete('/delay/:id', delayRoutes.del);
 
   // 404 handling

@@ -3,6 +3,23 @@ const uuid = require('uuid/v4');
 const db = require('../db');
 const { validateDelay } = require('../utils/validate');
 
+function getPlusOnes(delays) {
+  const delayIds = delays.map(r => r.id);
+  return db('delay')
+    .select('id', 'user', 'parent')
+    .whereIn('parent', delayIds)
+    .then(plusOnes => delays.map((delay) => {
+      const plusOnesForDelay = plusOnes.filter(plusOne => plusOne.parent === delay.id);
+      return {
+        ...delay,
+        plusOnes: plusOnesForDelay.map(plusOne => ({
+          id: plusOne.id,
+          user: plusOne.user,
+        })),
+      };
+    }));
+}
+
 exports.save = [
   passport.authenticate('bearer', {
     session: false,
@@ -64,18 +81,68 @@ exports.list = [
       return;
     }
 
-    let query = db('delay')
+    db('delay')
       .select()
+      .whereNotNull('parent')
+      .andWhere('user', req.user.id)
       .limit(limit)
       .offset(offset)
-      .orderBy('scheduled_departure', 'desc');
+      .orderBy('scheduled_departure', 'desc')
+      .then((myPlusOnes) => {
+        const plusOneParentIds = myPlusOnes.map(r => r.parent);
+        let query = db('delay')
+          .select()
+          .limit(limit)
+          .offset(offset)
+          .orderBy('scheduled_departure', 'desc')
+          .whereNull('parent');
 
-    if (!all) {
-      query = query.where('user', req.user.id);
-    }
-    query.then((rows) => {
-      res.json(rows);
-    }, err => next(err));
+        if (!all) {
+          query = query
+            .andWhere('user', req.user.id)
+            .orWhere((builder) => {
+              builder
+                .whereIn('id', plusOneParentIds);
+            });
+        }
+
+        query.then(delays => getPlusOnes(delays))
+          .then(delays => res.json(delays))
+          .catch(err => next(err));
+      });
+  },
+];
+
+exports.get = [
+  passport.authenticate('bearer', {
+    session: false,
+    failWithError: true,
+  }),
+  (req, res, next) => {
+    db('delay')
+      .select()
+      .where({ id: req.params.id })
+      .then((delays) => {
+        if (!delays.length) {
+          const err = new Error(`Delay ${req.params.id} not found`);
+          err.httpCode = 404;
+          throw err;
+        }
+        if (delays[0].user !== req.user.id) {
+          const err = new Error('Unauthorized');
+          err.httpCode = 403;
+        }
+        return getPlusOnes(delays)
+          .then((fullDelays) => {
+            if (!fullDelays) {
+              return {};
+            }
+            return fullDelays[0];
+          });
+      })
+      .then((delay) => {
+        res.json(delay);
+      }, err => next(err));
   },
 ];
 

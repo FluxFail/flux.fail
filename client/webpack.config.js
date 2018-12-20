@@ -42,10 +42,6 @@ module.exports = {
         from: 'assets',
         to: `${distPath}/`,
       },
-      {
-        from: 'robots.txt',
-        to: `${distPath}/robots.txt`,
-      },
     ]),
     new webpack.DefinePlugin({
       API_URL: JSON.stringify(process.env.API_URL || 'http://100.115.92.2:8080'),
