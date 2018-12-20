@@ -73,7 +73,7 @@ exports.list = [
   (req, res, next) => {
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : 20;
     const offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
-    const all = Object.keys(req.query).includes('all');
+    const onylUserDelays = Object.keys(req.query).includes('myDelays');
     if (limit > 100) {
       const err = new Error('Limit must be below 100');
       err.httpCode = 422;
@@ -81,10 +81,11 @@ exports.list = [
       return;
     }
 
-    db('delay')
-      .select()
-      .whereNotNull('parent')
-      .andWhere('user', req.user.id)
+    const qAll = db('delay').select().whereNotNull('parent');
+    if (onylUserDelays) {
+      qAll.andWhere('user', req.user.id);
+    }
+    qAll
       .limit(limit)
       .offset(offset)
       .orderBy('scheduled_departure', 'desc')
@@ -97,7 +98,7 @@ exports.list = [
           .orderBy('scheduled_departure', 'desc')
           .whereNull('parent');
 
-        if (!all) {
+        if (onylUserDelays) {
           query = query
             .andWhere('user', req.user.id)
             .orWhere((builder) => {
