@@ -73,7 +73,7 @@ exports.list = [
   (req, res, next) => {
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : 20;
     const offset = req.query.offset ? parseInt(req.query.offset, 10) : 0;
-    const all = Object.keys(req.query).includes('all');
+    const myDelays = Object.keys(req.query).includes('myDelays');
     if (limit > 100) {
       const err = new Error('Limit must be below 100');
       err.httpCode = 422;
@@ -97,7 +97,7 @@ exports.list = [
           .orderBy('scheduled_departure', 'desc')
           .whereNull('parent');
 
-        if (!all) {
+        if (myDelays) {
           query = query
             .andWhere('user', req.user.id)
             .orWhere((builder) => {
