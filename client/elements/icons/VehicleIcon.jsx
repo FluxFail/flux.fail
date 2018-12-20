@@ -6,8 +6,8 @@ import TramIcon from 'material-ui/svg-icons/maps/tram';
 import FerryIcon from 'material-ui/svg-icons/maps/directions-boat';
 import FlightIcon from 'material-ui/svg-icons/maps/flight';
 import FallbackIcon from 'material-ui/svg-icons/maps/directions-transit';
-import LiftIcon from './icons/lift';
-import RocketIcon from './icons/rocket';
+import LiftIcon from './lift';
+import RocketIcon from './rocket';
 
 export const VehicleMap = {
   0: 'None',

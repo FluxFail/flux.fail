@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Row, Col, Timeline, Icon, Button, Modal } from 'antd';
-import { VehicleIcon } from '../VehicleIcon';
+import { VehicleIcon } from '../icons/VehicleIcon';
 
 const ButtonGroup = Button.Group;
 

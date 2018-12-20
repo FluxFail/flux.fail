@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui';
 import { Form, Row, Col, DatePicker, TimePicker, Slider, Input, Button } from 'antd';
 import moment from 'moment';
-import { VehicleMap, VehicleIcon } from '../VehicleIcon'
+import { VehicleMap, VehicleIcon } from '../icons/VehicleIcon'
 
 const combinedField = {
   display: 'flex',

@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Navigation from './Navigation';
-import DelayList from './new/DelayList';
+import DelayList from './delay/DelayList';
+import DelayForm from './delay/DelayForm';
 import Statistics from './Statistics';
-import About from './About';
-import Login from './Login';
-import DelayForm from './new/DelayForm';
+import About from './pages/About';
+import Login from './pages/Login';
 import * as actions from '../actions';
 
 class FluxFail extends React.Component {
