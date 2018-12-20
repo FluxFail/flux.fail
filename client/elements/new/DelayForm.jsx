@@ -69,34 +69,42 @@ class DelayForm extends React.Component {
         >
           <Tab
             icon={<VehicleIcon id={1} size={24} />}
+            disabled={this.props.parent ? true : false}
             value={1}
           />
           <Tab
             icon={<VehicleIcon id={2} size={24} />}
+            disabled={this.props.parent ? true : false}
             value={2}
           />
           <Tab
             icon={<VehicleIcon id={4} size={24} />}
+            disabled={this.props.parent ? true : false}
             value={4}
           />
           <Tab
             icon={<VehicleIcon id={8} size={24} />}
+            disabled={this.props.parent ? true : false}
             value={8}
           />
           <Tab
             icon={<VehicleIcon id={16} size={24} />}
+            disabled={this.props.parent ? true : false}
             value={16}
           />
           <Tab
             icon={<VehicleIcon id={32} size={24} />}
+            disabled={this.props.parent ? true : false}
             value={32}
           />
           <Tab
             icon={<VehicleIcon id={64} size={24} />}
+            disabled={this.props.parent ? true : false}
             value={64}
           />
           <Tab
             icon={<VehicleIcon id={128} size={24} />}
+            disabled={this.props.parent ? true : false}
             value={128}
           />
         </Tabs>
@@ -113,6 +121,7 @@ class DelayForm extends React.Component {
               placeholder="Country"
               defaultValue={this.state.country}
               value={this.state.country}
+              disabled={this.props.parent ? true : false}
               onChange={(e) => {
                 if (e.target.value.length <= 2) {
                   this.setState({country: e.target.value.toUpperCase()})
@@ -124,6 +133,7 @@ class DelayForm extends React.Component {
               placeholder="City"
               defaultValue={this.state.city}
               value={this.state.city}
+              disabled={this.props.parent ? true : false}
               onChange={(e) => {this.setState({city: e.target.value})}}/>
           </Col>
         </Row>
@@ -132,6 +142,7 @@ class DelayForm extends React.Component {
             <Input
               placeholder="Line"
               value={this.state.line}
+              disabled={this.props.parent ? true : false}
               onChange={(e) => {this.setState({line: e.target.value})}}
               />
           </Col>
@@ -139,6 +150,7 @@ class DelayForm extends React.Component {
             <Input
               placeholder="Direction"
               value={this.state.direction}
+              disabled={this.props.parent ? true : false}
               onChange={(e) => {this.setState({direction: e.target.value})}}
               />
           </Col>
@@ -146,7 +158,7 @@ class DelayForm extends React.Component {
         <Row>
           <Col span="24">
             <Input
-              placeholder="Station"
+              placeholder="Where did you get in?"
               value={this.state.location}
               onChange={(e) => {this.setState({location: e.target.value})}} 
               />
