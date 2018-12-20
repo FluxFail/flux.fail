@@ -76,8 +76,9 @@ function listDelays(user, next, myDelays = false) {
 const delays = store => next => (action) => {
   switch (action.type) {
     case 'EDIT_DELAY': {
-      if (!action.parent) {
-        const delay = findDelay(action.id, store);
+      console.log('ACTION: ', action);
+      const delay = findDelay(action.id, store);
+      if (delay) {
         next({
           type: action.type,
           props: delay,
@@ -95,12 +96,12 @@ const delays = store => next => (action) => {
           if (res.status !== 200) {
             throw new Error(res.statusText);
           }
-          return res.text();
+          return res.json();
         })
         .then((currentDelay) => {
           const normalizedDelay = {
             ...currentDelay,
-            scheduled_departure: new Date(currentDelay.scheduled_departure),
+            scheduled_departure: new Date(),
           };
           next({
             ...action,
