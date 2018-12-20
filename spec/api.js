@@ -84,7 +84,7 @@ describe('FluxFail API', () => {
     describe('initially', () => {
       it('should return an empty list of delays', () => {
         return api
-          .get('/delay')
+          .get('/delay?myDelays')
           .set('Authorization', `Bearer ${apiToken}`)
           .expect(200)
           .then((res) => {
@@ -113,7 +113,7 @@ describe('FluxFail API', () => {
       });
       it('should be included in list of delays', () => {
         return api
-          .get('/delay')
+          .get('/delay?myDelays')
           .set('Authorization', `Bearer ${apiToken}`)
           .expect(200)
           .then((res) => {
@@ -143,7 +143,7 @@ describe('FluxFail API', () => {
       });
       it('should have updated in list of delays', () => {
         return api
-          .get('/delay')
+          .get('/delay?myDelays')
           .set('Authorization', `Bearer ${apiToken}`)
           .expect(200)
           .then((res) => {
@@ -163,7 +163,7 @@ describe('FluxFail API', () => {
       });
       it('should no longer be in list of delays', () => {
         return api
-          .get('/delay')
+          .get('/delay?myDelays')
           .set('Authorization', `Bearer ${apiToken}`)
           .expect(200)
           .then((res) => {
