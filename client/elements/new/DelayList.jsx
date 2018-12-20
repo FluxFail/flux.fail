@@ -74,9 +74,11 @@ class DelayList extends React.Component {
         </div>
         <br />
         <Button
-          className="w3-top w3-margin-top"
-          onClick={this.props.onAddDelay}>
-          Add delay
+          className="w3-top w3-margin-top w3-yellow"
+          onClick={this.props.onAddDelay}
+          type="primary"
+          size="large">
+          Report a new Delay
         </Button>
         {this.props.delays.map(delay => (
           <Delay

@@ -10,6 +10,11 @@
     min-height: 32px !important;
 }
 
+.ant-btn-primary {
+  border-color: #ffeb3b !important;
+  color: #444 !important;
+}
+
 body {
     line-height: 1 !important;
 }

@@ -83,8 +83,9 @@ class Delay extends React.Component {
                   size="large"
                   style={{ width: '100%' }}
                   icon="user-add"
+                  type="primary"
                 >
-                    Yes, I am also affected
+                    Yes, me too!
                 </Button>
               </ButtonGroup>
             </Col>
