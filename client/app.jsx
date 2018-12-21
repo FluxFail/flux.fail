@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import 'antd/dist/antd.css';
+import 'whatwg-fetch';
 import FluxFail from './elements/FluxFail';
 import fluxFailStore from './reducers/index';
 import loggerMiddleware from './middleware/logger';
@@ -27,7 +29,11 @@ const fluxfailTheme = getMuiTheme({
 const initialState = {};
 
 const middleware = applyMiddleware(loggerMiddleware, userMiddleware, delaysMiddleware);
-const store = createStore(fluxFailStore, initialState, middleware);
+const store = createStore(
+  fluxFailStore,
+  initialState,
+  middleware,
+);
 
 const App = () => (
   <MuiThemeProvider muiTheme={fluxfailTheme}>

@@ -12,13 +12,116 @@ function findDelay(id, store) {
   return matched[0];
 }
 
+function getDelay(id, user) {
+  return fetch(`${API_URL}/delay/${id}`, {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status !== 200) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    });
+}
+
+function listDelays(user, next, myDelays = false) {
+  // Load existing delays for user
+  next({
+    type: 'DELAYS_LOADING',
+  });
+  let query = '';
+  if (myDelays) {
+    query = '?myDelays';
+  }
+  fetch(`${API_URL}/delay${query}`, {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status !== 200) {
+        const err = new Error(res.statusText);
+        err.httpCode = res.status;
+        throw err;
+      }
+      return res.json();
+    })
+    .then((storedDelays) => {
+      next({
+        type: 'DELAYS_LOADED',
+        delays: storedDelays.map(delay => ({
+          ...delay,
+          scheduled_departure: new Date(delay.scheduled_departure),
+          created_at: new Date(delay.created_at),
+          updated_at: new Date(delay.updated_at),
+        })),
+      });
+    }, (err) => {
+      if (err.httpCode === 401) {
+        // Invalid token, log user out
+        next({
+          type: 'USER_LOGOUT',
+        });
+        return;
+      }
+      next({
+        type: 'DELAYS_LOAD_ERROR',
+        message: err.message,
+      });
+    });
+}
+
 const delays = store => next => (action) => {
   switch (action.type) {
     case 'EDIT_DELAY': {
+      console.log('ACTION: ', action);
       const delay = findDelay(action.id, store);
+      if (delay) {
+        next({
+          type: action.type,
+          props: delay,
+        });
+        return;
+      }
+
+      const { user } = store.getState();
+      fetch(`${API_URL}/delay/${action.id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            throw new Error(res.statusText);
+          }
+          return res.json();
+        })
+        .then((currentDelay) => {
+          const normalizedDelay = {
+            ...currentDelay,
+            scheduled_departure: new Date(),
+          };
+          next({
+            ...action,
+            props: normalizedDelay,
+          });
+        }, (err) => {
+          next({
+            type: 'DELAYS_LOAD_ERROR',
+            message: err.message,
+          });
+        });
+      return;
+    }
+    case 'ONEPLUS_DELAY': {
+      const delay = findDelay(action.id, store);
+      const { user } = store.getState();
       next({
         type: action.type,
         props: delay,
+        user,
       });
       return;
     }
@@ -41,7 +144,7 @@ const delays = store => next => (action) => {
       fetch(`${API_URL}/delay`, {
         body: JSON.stringify(delay),
         headers: {
-          authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
           'content-type': 'application/json',
         },
         method: 'POST',
@@ -53,10 +156,20 @@ const delays = store => next => (action) => {
           return res.text();
         })
         .then(() => {
-          next({
-            ...action,
-            props: delay,
-          });
+          if (!delay.parent) {
+            return next({
+              ...action,
+              props: delay,
+            });
+          }
+          return getDelay(delay.parent, user)
+            .then(parentDelay => next({
+              ...action,
+              props: {
+                ...parentDelay,
+                scheduled_departure: new Date(parentDelay.scheduled_departure),
+              },
+            }));
         }, (err) => {
           next({
             type: 'SAVE_DELAY_ERROR',
@@ -79,7 +192,7 @@ const delays = store => next => (action) => {
       }
       fetch(`${API_URL}/delay/${action.id}`, {
         headers: {
-          authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.token}`,
         },
         method: 'DELETE',
       })
@@ -99,48 +212,16 @@ const delays = store => next => (action) => {
         });
       return;
     }
+    case 'LIST_DELAYS': {
+      const { user } = store.getState();
+      next(action);
+      listDelays(user, next, action.myDelays);
+      return;
+    }
     case 'USER_LOGIN': {
       next(action);
       // Load existing delays for user
-      next({
-        type: 'DELAYS_LOADING',
-      });
-      fetch(`${API_URL}/delay`, {
-        headers: {
-          authorization: `Bearer ${action.token}`,
-        },
-      })
-        .then((res) => {
-          if (res.status !== 200) {
-            const err = new Error(res.statusText);
-            err.httpCode = res.status;
-            throw err;
-          }
-          return res.json();
-        })
-        .then((storedDelays) => {
-          next({
-            type: 'DELAYS_LOADED',
-            delays: storedDelays.map(delay => ({
-              ...delay,
-              date: new Date(delay.date),
-              created_at: new Date(delay.created_at),
-              updated_at: new Date(delay.updated_at),
-            })),
-          });
-        }, (err) => {
-          if (err.httpCode === 401) {
-            // Invalid token, log user out
-            next({
-              type: 'USER_LOGOUT',
-            });
-            return;
-          }
-          next({
-            type: 'DELAYS_LOAD_ERROR',
-            message: err.message,
-          });
-        });
+      listDelays(action, next, action.myDelays);
       return;
     }
     default: {

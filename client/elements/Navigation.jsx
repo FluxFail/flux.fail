@@ -4,10 +4,8 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Home from 'material-ui/svg-icons/action/home';
 import Statistics from 'material-ui/svg-icons/action/assessment';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const appBarStyle = {
   position: 'fixed',
@@ -18,10 +16,9 @@ const drawerStyle = {
   top: '64px',
 };
 
-const fabStyle = {
-  position: 'fixed',
-  right: '24px',
-  bottom: '24px',
+const logoAppBarStyle = {
+  height: '40%',
+  marginBottom: '9px',
 };
 
 class Navigation extends React.Component {
@@ -47,21 +44,10 @@ class Navigation extends React.Component {
   }
 
   render() {
-    let fab = null;
-    if (this.props.allowAddDelay) {
-      fab = (
-        <FloatingActionButton
-          style={fabStyle}
-          onClick={this.props.onAddDelay}
-        >
-          <ContentAdd />
-        </FloatingActionButton>
-      );
-    }
     return (
       <nav>
         <AppBar
-          title="Flux.Fail"
+          title={<img src="/img/Logo.svg" alt="" style={logoAppBarStyle} />}
           style={appBarStyle}
           onLeftIconButtonClick={(event) => {
             this.setState({
@@ -97,21 +83,17 @@ class Navigation extends React.Component {
             disabled={this.props.view === 'about'}
           />
         </Drawer>
-        {fab}
       </nav>
     );
   }
 }
 
 Navigation.defaultProps = {
-  allowAddDelay: false,
   user: {},
   view: 'home',
 };
 
 Navigation.propTypes = {
-  allowAddDelay: PropTypes.bool,
-  onAddDelay: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
   onNavigate: PropTypes.func.isRequired,
   user: PropTypes.shape({

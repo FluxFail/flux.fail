@@ -1,0 +1,20 @@
+.ant-timeline {
+    padding-top: 16px !important;
+}
+
+.ant-timeline-item {
+    padding: 0px !important;
+}
+
+.ant-timeline-item-last .ant-timeline-item-content {
+    min-height: 32px !important;
+}
+
+.ant-btn-primary {
+  border-color: #ffeb3b !important;
+  color: #444 !important;
+}
+
+body {
+    line-height: 1 !important;
+}

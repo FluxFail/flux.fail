@@ -21,8 +21,14 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           presets: ['env', 'react'],
-          plugins: ['transform-object-rest-spread'],
+          plugins: [
+            'transform-object-rest-spread',
+          ],
         },
+      },
+      {
+        test: /.css$/,
+        loader: "style-loader!css-loader"
       },
     ],
   },
@@ -33,12 +39,8 @@ module.exports = {
         to: `${distPath}/index.html`,
       },
       {
-        from: 'fluxfail.css',
-        to: `${distPath}/fluxfail.css`,
-      },
-      {
-        from: 'robots.txt',
-        to: `${distPath}/robots.txt`,
+        from: 'assets',
+        to: `${distPath}/`,
       },
     ]),
     new webpack.DefinePlugin({

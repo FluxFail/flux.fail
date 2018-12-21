@@ -23,6 +23,7 @@ function getApp() {
 
   app.post('/delay', delayRoutes.save);
   app.get('/delay', delayRoutes.list);
+  app.get('/delay/:id', delayRoutes.get);
   app.delete('/delay/:id', delayRoutes.del);
 
   // 404 handling
@@ -34,6 +35,9 @@ function getApp() {
 
   // Provide errors as JSON
   app.use((err, req, res, next) => {
+    if (err) {
+      console.log(err);
+    }
     const httpCode = err.httpCode || err.status || 500;
     res.status(httpCode);
     const errorPayload = {

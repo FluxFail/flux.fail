@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const user = (state = {}, action) => {
   switch (action.type) {
     case 'USER_REGISTERING': {
@@ -17,9 +19,11 @@ const user = (state = {}, action) => {
       };
     }
     case 'USER_LOGIN': {
+      const decoded = jwt.decode(action.token);
       return {
         status: 'ok',
         token: action.token,
+        id: decoded.user,
       };
     }
     case 'USER_LOGOUT': {

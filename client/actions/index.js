@@ -9,7 +9,7 @@ export const userLogout = () => ({
 
 export const addDelay = () => ({
   type: 'ADD_DELAY',
-  date: new Date(),
+  scheduled_departure: new Date(),
 });
 
 export const cancelDelay = () => ({
@@ -31,6 +31,11 @@ export const deleteDelay = id => ({
   id,
 });
 
+export const onePlusDelay = id => ({
+  type: 'ONEPLUS_DELAY',
+  id,
+});
+
 export const navigate = target => ({
   type: 'NAVIGATE_TO',
   target,
@@ -38,4 +43,9 @@ export const navigate = target => ({
 
 export const initialize = () => ({
   type: 'INITIALIZE',
+});
+
+export const listDelays = (myDelays = false) => ({
+  type: 'LIST_DELAYS',
+  myDelays,
 });
