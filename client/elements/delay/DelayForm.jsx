@@ -36,6 +36,21 @@ class DelayForm extends React.Component {
       direction: props.direction,
       max: 30,
     };
+
+    this.allRequiredFieldsSet = this.allRequiredFieldsSet.bind(this);
+  }
+
+  allRequiredFieldsSet() {
+    const ret = Boolean(this.state.id)
+      && Boolean(this.state.scheduled_departure)
+      && Boolean(this.state.delay_minutes)
+      && Boolean(this.state.country)
+      && Boolean(this.state.city)
+      && Boolean(this.state.location)
+      && Boolean(this.state.line)
+      && Boolean(this.state.direction);
+      console.log(ret);
+      return ret;
   }
 
   render() {
@@ -187,7 +202,8 @@ class DelayForm extends React.Component {
         </div>
         <hr />
         <Button
-          className="w3-yellow w3-right"
+          className={this.allRequiredFieldsSet() ? 'w3-yellow w3-right' : 'w3-right'}
+          disabled={!this.allRequiredFieldsSet()}
           onClick={() => {
             const delay = { ...this.state };
             delete delay.max;
