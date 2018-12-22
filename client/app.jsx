@@ -1,3 +1,4 @@
+import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -5,7 +6,6 @@ import { createStore, applyMiddleware } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import 'antd/dist/antd.css';
-import 'whatwg-fetch';
 import FluxFail from './elements/FluxFail';
 import fluxFailStore from './reducers/index';
 import loggerMiddleware from './middleware/logger';
