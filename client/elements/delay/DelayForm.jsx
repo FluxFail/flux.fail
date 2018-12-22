@@ -41,15 +41,13 @@ class DelayForm extends React.Component {
   }
 
   allRequiredFieldsSet() {
-    const ret = Boolean(this.state.scheduled_departure)
+    return Boolean(this.state.scheduled_departure)
       && Boolean(this.state.delay_minutes)
       && Boolean(this.state.country)
       && Boolean(this.state.city)
       && Boolean(this.state.location)
       && Boolean(this.state.line)
       && Boolean(this.state.direction);
-      console.log(ret);
-      return ret;
   }
 
   render() {
