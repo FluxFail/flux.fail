@@ -4,7 +4,7 @@ services:
 - docker
 before_script:
 - docker build -t fluxfail/site site/
-- cp package.json server/package.json
+
 - docker build -t fluxfail/server server/
 - npm run build
 - docker build -t fluxfail/client client/
