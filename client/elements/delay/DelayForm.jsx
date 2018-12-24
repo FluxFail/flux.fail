@@ -42,7 +42,6 @@ class DelayForm extends React.Component {
 
   allRequiredFieldsSet() {
     return Boolean(this.state.scheduled_departure)
-      && Boolean(this.state.delay_minutes)
       && Boolean(this.state.country)
       && Boolean(this.state.city)
       && Boolean(this.state.location)
@@ -178,6 +177,9 @@ class DelayForm extends React.Component {
         </Row>
         <br />
         <h3>How long?</h3>
+        <div className="w3-center">
+          {this.state.delay_minutes}min
+        </div>
         <Slider
           min={0}
           max={this.state.max}
@@ -194,9 +196,6 @@ class DelayForm extends React.Component {
             });
           }}
         />
-        <div className="w3-center">
-          {this.state.delay_minutes}min
-        </div>
         <hr />
         <Button
           className={this.allRequiredFieldsSet() ? 'w3-yellow w3-right' : 'w3-right'}
