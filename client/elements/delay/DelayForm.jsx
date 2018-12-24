@@ -179,7 +179,7 @@ class DelayForm extends React.Component {
         <br />
         <h3>How long?</h3>
         <Slider
-          min={1}
+          min={0}
           max={this.state.max}
           step={1}
           value={this.state.delay_minutes}

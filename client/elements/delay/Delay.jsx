@@ -123,7 +123,12 @@ class Delay extends React.Component {
           <Row className="w3-padding">
             <Col span="12" className="w3-left-align">
               {country}{(!country === '') ? ' / ' : ''}<br />
-              {city}
+              {city}<br />
+              <small>
+                <i>
+                  {(this.props.location === null || this.props.location === '') ? '' : '(ab '.concat(this.props.location).concat(')')}
+                </i>
+              </small>
             </Col>
             <Col span="12" className="w3-right-align">
               {timestamp.toLocaleDateString()}<br />
@@ -178,11 +183,6 @@ class Delay extends React.Component {
               {delay_minutes}min
             </span>
             <div>
-              <small>
-                <i>
-                  {(location === null || location === '') ? '' : '(ab '.concat(location).concat(')')}
-                </i>
-              </small>
             </div>
           </Col>
           <Col span="3" className="w3-center">
