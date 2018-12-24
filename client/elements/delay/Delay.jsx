@@ -178,7 +178,7 @@ class Delay extends React.Component {
               {direction}
             </span>
             <br />
-            <span className="w3-text-red">
+            <span className={(delay_minutes === 0) ? 'w3-text-green' : 'w3-text-red'}>
               <Icon type="clock-circle" size="small" />&nbsp;
               {delay_minutes}min
             </span>
