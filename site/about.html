@@ -29,13 +29,45 @@
       </div>
     </section>
     <section>
-      <a href="/">
-        <img class="logo_sub" src='./assets/logo_text.png' />
-      </a>
+        <div class="grid">
+          <div class="col">
+            <a id="Datenschutzerklärung"></a>
+            <h3>Datenschutzerklärung</h3>
+              <p>
+                Der Zweck von flux.fail besteht ausdrücklich in der Erfassung und Veröffentlichung von
+                Verspätungen im Linienverkehrsnetz; ausdrücklich nicht in der Erfassung von Bewegungsdaten
+                einzelner Nutzer. Lediglich die Gesamtheit der Bewegungsdaten wird verarbeitet und
+                veröffentlicht.
+              </p>
+              <p>
+                Unter Datenschutz verstehen wir insbesondere, personenbezogene Daten nur in einem Umfang zu
+                erfassen, der für einen reibungslosen Betriebsablauf technisch erforderlich ist, sowie die
+                volle Kontrolle über die vom Nutzer auf der Plattform zur Verfügung gestellten Daten den
+                jeweiligen Nutzern zu überlassen.
+              </p>
+              <p>
+                Es werden Maßnahmen getroffen, um Rückschlüsse der Meldungen auf bestimmte Personen so
+                gut es eben geht zu erschweren.
+                Für die Benutzung von flux.fail ist kein Benutzerkonto erforderlich.
+                Um sich anzumelden, verschicken wir eine E-Mail mit einem Login-Link, der nach einmaliger
+                Nutzung verfällt.
+                Wenn eine Verspätung gemeldet wird, dann versehen wir diese Meldung mit dem
+                <a href="https://de.wikipedia.org/wiki/SHA-2" target="_blank">SHA-256</a> der E-Mail Adresse.
+                So können wir die Meldungen den richtigen Besitzern zuordnen, ohne dass wir E-Mail Adressen
+                im Klartext besitzen müssen.
+              </p>
+              <p>
+                Für die Nutzung von flux.fail ist also einzig eine gültige E-Mail Adresse erforderlich.
+                Meldet sich der Benutzer ab, besitzen wir die klartext E-Mail Adresse nicht.
+                Jeder Nutzer kann seine Meldungen rückwirkend bearbeiten und löschen.
+              </p>
+            </p>
+          </div>
+        </div>
     </section>
     <section>
       <div class="grid">
-        <div class="col">
+        <div class="col w3-center">
           <h2>Impressum</h2>
           <div>
             <br />
@@ -48,7 +80,6 @@ Glogauer Straße 21
 
 Eingetragen beim Amtsgericht:
 Berlin-Charlottenburg
-
 HRB200262 B
             </pre>
             <hr />
@@ -58,43 +89,6 @@ HRB200262 B
         </div>
 
       </div>
-    </section>
-    <section>
-        <div class="grid">
-          <div class="col">
-            <a id="Datenschutzerklärung"></a>
-            <h3>Datenschutzerklärung</h3>
-              <p>
-                Der Zweck von flux.fail besteht ausdrücklich in der Erfassung und Veröffentlichung von
-                Verspätungen im Linienverkehrsnetz. Unter Datenschutz verstehen wir insbesondere so
-                wenig wie nötig personenbezogene Daten zu erfassen und zu besitzen, sowie die volle
-                Kontrolle über die vom Nutzer auf der Plattform zur Verfügung stehenden Daten dem Nutzer 
-                selbst zu überlassen.
-              </p>
-              <p>
-                Für die Benutzung von flux.fail ist kein Benutzerkonto erforderlich.
-                Um sich anzumelden, verschicken wir eine E-Mail mit einem Login-Link, der nach einmaliger
-                Nutzung verfällt.
-                Dieser Link setzt einen <a href="https://de.wikipedia.org/wiki/JSON_Web_Token">JWT</a> Cookie,
-                mit dem der Browser solange angemeldet bleibt bis die App eine Woche am Stück nicht genutzt
-                wurde oder der Benutzer sich abmeldet.
-                Anschließend kann er sich einfach einen neuen Login-Link an die selbe E-Mail Adresse schicken
-                lassen.
-                Da wir alle Meldungen mit dem
-                <a href="https://de.wikipedia.org/wiki/SHA-2" target="_blank">SHA-2</a> der
-                E-Mail Adresse versehen, können wir die Meldungen dann problemlos der neuen Sitzung
-                zuordnen, solange er für die Anmeldung immer die selbe E-Mail Adresse verwendet.
-              </p>
-              <p>
-                Für die Nutzung von flux.fail ist also einzig eine gültige E-Mail Adresse erforderlich.
-                Meldet sich der Benutzer ab, besitzen wir die klartext E-Mail Adresse nicht.
-                Jeder Nutzer kann seine Meldungen rückwirkend bearbeiten und löschen.
-                Somit liegt die volle Kontrolle der vom Nutzer auf der Plattform erfassten Daten bei jedem
-                einzelnen Nutzer selbst.
-              </p>
-            </p>
-          </div>
-        </div>
     </section>
     <section>
         <img class="no_mobile" src='./assets/logo_big.png' />
