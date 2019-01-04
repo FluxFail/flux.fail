@@ -160,6 +160,7 @@ FluxFail.propTypes = {
   onCancelDelay: PropTypes.func.isRequired,
   onInitialize: PropTypes.func.isRequired,
   onOnePlusDelay: PropTypes.func.isRequired,
+  onListDelays: PropTypes.func.isRequired,
   user: PropTypes.shape({
     status: PropTypes.string,
     message: PropTypes.string,
