@@ -75,7 +75,7 @@ class Delay extends React.Component {
       if (!editId) {
         row = (
           <Row>
-            <Col span="24" className="w3-center">
+            <Col span={24} className="w3-center">
               <ButtonGroup className="w3-bar" style={{ width: '100%' }}>
                 <Button
                   onClick={() => { this.props.onOnePlusDelay(id); }}
@@ -94,7 +94,7 @@ class Delay extends React.Component {
       } else {
         row = (
           <Row>
-            <Col span="24" className="w3-center">
+            <Col span={24} className="w3-center">
               <ButtonGroup className="w3-bar" style={{ width: '100%' }}>
                 <Button
                   className="w3-button w3-red"
@@ -121,7 +121,7 @@ class Delay extends React.Component {
       return (
         <div>
           <Row className="w3-padding">
-            <Col span="12" className="w3-left-align">
+            <Col span={12} className="w3-left-align">
               {country}{(!country === '') ? ' / ' : ''}<br />
               {city}<br />
               <small>
@@ -130,7 +130,7 @@ class Delay extends React.Component {
                 </i>
               </small>
             </Col>
-            <Col span="12" className="w3-right-align">
+            <Col span={12} className="w3-right-align">
               {timestamp.toLocaleDateString()}<br />
               {timestamp.toLocaleTimeString()}
             </Col>
@@ -163,11 +163,11 @@ class Delay extends React.Component {
     return (
       <div>
         <Row>
-          <Col span="4" className="w3-center">
+          <Col span={4} className="w3-center">
             <br />
             <VehicleIcon id={vehicle} size={48} /><br />
           </Col>
-          <Col span="17">
+          <Col span={17}>
             <br />
             <span className="w3-badge w3-yellow w3-right">
               {plusOnes.length + 1}
@@ -185,7 +185,7 @@ class Delay extends React.Component {
             <div>
             </div>
           </Col>
-          <Col span="3" className="w3-center">
+          <Col span={3} className="w3-center">
             <br /><br />
             {this.renderChevron(country, city, scheduled_departure)}
           </Col>
