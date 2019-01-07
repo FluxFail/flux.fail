@@ -1,0 +1,34 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    container_name: fluxfail-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: fluxfail
+      POSTGRES_DB: fluxfail
+  server:
+    build:
+      dockerfile: ./server/Dockerfile-dev
+      context: ./
+    environment:
+      DATABASE_URL: 'postgres://fluxfail:@fluxfail-postgres/fluxfail'
+      SMTP_URL: 'smtp://fakesmtp:1025'
+      APP_URL: 'http://localhost:8081'
+      PORT: 8080
+      NODE_TLS_REJECT_UNAUTHORIZED: '0'
+    links:
+      - db
+      - fakesmtp
+    ports:
+      - '127.0.0.1:8080:8080'
+    depends_on:
+      - db
+      - fakesmtp
+
+  fakesmtp:
+    image: fluxfail/fakesmtp
+    container_name: fakesmtp
+    ports:
+      - '127.0.0.1:1025:1025'
+      - '127.0.0.1:1080:1080'
