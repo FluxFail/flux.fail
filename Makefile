@@ -20,7 +20,10 @@ server:
 
 .PHONY: client
 client:
-	npm run build
+	cd client && npm run build
+
+.PHONY: client/image
+client/image:
 	docker build -t fluxfail/client client/
 
 .PHONY: fakesmtp
@@ -36,3 +39,7 @@ compose:
 .PHONY: migrate
 migrate:
 	docker-compose exec server npm run migrate --no-interaction
+
+.PHONY: dev
+dev:
+	npm run dev

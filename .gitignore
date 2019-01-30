@@ -2,6 +2,5 @@
 /client/node_modules/
 /client/dist/
 /server/package.json
-/client/package.json
 npm-debug.log
 package-lock.json
