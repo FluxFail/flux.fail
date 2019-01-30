@@ -7,6 +7,7 @@ API_URL := http://localhost:8080
 .PHONY: clean
 clean:
 	rm -rf ./node_modules
+	rm -rf ./client/node_modules
 	rm -rf ./client/dist
 
 .PHONY: site
