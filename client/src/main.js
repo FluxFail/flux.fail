@@ -13,8 +13,10 @@ import App from './App'
 import { i18n } from './plugins/i18n'
 import router from './router'
 import store from './store'
+import { Trans } from './plugins/Translation'
 
-Vue.config.productionTip = false
+// Translation
+Vue.prototype.$i18nRoute = Trans.i18nRoute.bind(Trans)
 
 // Color Theme
 Vue.prototype.$vuetify.theme = {
@@ -23,6 +25,8 @@ Vue.prototype.$vuetify.theme = {
   accent: '#8c9eff',
   error: '#ff00ff'
 }
+
+Vue.config.productionTip = false
 
 Vue.use(Vuetify, {
   options: {
