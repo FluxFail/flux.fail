@@ -47,8 +47,9 @@ export default {
       items: [
         {
           label: this.$t('menu_item_home'),
-          icon: 'home',
-          action: this.goHomePage
+          icon: 'fas fa-home',
+          action: this.goHomePage,
+          active: true
         },
         {
           label: this.$t('menu_item_delay_stream'),
