@@ -20,7 +20,7 @@ Vue.prototype.$i18nRoute = Trans.i18nRoute.bind(Trans)
 
 // Color Theme
 Vue.prototype.$vuetify.theme = {
-  primary: '#4dd7fa',
+  primary: '#5ccbf0',
   secondary: '#b0bec5',
   accent: '#8c9eff',
   error: '#ff00ff'

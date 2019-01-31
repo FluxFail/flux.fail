@@ -23,9 +23,9 @@
   </v-navigation-drawer>
   <v-toolbar app fixed clipped-left>
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-    <v-toolbar-title class="brand-logo">
-      <img :src="require('./assets/brand_logo.png')" />
+    <v-toolbar-title>
     </v-toolbar-title>
+      <img :src="require('./assets/brand_logo.png')" height="50%" style="padding-bottom: 4px;" />
   </v-toolbar>
   <v-content>
     <router-view></router-view>
@@ -102,15 +102,25 @@ export default {
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+html {
+  font-family: 'Roboto' 16px, sans-serif;
+  color: #212121;
+}
+
 .theme--dark {
-  color: #4dd7fa !important;
+  color: #5ccbf0 !important;
 }
 .brand-logo {
-  max-height: 256px;
   display: inline;
+  max-height: 10px
 }
 .brand-logo img {
-  max-width: 50%;
   height: auto;
 }
 </style>

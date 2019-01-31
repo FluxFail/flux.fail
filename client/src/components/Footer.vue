@@ -1,5 +1,5 @@
 <template>
-<v-footer app fixed>
+<v-footer>
   <v-layout justify-center row wrap>
     <span>
       &copy; {{ copyrightYear }} &mdash;

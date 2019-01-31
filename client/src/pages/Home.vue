@@ -1,16 +1,21 @@
 <template>
-    <v-container id="page-home">
-        <h1>flux.fail welcomes you!</h1>
-    </v-container>
+  <v-layout column fill-height >
+    <Hero />
+  </v-layout>
 </template>
 
 <script>
+import Hero from '../components/Hero.vue'
+
 export default {
+  components: {
+    Hero
+  },
   data () {
     return {}
   }
 }
 </script>
 
-<style>
+<style scoped>
 </style>
