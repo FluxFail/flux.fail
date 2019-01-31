@@ -1,7 +1,6 @@
 // Helpers
 // import colors from 'vuetify/es5/util/colors'
 import 'vuetify/dist/vuetify.min.css'
-import './assets/stylus/main.styl'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import 'babel-polyfill'
@@ -11,6 +10,7 @@ import Vuetify from 'vuetify'
 import './plugins/vuetify'
 
 import App from './App'
+import { i18n } from './plugins/i18n'
 import router from './router'
 import store from './store'
 
@@ -40,6 +40,7 @@ Vue.use(Vuetify, {
 new Vue({
   el: '#app',
   router,
+  i18n,
   store,
   render: h => h(App)
 })
