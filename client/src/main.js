@@ -1,41 +1,45 @@
 // Helpers
-import colors from 'vuetify/es5/util/colors'
+// import colors from 'vuetify/es5/util/colors'
+import 'vuetify/dist/vuetify.min.css'
 import './assets/stylus/main.styl'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@fortawesome/fontawesome-free/css/all.css'
+import 'babel-polyfill'
 
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import './plugins/vuetify'
+
 import App from './App'
 import router from './router'
-import 'babel-polyfill'
+import store from './store'
 
 Vue.config.productionTip = false
 
+// Color Theme
+Vue.prototype.$vuetify.theme = {
+  primary: '#4dd7fa',
+  secondary: '#b0bec5',
+  accent: '#8c9eff',
+  error: '#ff00ff'
+}
+
 Vue.use(Vuetify, {
   options: {
-    cspNonce: 'vau2aegh0yi9aYie',
+    cspNonce: process.env.CSP_NONCE || 'vau2aegh0yi9aYie',
     minifyTheme: function (css) {
       return process.env.NODE_ENV === 'production'
         ? css.replace(/[\s|\r\n|\r|\n]/g, '')
         : css
     }
   },
-  iconfont: 'fa', // 'md' || 'mdi' || 'fa' || 'fa4'
-  theme: {
-    // primary: colors.red.darken1, // #E53935
-    // secondary: colors.red.lighten4, // #FFCDD2
-    // accent: colors.indigo.base // #3F51B5
-    primary: '#4dd7fa',
-    secondary: colors.orange,
-    accent: colors.yellow
-  }
+  iconfont: 'fa' // 'md' || 'mdi' || 'fa' || 'fa4'
 })
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })
