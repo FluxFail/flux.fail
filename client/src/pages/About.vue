@@ -1,6 +1,6 @@
 <template>
-    <v-container id="page-home">
-        <h1>flux.fail welcomes you!</h1>
+    <v-container id="page-login">
+        <h1>About flux.fail</h1>
     </v-container>
 </template>
 
@@ -13,4 +13,5 @@ export default {
 </script>
 
 <style>
+
 </style>
