@@ -30,46 +30,44 @@
   <v-content>
     <router-view></router-view>
   </v-content>
-  <v-footer app fixed>
-    <v-layout justify-center row wrap>
-      <span>
-        &copy; 2018 &mdash;
-        <strong>flux.fail</strong>
-      </span>
-    </v-layout>
-  </v-footer>
+  <Footer :copyrightYear="2018" copyrightOwner="flux.fail" />
 </v-app>
 </template>
 
 <script>
+import Footer from './components/Footer.vue'
+
 export default {
+  components: {
+    Footer
+  },
   data () {
     return {
       drawer: false,
       items: [
         {
-          label: 'Home',
+          label: this.$t('menu_item_home'),
           icon: 'home',
           action: this.goHomePage
         },
         {
-          label: 'Delay-Stream',
+          label: this.$t('menu_item_delay_stream'),
           icon: 'fas fa-clock',
           action: this.foo
         },
         {
-          label: 'My Routes',
+          label: this.$t('menu_item_my_routes'),
           icon: 'fas fa-route',
           action: this.foo
         },
         {
-          label: 'About',
+          label: this.$t('menu_item_about'),
           icon: 'fas fa-question',
           action: this.goAboutPage
         },
         {label: ''},
         {
-          label: 'Login',
+          label: this.$t('menu_item_login'),
           icon: 'fas fa-sign-in-alt',
           action: this.goLoginPage
         }
