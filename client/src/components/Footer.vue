@@ -1,12 +1,14 @@
 <template>
-<v-footer>
-  <v-layout justify-center row wrap>
-    <span>
-      &copy; {{ copyrightYear }} &mdash;
-      <strong>{{ copyrightOwner }}</strong>
-    </span>
-  </v-layout>
-</v-footer>
+<div class="ComponentFoot">
+  <v-footer>
+    <v-layout justify-center row wrap>
+      <span>
+        &copy; {{ copyrightYear }} &mdash;
+        <strong>{{ copyrightOwner }}</strong>
+      </span>
+    </v-layout>
+  </v-footer>
+</div>
 </template>
 
 <script>

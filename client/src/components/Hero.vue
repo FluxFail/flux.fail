@@ -1,26 +1,28 @@
 <template>
-<v-parallax
-  dark
-  :height="400"
-  :src="require('../assets/trainstation_dark_small.jpg')"
->
-  <v-layout
-    align-center
-    column
-    justify-center
+<div id="ComponentHero">
+  <v-parallax
+    dark
+    :height="400"
+    :src="require('../assets/trainstation_dark_small.jpg')"
   >
-    <div>
-      <center>
-        <v-img class="hidden-xs-only logo large" :src="require('../assets/brand_logo.png')">
-        </v-img>
-        <v-img class="hidden-sm-and-up logo small" :src="require('../assets/logo.png')">
-        </v-img>
-        <h4 class="subheading hidden-xs-only">worauf wartest du</h4>
-        <h4 class="subheading hidden-sm-and-up">worauf<br />wartest<br />du</h4>
-      </center>
-    </div>
-  </v-layout>
-</v-parallax>
+    <v-layout
+      align-center
+      column
+      justify-center
+    >
+      <div>
+        <center>
+          <v-img class="hidden-xs-only logo large" :src="require('../assets/brand_logo.png')">
+          </v-img>
+          <v-img class="hidden-sm-and-up logo small" :src="require('../assets/logo.png')">
+          </v-img>
+          <h4 class="subheading hidden-xs-only">worauf wartest du</h4>
+          <h4 class="subheading hidden-sm-and-up">worauf<br />wartest<br />du</h4>
+        </center>
+      </div>
+    </v-layout>
+  </v-parallax>
+</div>
 </template>
 
 <script>
