@@ -8,6 +8,7 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import './plugins/vuetify'
+import './plugins/resources'
 
 import App from './App'
 import { i18n } from './plugins/i18n'

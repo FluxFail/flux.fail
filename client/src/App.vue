@@ -18,6 +18,12 @@
         </v-list-tile>
         </v-list-tile>
       </div>
+      <v-list-tile>
+      </v-list-tile>
+      <v-list-tile @click="logout" v-if="this.$store.state.user.user">
+        <v-list-tile-action><v-icon>fas fa-sign-out-alt</v-icon></v-list-tile-action>
+        <v-list-tile-content><v-list-tile-title>Logout</v-list-tile-title></v-list-tile-content>
+      </v-list-tile>
       <v-spacer></v-spacer>
     </v-list>
   </v-navigation-drawer>
@@ -25,9 +31,16 @@
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     <v-toolbar-title>
     </v-toolbar-title>
-      <img :src="require('./assets/brand_logo.png')" height="50%" style="padding-bottom: 4px;" />
+    <img :src="require('./assets/brand_logo.png')" height="50%" style="padding-bottom: 4px;" />
+    <v-spacer></v-spacer>
+
+    <v-list-tile @click="goLoginPage" v-if="!this.$store.state.user.user">
+      <v-list-tile-action><v-icon>fas fa-sign-in-alt</v-icon></v-list-tile-action>
+      <v-list-tile-content><v-list-tile-title>Login</v-list-tile-title></v-list-tile-content>
+    </v-list-tile>
+
   </v-toolbar>
-  <v-content>
+<v-content>
     <router-view></router-view>
   </v-content>
   <Footer :copyrightYear="2018" copyrightOwner="flux.fail" />
@@ -65,12 +78,6 @@ export default {
           label: this.$t('menu_item_about'),
           icon: 'fas fa-question',
           action: this.goAboutPage
-        },
-        {label: ''},
-        {
-          label: this.$t('menu_item_login'),
-          icon: 'fas fa-sign-in-alt',
-          action: this.goLoginPage
         }
       ]
     }
@@ -96,7 +103,14 @@ export default {
     goLoginPage () {
       this.drawer = false
       this.$router.push({ name: 'LoginPage' })
+    },
+    logout () {
+      this.drawer = false
+      this.$store.commit('authLogout')
     }
+  },
+  created () {
+    this.$store.dispatch('authInitialize')
   }
 }
 </script>
