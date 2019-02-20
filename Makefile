@@ -1,46 +1,73 @@
-.EXPORT_ALL_VARIABLES:
-
 SHELL = /bin/bash
 
-API_URL := http://localhost:8080
+.PHONY: install
+install:
+	cd server && npm install
+	cd client && npm install
 
-.PHONY: clean
-clean:
-	rm -rf ./node_modules
-	rm -rf ./client/node_modules
-	rm -rf ./client/dist
+.PHONY: all
+all: smtp server client
 
-.PHONY: site
-site:
-	docker build -t fluxfail/site site/
+.PHONY: server/clean
+server/clean:
+	rm -rf server/node_modules
+
+.PHONY: server/install
+server/install:
+	cd server && npm install
+
+.PHONY: server/test
+server/test:
+	cd server && npm run test
+
+.PHONY: server/build
+server/build:
+	cd server && npm run image
 
 .PHONY: server
-server:
-	cp package.json server/package.json
-	docker build -t fluxfail/server server/
+server: server/install server/test server/build
+
+.PHONY: client/install
+client/install:
+	cd client && npm install
+
+.PHONY: client/test
+client/test:
+	cd client && npm run test
+
+.PHONY: client/build
+client:
+	echo "Building with API_URL: ${API_URL}"
+	rm -rf client/dist
+	cd client && npm run build
+	cd client && npm run image
 
 .PHONY: client
-client:
-	cd client && npm run build
+client: client/install client/test client/build
 
-.PHONY: client/image
-client/image:
-	docker build -t fluxfail/client client/
-
-.PHONY: fakesmtp
-fakesmtp:
-	cp package.json spec/fakesmtp/package.json
-	docker build -t fluxfail/fakesmtp spec/fakesmtp/
-
-.PHONY: compose
-compose:
-	docker-compose up -d 
-	docker-compose ps
+.PHONY: smtp
+smtp:
+	docker build -t fluxfail/fakesmtp ./spec/fakesmtp/
 
 .PHONY: migrate
 migrate:
-	docker-compose exec server npm run migrate --no-interaction
+	docker-compose exec server npm run migrate
 
-.PHONY: dev
-dev:
-	npm run dev
+.PHONY: server/up
+server/up:
+	docker-compose up -d server
+
+.PHONY: client/up
+client/up:
+	docker-compose up -d client
+
+.PHONY: client/dev
+client/dev:
+	echo "Building DEVSERVER with API_URL: ${API_URL}"
+	cd client && npm start
+
+.PHONY: clean
+clean:
+	rm -rf ./server/node_modules
+	rm -rf ./client/node_modules
+	rm -rf ./client/dist

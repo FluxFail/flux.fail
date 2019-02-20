@@ -1,14 +1,8 @@
-FROM node:lts-alpine
+FROM nginx
 LABEL maintainer Brian Wiborg <brian@flux.fail>
 
-RUN npm install -g http-server
+ENV NPM_CONFIG_LOGLEVEL warn
+ENV NODE_ENV production
 
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-EXPOSE 8080
-CMD [ "http-server", "dist" ]
-
+COPY dist /usr/share/nginx/html
+COPY nginx/vhost.conf /etc/nginx/conf.d/default.conf
