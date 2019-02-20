@@ -1,25 +1,30 @@
 {
-  "title": "Public transport delay",
+  "title": "Public transport favourite route hop",
   "type": "object",
   "properties": {
     "id": {
       "type": "string",
       "format": "uuid"
     },
+    "created_at": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "iso8601"
+    },
     "user": {
       "type": "string",
       "format": "uuid"
     },
-    "parent": {
+    "connection": {
       "type": "string",
       "format": "uuid"
     },
-    "scheduled_departure": {
+    "ride": {
       "type": "string",
-      "format": "iso8601"
-    },
-    "vehicle": {
-      "type": "integer"
+      "format": "uuid"
     },
     "country": {
       "type": "string",
@@ -29,36 +34,36 @@
     "city": {
       "type": "string"
     },
-    "line": {
+    "location": {
       "type": "string"
     },
-    "location": {
+    "vehicle": {
+      "type": "integer"
+    },
+    "line": {
       "type": "string"
     },
     "direction": {
       "type": "string"
     },
-    "delay_minutes": {
-      "type": "integer"
-    },
-    "created_at": {
+    "scheduledDeparture": {
       "type": "string",
       "format": "iso8601"
     },
-    "updated_at": {
+    "scheduledArrival": {
       "type": "string",
       "format": "iso8601"
     }
   },
   "required": [
-    "scheduled_departure",
-    "vehicle",
+    "connection",
+    "ride",
     "country",
     "city",
-    "line",
     "location",
-    "direction",
-    "delay_minutes"
+    "vehicle",
+    "line",
+    "direction"
   ],
   "additionalProperties": false
 }

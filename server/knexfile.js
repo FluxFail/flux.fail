@@ -1,9 +1,9 @@
-const url = require('url');
+const url = require('url')
 
-const dbUrl = process.env.DATABASE_URL || 'postgres://postgres:@localhost/fluxfail';
-const dbConfig = url.parse(dbUrl);
-const [dbUser, dbPass] = (dbConfig.auth || '').split(':');
-const dbName = dbConfig.path.substr(1);
+const dbUrl = process.env.DATABASE_URL || 'postgres://postgres:@localhost/fluxfail'
+const dbConfig = url.parse(dbUrl) // eslint-disable-line node/no-deprecated-api
+const [dbUser, dbPass] = (dbConfig.auth || '').split(':')
+const dbName = dbConfig.path.substr(1)
 
 module.exports = {
   development: {
@@ -13,15 +13,15 @@ module.exports = {
       port: dbConfig.port,
       database: dbName,
       user: dbUser,
-      pass: dbPass,
+      pass: dbPass
     },
     pool: {
       min: 2,
-      max: 10,
+      max: 10
     },
     migrations: {
-      tableName: 'knex_migrations',
-    },
+      tableName: 'knex_migrations'
+    }
   },
   staging: {
     client: 'postgresql',
@@ -30,15 +30,15 @@ module.exports = {
       port: dbConfig.port,
       database: dbName,
       user: dbUser,
-      pass: dbPass,
+      pass: dbPass
     },
     pool: {
       min: 2,
-      max: 10,
+      max: 10
     },
     migrations: {
-      tableName: 'knex_migrations',
-    },
+      tableName: 'knex_migrations'
+    }
   },
   production: {
     client: 'postgresql',
@@ -47,14 +47,14 @@ module.exports = {
       port: dbConfig.port,
       database: dbName,
       user: dbUser,
-      pass: dbPass,
+      pass: dbPass
     },
     pool: {
       min: 2,
-      max: 10,
+      max: 10
     },
     migrations: {
-      tableName: 'knex_migrations',
-    },
-  },
-};
+      tableName: 'knex_migrations'
+    }
+  }
+}

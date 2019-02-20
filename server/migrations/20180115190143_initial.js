@@ -8,38 +8,38 @@
  *   - total travel delay caused by this line delay
  */
 exports.up = knex => knex.schema.createTable('user', (t) => {
-  t.uuid('id').primary();
-  t.string('email').index();
-  t.timestamps();
+  t.uuid('id').primary()
+  t.string('email').index()
+  t.timestamps()
 })
   .then(() => knex.schema.createTable('auth', (t) => {
-    t.uuid('user').notNullable().references('id').inTable('user');
-    t.string('grant').index();
-    t.timestamps();
+    t.uuid('user').notNullable().references('id').inTable('user')
+    t.string('grant').index()
+    t.timestamps()
   }))
   .then(() => knex.schema.createTable('delay', (t) => {
-    t.uuid('id').primary();
-    t.uuid('user').notNullable().references('id').inTable('user');
+    t.uuid('id').primary()
+    t.uuid('user').notNullable().references('id').inTable('user')
     // When the delay happened
-    t.timestamp('date').notNullable().index();
+    t.timestamp('date').notNullable().index()
     // Transport type
-    t.string('type').index();
+    t.string('type').index()
     // Country (ISO 3166-1 alpha-2)
-    t.string('country', 2).index();
+    t.string('country', 2).index()
     // City
-    t.string('city').index();
+    t.string('city').index()
     // Line
-    t.string('line').index();
+    t.string('line').index()
     // End station / direction
-    t.string('direction');
+    t.string('direction')
     // Delay in minutes
-    t.integer('delay');
+    t.integer('delay')
     // Total delay caused by this segment
-    t.integer('total_delay');
+    t.integer('total_delay')
     // Time information
-    t.timestamps();
-  }));
+    t.timestamps()
+  }))
 
 exports.down = knex => knex.schema.dropTable('delay')
   .then(() => knex.schema.dropTable('auth'))
-  .then(() => knex.schema.dropTable('user'));
+  .then(() => knex.schema.dropTable('user'))

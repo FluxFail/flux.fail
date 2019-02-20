@@ -1,0 +1,87 @@
+{
+  "title": "Public transport hop",
+  "type": "object",
+  "properties": {
+    "created_at": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "user": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "favFlux": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "connection": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ride": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "country": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "city": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "vehicle": {
+      "type": "integer"
+    },
+    "line": {
+      "type": "string"
+    },
+    "direction": {
+      "type": "string"
+    },
+    "scheduledDeparture": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "scheduledArrival": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "cancelled": {
+      "type": "boolean"
+    },
+    "departedAt": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "arrivedAt": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "comment": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "connection",
+    "ride",
+    "country",
+    "city",
+    "location",
+    "vehicle",
+    "line",
+    "direction"
+  ],
+  "additionalProperties": false
+}
