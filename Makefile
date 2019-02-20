@@ -6,7 +6,7 @@ install:
 	cd client && npm install
 
 .PHONY: all
-all: smtp server client
+all: fakesmtp server client
 
 .PHONY: server/clean
 server/clean:
@@ -25,7 +25,7 @@ server/build:
 	cd server && npm run image
 
 .PHONY: server
-server: server/install server/test server/build
+server: server/install server/build
 
 .PHONY: client/install
 client/install:
@@ -43,15 +43,18 @@ client:
 	cd client && npm run image
 
 .PHONY: client
-client: client/install client/test client/build
+client: client/install client/build
 
-.PHONY: smtp
-smtp:
+.PHONY: fakesmtp
+fakesmtp:
 	docker build -t fluxfail/fakesmtp ./spec/fakesmtp/
 
 .PHONY: migrate
 migrate:
 	docker-compose exec server npm run migrate
+
+.PHONY: test
+test: server/test client/test
 
 .PHONY: server/up
 server/up:
@@ -71,3 +74,10 @@ clean:
 	rm -rf ./server/node_modules
 	rm -rf ./client/node_modules
 	rm -rf ./client/dist
+
+.PHONY: travis
+travis: server client fakesmtp
+	docker-compose up -d
+	docker-compose ps
+	sleep 15
+	$(MAKE) migrate

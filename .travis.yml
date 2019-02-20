@@ -2,18 +2,7 @@ language: node_js
 node_js: lts/*
 services:
 - docker
-before_script:
-- docker build -t fluxfail/site site/
-- cp package.json server/package.json
-- docker build -t fluxfail/server server/
-- npm run build
-- docker build -t fluxfail/client client/
-- cp package.json spec/fakesmtp/package.json
-- docker build -t fluxfail/fakesmtp spec/fakesmtp/
-- docker-compose up -d
-- docker-compose ps
-- sleep 15
-- docker-compose exec server npm run migrate --no-interaction
+before_script: make travis
 deploy:
   -
     provider: script
