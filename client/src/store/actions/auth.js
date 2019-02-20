@@ -28,7 +28,7 @@ export default {
         token: query.token
       }).then((res) => {
         if (res.status !== 200) {
-          context.commit('flashError', res.json((json) => { return json.message }))
+          context.commit('FLASH/SET_FLASH', { message: 'Welcome back!', variant: 'success' })
         }
         return res.json()
       }).then((credentials) => {
@@ -42,14 +42,16 @@ export default {
       email
     }).then((res) => {
       if (res.status !== 202) {
-        state.commit('flashError', {
-          msg: res.json((json) => { return json.message })
+        state.commit('FLASH/SET_FLASH', {
+          message: res.json((json) => { return json.message }),
+          variant: 'danger'
         })
       }
       // TODO: Handle success
     }, (res) => {
-      state.commit('flashError', {
-        msg: res.json((json) => { return json.message })
+      state.commit('FLASH/SET_FLASH', {
+        message: res.json((json) => { return json.message }),
+        variant: 'danger'
       })
     })
   }

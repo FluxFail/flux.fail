@@ -1,14 +1,11 @@
 {
-  "menu_item_home": "Home",
-  "menu_item_stream": "Stream",
-  "menu_item_my_routes": "My Routes",
-  "menu_item_about": "About",
-  "menu_item_login": "Login",
-  "menu_item_logout": "Logout",
-  "login_title": "Login",
-  "login_form_email_label": "E-Mail",
-  "login_form_email_invalid": "E-Mail must be valid",
-  "check_your_mail": "We've sent you a login-link, please check your inbox.",
-  "report_new_trip": "Create new",
-  "list_all_trips": "List all"
+  "login": "Login",
+  "loginFormLabelEmail": "E-Mail",
+  "loginFormEmailInvalid": "E-Mail must be valid",
+  "loginCheckYourMail": "We've sent you a login-link, please check your inbox.",
+  "logout": "Logout",
+  "pageHomeName": "Home",
+  "pageFluxName": "Flux",
+  "pageMyFluxName": "My Flux",
+  "pageAboutName": "About flux.fail"
 }

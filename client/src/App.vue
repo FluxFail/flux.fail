@@ -15,7 +15,7 @@
       <v-list-tile></v-list-tile>
       <v-list-tile @click="logout" v-if="this.$store.state.user.user">
         <v-list-tile-action><v-icon>fas fa-sign-out-alt</v-icon></v-list-tile-action>
-        <v-list-tile-content><v-list-tile-title>Logout</v-list-tile-title></v-list-tile-content>
+        <v-list-tile-content><v-list-tile-title>{{ $t('logout') }}</v-list-tile-title></v-list-tile-content>
       </v-list-tile>
     </v-list>
   </v-navigation-drawer>
@@ -26,7 +26,7 @@
     <v-spacer></v-spacer>
 
     <v-list-tile @click="goLoginPage" v-if="!this.$store.state.user.user">
-      Login&nbsp;<v-icon>fas fa-sign-in-alt</v-icon>
+      {{ $t('login') }}&nbsp;<v-icon>fas fa-sign-in-alt</v-icon>
     </v-list-tile>
 
     <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -51,24 +51,24 @@ export default {
       loginEmail: '',
       items: [
         {
-          label: this.$t('menu_item_home'),
+          label: this.$t('pageHomeName'),
           icon: 'fas fa-home',
           action: this.goHomePage,
           active: true
         },
         {
-          label: this.$t('menu_item_stream'),
+          label: this.$t('pageFluxName'),
           icon: 'fas fa-clock',
-          action: this.goDelayStreamPage
+          action: this.goFluxPage
         },
         {
-          label: this.$t('menu_item_my_routes'),
+          label: this.$t('pageMyFluxName'),
           icon: 'fas fa-route',
           action: this.foo,
           disabled: true
         },
         {
-          label: this.$t('menu_item_about'),
+          label: this.$t('pageAboutName'),
           icon: 'fas fa-question',
           action: this.goAboutPage
         }
@@ -89,9 +89,9 @@ export default {
       this.drawer = false
       this.$router.push({ name: 'HomePage' })
     },
-    goDelayStreamPage () {
+    goFluxPage () {
       this.drawer = false
-      this.$router.push({ name: 'DelayStreamPage' })
+      this.$router.push({ name: 'FluxPage' })
     },
     goAboutPage () {
       this.drawer = false

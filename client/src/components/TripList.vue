@@ -19,11 +19,11 @@
               </v-list-tile>
               <v-list-tile @click="foo" icon>
                 <mdi-history-icon></mdi-history-icon>&nbsp;
-                <v-list-tile-title>{{ this.$t('menu_item_stream') }}</v-list-tile-title>
+                <v-list-tile-title>{{ this.$t('pageFluxName') }}</v-list-tile-title>
               </v-list-tile>
             </v-list>
           </v-menu>
-        <v-toolbar-title>{{ this.$t('menu_item_stream') }}</v-toolbar-title>
+        <v-toolbar-title>{{ this.$t('pageFluxName') }}</v-toolbar-title>
 
         <v-spacer></v-spacer>
 

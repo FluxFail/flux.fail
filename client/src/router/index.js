@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import About from '@/pages/About'
-import DelayStream from '@/pages/DelayStream'
+import Flux from '@/pages/Flux'
 import Home from '@/pages/Home'
 import Login from '@/pages/Login'
 
@@ -17,9 +17,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/delay',
-      name: 'DelayStreamPage',
-      component: DelayStream
+      path: '/flux',
+      name: 'FluxPage',
+      component: Flux
     },
     {
       path: '/about',
