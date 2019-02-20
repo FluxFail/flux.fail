@@ -8,39 +8,30 @@
   >
     <v-list>
       <!-- Home -->
-      <div v-for="(item, index) in items" :key="index">
-        <v-list-tile @click="item.action" v-if="item.label !== ''">
-          <v-list-tile-action><v-icon>{{ item.icon }}</v-icon></v-list-tile-action>
-          <v-list-tile-content><v-list-tile-title>{{ item.label }}</v-list-tile-title></v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-else>
-        <v-list-tile>
-        </v-list-tile>
-        </v-list-tile>
-      </div>
-      <v-list-tile>
+      <v-list-tile v-for="(item, index) in items" :key="index" @click="item.action" :disabled="item.disabled">
+        <v-list-tile-action :disabled="item.disabled"><v-icon>{{ item.icon }}</v-icon></v-list-tile-action>
+        <v-list-tile-content :disabled="item.disabled"><v-list-tile-title>{{ item.label }}</v-list-tile-title></v-list-tile-content>
       </v-list-tile>
+      <v-list-tile></v-list-tile>
       <v-list-tile @click="logout" v-if="this.$store.state.user.user">
         <v-list-tile-action><v-icon>fas fa-sign-out-alt</v-icon></v-list-tile-action>
         <v-list-tile-content><v-list-tile-title>Logout</v-list-tile-title></v-list-tile-content>
       </v-list-tile>
-      <v-spacer></v-spacer>
     </v-list>
   </v-navigation-drawer>
   <v-toolbar app fixed clipped-left>
-    <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
     <v-toolbar-title>
     </v-toolbar-title>
     <img :src="require('./assets/brand_logo.png')" height="50%" style="padding-bottom: 4px;" />
     <v-spacer></v-spacer>
 
     <v-list-tile @click="goLoginPage" v-if="!this.$store.state.user.user">
-      <v-list-tile-action><v-icon>fas fa-sign-in-alt</v-icon></v-list-tile-action>
-      <v-list-tile-content><v-list-tile-title>Login</v-list-tile-title></v-list-tile-content>
+      Login&nbsp;<v-icon>fas fa-sign-in-alt</v-icon>
     </v-list-tile>
 
+    <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
   </v-toolbar>
-<v-content>
+  <v-content>
     <router-view></router-view>
   </v-content>
   <Footer :copyrightYear="2018" copyrightOwner="flux.fail" />
@@ -57,6 +48,7 @@ export default {
   data () {
     return {
       drawer: false,
+      loginEmail: '',
       items: [
         {
           label: this.$t('menu_item_home'),
@@ -65,14 +57,15 @@ export default {
           active: true
         },
         {
-          label: this.$t('menu_item_delay_stream'),
+          label: this.$t('menu_item_stream'),
           icon: 'fas fa-clock',
-          action: this.foo
+          action: this.goDelayStreamPage
         },
         {
           label: this.$t('menu_item_my_routes'),
           icon: 'fas fa-route',
-          action: this.foo
+          action: this.foo,
+          disabled: true
         },
         {
           label: this.$t('menu_item_about'),
@@ -96,6 +89,10 @@ export default {
       this.drawer = false
       this.$router.push({ name: 'HomePage' })
     },
+    goDelayStreamPage () {
+      this.drawer = false
+      this.$router.push({ name: 'DelayStreamPage' })
+    },
     goAboutPage () {
       this.drawer = false
       this.$router.push({ name: 'AboutPage' })
@@ -107,9 +104,12 @@ export default {
     logout () {
       this.drawer = false
       this.$store.commit('authLogout')
+    },
+    login (email) {
+      this.$store.dispatch('authSendLoginMail', email)
     }
   },
-  created () {
+  created: function () {
     this.$store.dispatch('authInitialize')
   }
 }
@@ -129,6 +129,9 @@ html {
 
 .theme--dark {
   color: #5ccbf0 !important;
+}
+.mdi-icon {
+  fill: #5ccbf0 !important;
 }
 .brand-logo {
   display: inline;

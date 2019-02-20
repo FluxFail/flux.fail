@@ -2,16 +2,21 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import actions from './actions'
 import mutations from './mutations'
+import { createFlashStore } from 'vuex-flash'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [
+    createFlashStore()
+  ],
   state: {
-    errors: [],
-    warnings: [],
-    infos: [],
-    successes: [],
-    user: {}
+    user: {},
+    trips: {
+      loading: false,
+      loaded: [],
+      current: null
+    }
   },
   actions,
   mutations

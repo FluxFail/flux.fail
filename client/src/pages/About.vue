@@ -1,11 +1,16 @@
 <template>
     <v-container id="page-login">
-        <h1>About flux.fail</h1>
+        <DataProtectionPolicy />
     </v-container>
 </template>
 
 <script>
+import DataProtectionPolicy from '../components/DataProtectionPolicy.vue'
+
 export default {
+  components: {
+    DataProtectionPolicy
+  },
   data () {
     return {}
   }

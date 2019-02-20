@@ -5,6 +5,11 @@
     <div class="spacer section">
       <v-container>
         Lorem ipsum...
+        <v-btn
+          @click="listDelays"
+        >
+
+        </v-btn>
       </v-container>
     </div>
   </v-layout>
@@ -21,6 +26,11 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    listDelays () {
+      this.$store.dispatch('listAllTrips')
+    }
   }
 }
 </script>

@@ -1,7 +1,7 @@
 import auth from './auth'
-import flash from './flash'
+import trips from './trips'
 
 export default {
   ...auth,
-  ...flash
+  ...trips
 }

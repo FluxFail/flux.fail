@@ -21,6 +21,7 @@ export default {
   },
 
   authLogout (state) {
+    Vue.http.headers.common['Authorization'] = ''
     localStorage.removeItem(jwTokenName)
     state.user = {
       ...defaultUser

@@ -3,6 +3,8 @@
   <v-footer>
     <v-layout justify-center row wrap>
       <span>
+        Made with ❤ in Berlin
+        |
         &copy; {{ copyrightYear }} &mdash;
         <strong>{{ copyrightOwner }}</strong>
       </span>
