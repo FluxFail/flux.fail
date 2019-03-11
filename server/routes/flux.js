@@ -13,14 +13,17 @@ exports.save = [
     failWithError: true
   }),
   (req, res, next) => {
+
+    req.body.user = req.user.id
+
     if (!req.body.id) {
       req.body.id = uuid()
     }
-    if (!req.body.ride) {
-      req.body.ride = uuid()
-    }
     if (!req.body.connection) {
       req.body.connection = uuid()
+    }
+    if (!req.body.ride) {
+      req.body.ride = uuid()
     }
     return validateFlux(req.body)
       .then(() => db(fluxTable).select('user').where('id', req.body.id))

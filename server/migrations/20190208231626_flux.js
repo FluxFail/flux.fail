@@ -1,5 +1,9 @@
+const moment = require('moment')
+const uuid = require('uuid')
 
-exports.up = knex => knex.schema.createTable('favFlux', (t) => {
+const migrationTimestamp = moment.utc().toDate()
+
+exports.up = knex => knex.schema.createTable('fluxFav', (t) => {
   t.uuid('id').primary()
   t.timestamp('createdAt').notNullable()
   t.timestamp('updatedAt').nullable()
@@ -21,7 +25,7 @@ exports.up = knex => knex.schema.createTable('favFlux', (t) => {
     t.timestamp('updatedAt').nullable()
     // relations
     t.uuid('user').references('id').inTable('user').notNullable()
-    t.uuid('favFlux').nullable().index()
+    t.uuid('fluxFav').nullable().index()
     t.uuid('connection').notNullable().index()
     t.uuid('ride').notNullable().index()
     // meta details
@@ -39,18 +43,30 @@ exports.up = knex => knex.schema.createTable('favFlux', (t) => {
     t.timestamp('arrivedAt').nullable()
     // extra
     t.string('comment')
-    // unique constraints
-    t.unique([
-      'user',
-      'scheduledDeparture'
-    ])
-    t.unique([
-      'user',
-      'scheduledArrival'
-    ])
   }))
-  // we'll keep the old delays, for now...
-  // .then(() => knex.schema.dropTable('delay'))
+    .then(() => knex('delay')
+      .select()
+      .then(oldDelays => Promise.all(oldDelays.map(oldDelay => knex('flux')
+        .insert({
+          id: oldDelay.id,
+          createdAt: oldDelay.created_at,
+          updatedAt: oldDelay.updated_at ? oldDelay.updatedAt : migrationTimestamp,
+          user: oldDelay.user,
+          connection: uuid(),
+          ride: uuid(),
+          country: oldDelay.country ? oldDelay.country : '-',
+          city: oldDelay.city ? oldDelay.city : '-',
+          location: oldDelay.location ? oldDelay.location : '-',
+          vehicle: oldDelay.vehicle,
+          line: oldDelay.line,
+          direction: oldDelay.direction,
+          cancelled: false,
+          scheduledDeparture: moment(oldDelay.scheduled_departure).startOf('minute').toDate(),
+          departedAt: moment(oldDelay.scheduled_departure).clone().startOf('minute').add(oldDelay.delay_minutes, 'minutes').toDate(),
+          comment: oldDelay.comment
+        })
+      ))))
+        .then(() => knex.schema.dropTable('delay'))
 
 exports.down = knex => {
   throw new Error('point of no return')
