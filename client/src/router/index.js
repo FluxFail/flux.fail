@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import About from '@/pages/About'
-import Flux from '@/pages/Flux'
-import Home from '@/pages/Home'
-import Login from '@/pages/Login'
+import About from '@/pages/AboutPage/index'
+import FluxReport from '@/pages/Flux/ReportPage/index'
+import FluxTicker from '@/pages/Flux/TickerPage/index'
+import Home from '@/pages/HomePage/index'
+import Login from '@/pages/LoginPage/index'
 
 Vue.use(Router)
 
@@ -17,9 +18,14 @@ export default new Router({
       component: Home
     },
     {
-      path: '/flux',
-      name: 'FluxPage',
-      component: Flux
+      path: '/flux/report',
+      name: 'FluxReportPage',
+      component: FluxReport
+    },
+    {
+      path: '/flux/ticker',
+      name: 'FluxTickerPage',
+      component: FluxTicker
     },
     {
       path: '/about',

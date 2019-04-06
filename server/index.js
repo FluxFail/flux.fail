@@ -21,12 +21,14 @@ function getApp () {
   app.post('/login/email', loginRoutes.passwordless)
   app.post('/login/exchange', loginRoutes.exchange)
 
-  // FavConns
+  // fluxFav
   app.delete('/fav/:id', favFluxRoutes.del)
   app.get('/fav/:id', favFluxRoutes.get)
   app.post('/fav', favFluxRoutes.save)
   app.get('/fav', favFluxRoutes.list)
-  // Regular Conns
+  // fluxMeta
+  app.get('/flux/cities/:country', fluxRoutes.citiesInCountry)
+  // flux
   app.get('/flux/stream/connection/:id', fluxRoutes.getConnection)
   app.get('/flux/stream/ride/:id', fluxRoutes.getRide)
   app.get('/flux/stream/user', fluxRoutes.listUser)

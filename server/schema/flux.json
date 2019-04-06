@@ -2,11 +2,11 @@
   "title": "Public transport hop",
   "type": "object",
   "properties": {
-    "created_at": {
+    "createdAt": {
       "type": "string",
       "format": "iso8601"
     },
-    "updated_at": {
+    "updatedAt": {
       "type": "string",
       "format": "iso8601"
     },

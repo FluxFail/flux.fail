@@ -1,7 +1,9 @@
 import auth from './auth'
-import trips from './trips'
+import fluxStream from './fluxStream'
+import fluxReport from './fluxReport'
 
 export default {
   ...auth,
-  ...trips
+  ...fluxStream,
+  ...fluxReport
 }

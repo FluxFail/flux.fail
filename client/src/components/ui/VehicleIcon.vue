@@ -21,26 +21,27 @@ import 'mdi-vue/GondolaIcon'
 import 'mdi-vue/FerryIcon'
 import 'mdi-vue/AirplaneIcon'
 import 'mdi-vue/RocketIcon'
-import { vehicleMap } from '../vehicle'
 
 export default {
   props: {
     id: Number,
     size: {
       type: Number,
-      default: 16
+      default: 2
     }
   },
   data () {
     return {
-      vMap: Object.assign(vehicleMap),
+      vMap: Object.assign(this.$t('vehicle')),
       vId: this.id,
-      vSize: this.size,
+      vSize: `size${this.size}`,
       vSizes: [ 1, 2, 3 ]
     }
   },
-  created: () => {
-    this.vSize = `size${this.vSize}`
+  watch: {
+    size: function (val) {
+      this.vSize = `size${this.size}`
+    }
   }
 }
 </script>
@@ -52,7 +53,8 @@ export default {
 }
 .size2 {
   width: 4vh;
-  height: auto
+  height: auto;
+  padding-top: 8px;
 }
 .size3 {
   width: 8vh;

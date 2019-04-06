@@ -1,11 +1,130 @@
 {
-  "login": "Login",
-  "loginFormLabelEmail": "E-Mail",
-  "loginFormEmailInvalid": "E-Mail must be valid",
-  "loginCheckYourMail": "We've sent you a login-link, please check your inbox.",
-  "logout": "Logout",
-  "pageHomeName": "Home",
-  "pageFluxName": "Flux",
-  "pageMyFluxName": "My Flux",
-  "pageAboutName": "About flux.fail"
+  "vehicle": {
+    "none": "-",
+    "bus": "Bus",
+    "train": "Train",
+    "subway": "Subway",
+    "tram": "Tram",
+    "lift": "Lift",
+    "ship": "Ship",
+    "airplane": "Airplane",
+    "rocket": "Rocket"
+  },
+
+  "generic": {
+    "form": {
+      "btn": {
+        "back": "Back",
+        "cancel": "Cancel",
+        "change": "Change",
+        "next": "Next",
+        "now": "Now",
+        "reset": "Reset",
+        "submit": "Submit"
+      }
+    }
+  },
+
+  "nav": {
+    "home": "Home",
+    "report": "Report",
+    "stream": "Stream",
+    "about": "About",
+    "logout": "Logout"
+  },
+
+  "homePage": {
+    "slogan": {
+      "long": "together on time",
+      "short": "together<br />on time"
+    },
+    
+    "claim": {
+      "long": "tracking delays. not you.<br />open data. open source.",
+      "short": "tracking delays.<br />not you.<br />&mdash;<br />open data.<br />open source."
+    },
+    "reportDelay": "Report a Delay",
+    "ideaSection": {
+      "title": "The idea is fairly simple",
+      "paragraphs": [
+        "Let's team up and publicly disclose every single public transportation delay we have to deal with.",
+        "By doing so, we'll keep each other in the loop and up-to-date, while maintaining an effective public incentive for the various transportation providers to invest more into their reliability and punctuality."
+      ],
+      "pitchTitle": "Together on time!",
+      "pitchDescription": "Invite your friends to join the hype. The more users generating reports, the higher the overall coverage for all of us."
+    },
+    "privacySection": {
+      "title": "Privacy &amp; Data-Protection",
+      "paragraphs": [
+        "Publicly disclosing personal location and transportation data to a website on the internet doesn't come without drawbacks.",
+        "Frankly, flux.fail takes data-protection very serious. We take all measures necessary in order to make it as difficult as possible to correlate individual reports to any specific individuals."
+      ],
+      "pitchTitle": "Privacy first!",
+      "pitchDescription": "flux.fail protects your personal data, simply by not collecting any of it. We're only interested in delays and don't even keep your cleartext e-mail address. To us you are a random cryptic ID."
+    },
+    "benefitsSection": {
+      "title": "Benefits",
+      "paragraphs": [
+        "Every reported delay is rewarded with a flux point. The more often a reported delay is acknowledged by other reporters, the more points the report is worth to each of its reporters. However, points are also good indicators for various other report qualities.",
+        "Follow the flux.fail delay-stream while new reports fly in. Use flux.fail as a travel assistent and circumvent your delays before running into them. Find better performing lines or even entire routes that will get you to your destination faster."
+      ],
+      "pitchTitle": "Play to win!",
+      "pitchDescription": "Earn points for reporting delays that happen to you anyway while using the real-time stream as a travel assistant to circumvent delays in the first place. What are you waiting for?"
+    }
+  },
+
+  "loginPage": {
+    "welcome": "Welcome to",
+    "checkMail": "We've sent you a login-link, please check your inbox.",
+    "form": {
+      "label": "E-Mail",
+      "description": "Use the same address every time you login!",
+      "err": {
+        "email": "not a valid e-mail address"
+      }
+    }
+  },
+
+  "fluxPage": {
+    "report": {
+      "title": "Report a FluxFail",
+
+      "step": {
+        "location": "Location",
+        "line": "Line",
+        "schedule": "Official Schedule",
+        "fluxfail": "FluxFail"
+      },
+
+      "form": {
+        "label": {
+          "country": "Country",
+          "city": "City",
+          "location": "Location",
+          "line": "Line",
+          "direction": "Direction",
+          "scheduled": {
+            "arrival": "Scheduled Arrival",
+            "departure": "Scheduled Departure"
+          },
+          "actual": {
+            "arrival": "Actual Arrival",
+            "departure": "Actual Departure"
+          }
+        },
+        "err": {
+          "required": "field is required"
+        },
+        "submitNew": "Report"
+      }
+    },
+
+    "stream": {
+      "title": "Delay Stream"
+    }
+  },
+
+  "privacy": {
+    "dataProtectionStatement": "Data Protection- & Privacy-Statement"
+  }
 }

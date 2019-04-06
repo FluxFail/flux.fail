@@ -1,5 +1,5 @@
 <template>
-<div class="ComponentFoot">
+<div>
   <v-footer>
     <v-layout justify-center row wrap>
       <span>

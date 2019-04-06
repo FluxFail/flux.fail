@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./server",
     "migrate": "knex migrate:latest --cwd server",
+    "seed": "knex seed:run --cwd server --env production",
     "image": "docker build -t fluxfail/server .",
     "pretest": "eslint ./*.js ./migrations/*.js ./routes/*.js ./utils/*.js",
     "test": "mocha --reporter spec ./tests/*.js"
@@ -24,7 +25,9 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "faker": "^4.1.0",
     "http-server": "^0.11.1",
+    "js-sha256": "^0.9.0",
     "jsonwebtoken": "^8.1.1",
     "knex": "^0.14.2",
     "moment": "^2.22.2",

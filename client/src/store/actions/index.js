@@ -1,7 +1,7 @@
 import auth from './auth'
-import trip from './trip'
+import flux from './flux'
 
 export default {
   ...auth,
-  ...trip
+  ...flux
 }

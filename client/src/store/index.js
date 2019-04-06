@@ -1,21 +1,40 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import actions from './actions'
 import mutations from './mutations'
-import { createFlashStore } from 'vuex-flash'
+import actions from './actions'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  plugins: [
-    createFlashStore()
-  ],
   state: {
-    user: {},
-    trips: {
+    user: {
       loading: false,
-      loaded: [],
-      current: null
+      token: '',
+      id: '',
+      username: '',
+      country: '',
+      city: ''
+    },
+    fluxStream: {
+      loading: false,
+      loaded: []
+    },
+    fluxReportForm: {
+      loading: false,
+      fields: {
+        country: '',
+        city: '',
+        location: '',
+        line: '',
+        direction: '',
+        vehicle: 0,
+        scheduledArrival: '',
+        scheduledDeparture: '',
+        cancelled: false,
+        arrivedAt: '',
+        departedAt: '',
+        comment: ''
+      }
     }
   },
   actions,

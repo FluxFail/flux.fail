@@ -1,6 +1,7 @@
 // Helpers
 // import colors from 'vuetify/es5/util/colors'
 import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import 'babel-polyfill'
 
@@ -14,6 +15,8 @@ import { i18n } from './plugins/i18n'
 import router from './router'
 import store from './store'
 import { Trans } from './plugins/Translation'
+
+require('typeface-oswald')
 
 // Translation
 Vue.prototype.$i18nRoute = Trans.i18nRoute.bind(Trans)
@@ -37,7 +40,7 @@ Vue.use(Vuetify, {
         : css
     }
   },
-  iconfont: 'fa' // 'md' || 'mdi' || 'fa' || 'fa4'
+  iconfont: 'mdi' // 'md' || 'mdi' || 'fa' || 'fa4'
 })
 
 /* eslint-disable no-new */

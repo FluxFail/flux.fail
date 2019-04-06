@@ -21,6 +21,9 @@ module.exports = {
     },
     migrations: {
       tableName: 'knex_migrations'
+    },
+    seeds: {
+      directory: __dirname + '/seeds'
     }
   },
   staging: {

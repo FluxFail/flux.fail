@@ -179,3 +179,32 @@ exports.getConnection = [
       .catch(err => next(err))
   }
 ]
+
+exports.citiesInCountry = [
+  passport.authenticate('bearer', {
+    session: false,
+    failWithError: true
+  }),
+  (req, res, next) => {
+    const country = req.params.country
+    if (country.length !== 2) {
+      return res.json(false)
+    }
+
+    const countryUpper = req.params.country.toUpperCase()
+    var query = db('flux')
+      .select('country', 'city')
+      .count('city as weight')
+      .where('user', req.user.id)
+      .andWhere('country', countryUpper)
+      .groupBy('country', 'city')
+      .orderBy('weight', 'desc')
+
+    if (req.params.prefix === 'undefined') {
+      query = query
+        .where('city', 'like', req.params.prefix + '%')
+        .then(entries => res.json(entries.map(entry => entry.city).sort()))
+        .catch(err => next(err))
+    }
+  }
+]
