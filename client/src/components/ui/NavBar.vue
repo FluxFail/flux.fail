@@ -74,8 +74,12 @@ export default {
       this.$router.push({ name: 'HomePage' })
     },
     goFluxReportPage () {
+      if (this.$store.state.user.id) {
+        this.$router.push({ name: 'FluxReportPage' })
+      } else {
+        this.$router.push({ name: 'LoginPage' })
+      }
       this.drawer = false
-      this.$router.push({ name: 'FluxReportPage' })
     },
     goFluxStreamPage () {
       this.drawer = false
