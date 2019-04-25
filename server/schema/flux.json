@@ -50,24 +50,22 @@
     "direction": {
       "type": "string"
     },
-    "scheduledDeparture": {
+    "scheduledAt": {
       "type": "string",
       "format": "iso8601"
     },
-    "scheduledArrival": {
+    "actuallyAt": {
       "type": "string",
       "format": "iso8601"
     },
     "cancelled": {
       "type": "boolean"
     },
-    "departedAt": {
-      "type": "string",
-      "format": "iso8601"
+    "arrival": {
+      "type": "boolean"
     },
-    "arrivedAt": {
-      "type": "string",
-      "format": "iso8601"
+    "departure": {
+      "type": "boolean"
     },
     "comment": {
       "type": "string"
@@ -81,7 +79,9 @@
     "location",
     "vehicle",
     "line",
-    "direction"
+    "direction",
+    "scheduledAt",
+    "actuallyAt"
   ],
   "additionalProperties": false
 }

@@ -16,8 +16,7 @@ exports.up = knex => knex.schema.createTable('fluxFav', (t) => {
   t.integer('vehicle').notNullable()
   t.string('line').notNullable()
   t.string('direction').notNullable()
-  t.timestamp('scheduledDeparture').nullable()
-  t.timestamp('scheduledArrival').nullable()
+  t.timestamp('scheduledAt').nullable()
 })
   .then(() => knex.schema.createTable('flux', (t) => {
     t.uuid('id').primary()
@@ -36,11 +35,11 @@ exports.up = knex => knex.schema.createTable('fluxFav', (t) => {
     t.string('line').notNullable().index()
     t.string('direction').notNullable().index()
     // delay
+    t.timestamp('scheduledAt').notNullable().index()
+    t.timestamp('actuallyAt').nullable().index()
     t.boolean('cancelled').notNullable().default(false).index()
-    t.timestamp('scheduledDeparture').nullable().index()
-    t.timestamp('scheduledArrival').nullable().index()
-    t.timestamp('departedAt').nullable()
-    t.timestamp('arrivedAt').nullable()
+    t.boolean('arrival').notNullable().default(false).index()
+    t.boolean('departure').notNullable().default(false).index()
     // extra
     t.string('comment')
   }))
@@ -60,9 +59,9 @@ exports.up = knex => knex.schema.createTable('fluxFav', (t) => {
           vehicle: oldDelay.vehicle,
           line: oldDelay.line,
           direction: oldDelay.direction,
-          cancelled: false,
-          scheduledDeparture: moment(oldDelay.scheduled_departure).startOf('minute').toDate(),
-          departedAt: moment(oldDelay.scheduled_departure).clone().startOf('minute').add(oldDelay.delay_minutes, 'minutes').toDate(),
+          scheduledAt: moment(oldDelay.scheduled_departure).startOf('minute').toDate(),
+          actuallyAt: moment(oldDelay.scheduled_departure).clone().startOf('minute').add(oldDelay.delay_minutes, 'minutes').toDate(),
+          departure: true,
           comment: oldDelay.comment
         })
       ))))

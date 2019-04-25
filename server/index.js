@@ -7,8 +7,7 @@ require('./utils/auth')
 const validate = require('./utils/validate')
 const loginRoutes = require('./routes/login')
 const fluxRoutes = require('./routes/flux')
-const favFluxRoutes = require('./routes/favFlux')
-const metricRoutes = require('./routes/metrics')
+// const favFluxRoutes = require('./routes/favFlux')
 
 function getApp () {
   const app = express()
@@ -22,22 +21,20 @@ function getApp () {
   app.post('/login/exchange', loginRoutes.exchange)
 
   // fluxFav
-  app.delete('/fav/:id', favFluxRoutes.del)
-  app.get('/fav/:id', favFluxRoutes.get)
-  app.post('/fav', favFluxRoutes.save)
-  app.get('/fav', favFluxRoutes.list)
+  // app.delete('/fav/:id', favFluxRoutes.del)
+  // app.get('/fav/:id', favFluxRoutes.get)
+  // app.post('/fav', favFluxRoutes.save)
+  // app.get('/fav', favFluxRoutes.list)
   // fluxMeta
   app.get('/flux/cities/:country', fluxRoutes.citiesInCountry)
   // flux
-  app.get('/flux/stream/connection/:id', fluxRoutes.getConnection)
-  app.get('/flux/stream/ride/:id', fluxRoutes.getRide)
-  app.get('/flux/stream/user', fluxRoutes.listUser)
-  app.get('/flux/stream', fluxRoutes.listAll)
-  app.get('/flux/user', metricRoutes.private)
+  // app.get('/flux/stream/connection/:id', fluxRoutes.getConnection)
+  // app.get('/flux/stream/ride/:id', fluxRoutes.getRide)
+  app.get('/flux/stream', fluxRoutes.list)
   app.delete('/flux/:id', fluxRoutes.del)
   app.get('/flux/:id', fluxRoutes.get)
   app.post('/flux', fluxRoutes.save)
-  app.get('/flux', metricRoutes.public)
+  // app.get('/flux', metricRoutes.public)
 
   // 404 handling
   app.use((req, res, next) => {

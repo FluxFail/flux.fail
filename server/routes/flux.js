@@ -4,8 +4,32 @@ const db = require('../db')
 const moment = require('moment')
 const { validateFlux } = require('../utils/validate')
 const { subQueryRelatedFlux } = require('../utils/flux')
-const { parsePaginationParams } = require('../utils/paramParser')
+const { parsePaginationParams, parseFilterParams } = require('../utils/paramParser')
 const fluxTable = 'flux'
+
+anonymized = (entries) => {
+  return Promise.all(entries.map(entry => {
+    return {
+      id: entry.id,
+      connection: entry.connection,
+      ride: entry.ride,
+      country: entry.country,
+      city: entry.city,
+      location: entry.location,
+      vehicle: entry.vehicle,
+      line: entry.line,
+      direction: entry.direction,
+      scheduledAt: entry.scheduledAt,
+      actuallyAt: entry.actuallyAt,
+      cancelled: entry.cancelled,
+      arrival: entry.arrival,
+      departure: entry.departure,
+      comment: entry.comment,
+
+      related: entry.related
+    }
+  }))
+}
 
 exports.save = [
   passport.authenticate('bearer', {
@@ -121,9 +145,57 @@ exports.listAll = [
         .offset(offset)
         .orderBy('scheduledDeparture', 'desc')
       )
-      .then(subQueryRelatedFlux)
       .then(flux => res.json(flux))
       .catch(err => next(err))
+  }
+]
+
+exports.list = [
+  (req, res, next) => {
+    acksOf = (entry) => {
+      return db('flux')
+        .select()
+        .whereNot('user', entry.user)
+        .andWhere('country', entry.country)
+        .andWhere('city', entry.city)
+        .andWhere('line', entry.line)
+        .andWhere('direction', entry.direction)
+        .andWhere('location', entry.location)
+        .andWhere('scheduledAt', entry.scheduledAt)
+        .then(rows => anonymized(rows))
+    }
+
+    return parsePaginationParams(req)
+      .then((pagination) => parseFilterParams(req)
+        .then((filters) => {
+          var distinct = []
+          var query = db('flux')
+            .select()
+
+          if (filters.user) {
+            query = query.andWhere('user', filters.user)
+          } else if (filters.country) {
+            query = query.andWhere('country', filters.country)
+            distinct.push('country')
+          } else if (filters.city) {
+            query = query.andWhere('city', filters.city)
+            distinct.push('city')
+          } else if (filters.line) {
+            query = query.andWhere('line', filters.line)
+            distinct.push('line')
+          }
+
+          return query
+            .distinct(distinct)
+            .limit(pagination.limit)
+            .offset(pagination.offset)
+            .orderBy('scheduledAt', 'desc')
+        })
+        .then(rows => Promise.all(rows.map(row => acksOf(row).then(acks => { row.related = acks; return row }))))
+        .then(rows => anonymized(rows))
+        .then(rows => res.json(rows))
+        .catch(err => next(err))
+      )
   }
 ]
 
