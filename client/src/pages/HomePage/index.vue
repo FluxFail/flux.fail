@@ -29,12 +29,14 @@ import Claim from './Claim.vue'
 import SectionIdea from './SectionIdea.vue'
 import SectionPrivacy from './SectionPrivacy.vue'
 import SectionBenefits from './SectionBenefits.vue'
-import FluxTicker from '@/pages/Flux/TickerPage'
+import FluxStream from '@/pages/Flux/StreamPage'
+import DatetimePicker from '@/components/ui/DatetimePicker.vue'
 
 export default {
   components: {
     Claim,
-    FluxTicker,
+    DatetimePicker,
+    FluxStream,
     Hero,
     SectionIdea,
     SectionPrivacy,

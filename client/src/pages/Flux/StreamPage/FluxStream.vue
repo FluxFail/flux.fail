@@ -1,37 +1,20 @@
 <template>
-<v-list two-line>
+<v-list>
   <div class="padded" v-for="flux in $store.state.fluxStream.loaded" :key="flux.id" @click="click(flux.id)">
-    <v-layout row>
-      <v-flex xs3 sm2 md1>
-        <v-layout column>
-          <v-flex>
-            {{ ppDate(flux.scheduledDeparture) || '-' }}
-          </v-flex>
-          <v-flex>
-            {{ ppDate(flux.scheduledArrival) || '-' }}
-          </v-flex>
-        </v-layout>
+    <v-layout row py-3>
+      <v-flex xs8 sm9 class="shorten-text">
+        <strong>{{ flux.line }} -> {{ flux.direction }}</strong>
       </v-flex>
 
-      <v-flex xs2 sm1 md1>
-        <v-layout column>
-          <v-flex>
-            {{ flux.relatedFlux.departureDelayedBy || '-' }}
-          </v-flex>
-          <v-flex>
-          </v-flex>
-        </v-layout>
+      <v-flex xs2 class="text-xs-right">
+        {{ flux.related.length + 1 }}
+        <v-icon>star</v-icon>
       </v-flex>
 
-      <v-flex xs7 sm9 md10 class="shorten-text">
-        <strong>
-          {{ flux.line }} {{ flux.direction }}
-        </strong>
+      <v-flex xs2 sm1 class="text-xs-right">
+        4 min
       </v-flex>
 
-      <v-flex hidden-xs-only>
-        <vehicle-icon :id="flux.vehicle"></vehicle-icon>
-      </v-flex>
     </v-layout>
   <v-divider></v-divider>
   </div>

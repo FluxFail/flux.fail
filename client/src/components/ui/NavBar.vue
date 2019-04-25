@@ -83,7 +83,7 @@ export default {
     },
     goFluxStreamPage () {
       this.drawer = false
-      this.$router.push({ name: 'FluxTickerPage' })
+      this.$router.push({ name: 'FluxStreamPage' })
     },
     goAboutPage () {
       this.drawer = false

@@ -22,7 +22,8 @@
         "reset": "Reset",
         "submit": "Submit"
       }
-    }
+    },
+    "missingValue": "???"
   },
 
   "nav": {
@@ -87,13 +88,12 @@
 
   "fluxPage": {
     "report": {
-      "title": "Report a FluxFail",
+      "title": "New Report",
 
       "step": {
-        "location": "Location",
+        "where": "Where",
         "line": "Line",
-        "schedule": "Official Schedule",
-        "fluxfail": "FluxFail"
+        "when": "When"
       },
 
       "form": {
@@ -103,14 +103,11 @@
           "location": "Location",
           "line": "Line",
           "direction": "Direction",
-          "scheduled": {
-            "arrival": "Scheduled Arrival",
-            "departure": "Scheduled Departure"
-          },
-          "actual": {
-            "arrival": "Actual Arrival",
-            "departure": "Actual Departure"
-          }
+          "scheduledAt": "Scheduled at",
+          "actuallyAt": "Actually at",
+          "arrival": "Arrival",
+          "departure": "Departure",
+          "cancelled": "Cancelled"
         },
         "err": {
           "required": "field is required"
@@ -120,7 +117,7 @@
     },
 
     "stream": {
-      "title": "Delay Stream"
+      "title": "Stream"
     }
   },
 

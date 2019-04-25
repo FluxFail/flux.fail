@@ -1,5 +1,5 @@
 <template>
-<v-container fluid>
+<div>
   <v-layout wrap justify-space-around>
     <v-flex xs12 sm8>
         <v-form ref="form">
@@ -45,7 +45,7 @@
       </v-btn>
     </v-flex>
   </v-layout>
-</v-container>
+</div>
 </template>
 
 <script>
@@ -60,11 +60,11 @@ export default {
         location: this.$store.state.fluxReportForm.fields.location
       },
       countryRules: [
-        v => !!v || this.$t('requiredField'),
+        v => !!v || this.$t('fluxPage.report.form.err.required'),
         v => Object.keys(isoCountries).includes(v.toUpperCase()) || this.$t('unknownCountryCode')
       ],
       isRequiredRules: [
-        v => !!v || this.$t('requiredField')
+        v => !!v || this.$t('fluxPage.report.form.err.required')
       ],
       isoCountries: Object.keys(isoCountries)
     }

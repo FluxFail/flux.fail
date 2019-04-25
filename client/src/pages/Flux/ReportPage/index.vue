@@ -11,13 +11,13 @@
       </v-toolbar>
       <v-stepper v-model="$store.state.fluxReportForm.windowStep">
         <v-stepper-header>
-          <v-stepper-step :complete="$store.state.fluxReportForm.windowStep > 1" step="1">{{ $t('fluxPage.report.step.location') }}</v-stepper-step>
+          <v-stepper-step :complete="$store.state.fluxReportForm.windowStep > 1" step="1">{{ $t('fluxPage.report.step.where') }}</v-stepper-step>
           <v-divider></v-divider>
           <v-stepper-step :complete="$store.state.fluxReportForm.windowStep > 2" step="2">{{ $t('fluxPage.report.step.line') }}</v-stepper-step>
           <v-divider></v-divider>
-          <v-stepper-step :complete="$store.state.fluxReportForm.windowStep > 3" step="3">{{ $t('fluxPage.report.step.schedule') }}</v-stepper-step>
+          <v-stepper-step :complete="$store.state.fluxReportForm.windowStep > 3" step="3">{{ $t('fluxPage.report.step.when') }}</v-stepper-step>
           <v-divider></v-divider>
-          <v-stepper-step :complete="$store.state.fluxReportForm.windowStep > 4" step="4">{{ $t('fluxPage.report.step.fluxfail') }}</v-stepper-step>
+          <v-stepper-step :complete="$store.state.fluxReportForm.windowStep > 4" step="4">{{ $t('fluxPage.report.step.details') }}</v-stepper-step>
         </v-stepper-header>
         <v-stepper-items>
           <v-stepper-content step="1">

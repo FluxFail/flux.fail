@@ -1,5 +1,5 @@
 <template>
-<v-container fluid>
+<div>
   <v-form ref=form @submit.prevent="goNextFluxReportPage">
     <v-layout wrap justify-space-around>
       <v-flex xs4>
@@ -83,10 +83,10 @@
   <v-layout>
     <v-flex class="text-xs-right">
       <v-btn flat @click="goPrevFluxReportFormPage">{{ $t('generic.form.btn.back') }}</v-btn>
-      <v-btn @click="goNextFluxReportPage">{{ $t('generic.form.btn.next') }}</v-btn>
+      <v-btn @click="goNextFluxReportFormPage">{{ $t('generic.form.btn.next') }}</v-btn>
     </v-flex>
   </v-layout>
-</v-container>
+</div>
 </template>
 
 <script>
@@ -130,7 +130,7 @@ export default {
     goPrevFluxReportFormPage: function () {
       this.$store.commit('fluxReportFormStepBack')
     },
-    goNextFluxReportPage: function () {
+    goNextFluxReportFormPage: function () {
       if (this.$refs.form.validate()) {
         this.$store.commit('fluxReportFormUpdateFields', this.fields)
         this.$store.commit('fluxReportFormStepForward')
@@ -138,7 +138,7 @@ export default {
     },
     selectVehicle: function (vId) {
       this.fields.vehicle = vId
-      this.goNextFluxReportPage()
+      this.goNextFluxReportFormPage()
     },
     isSelectedVehicle: function (vId) {
       return this.fields.vehicle === vId

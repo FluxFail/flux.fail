@@ -26,7 +26,7 @@
               ref="emailField"
               required
             ></v-text-field>
-            <span class="caption grey--text text--darken-1">
+            <span class="caption white--text text--darken-1">
               {{ $t('loginPage.form.description') }}
             </span>
           </v-card-text>
@@ -42,7 +42,7 @@
             height="64"
             :src="require('@/assets/brand_logo.png')"
           ></v-img>
-          <span class="caption grey--text">{{ $t('loginPage.checkMail') }}</span>
+          <span class="caption white--text">{{ $t('loginPage.checkMail') }}</span>
         </div>
       </v-window-item>
     </v-window>

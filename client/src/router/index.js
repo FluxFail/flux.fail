@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import About from '@/pages/AboutPage/index'
 import FluxReport from '@/pages/Flux/ReportPage/index'
-import FluxTicker from '@/pages/Flux/TickerPage/index'
+import FluxStream from '@/pages/Flux/StreamPage/index'
 import Home from '@/pages/HomePage/index'
 import Login from '@/pages/LoginPage/index'
 
@@ -23,9 +23,9 @@ export default new Router({
       component: FluxReport
     },
     {
-      path: '/flux/ticker',
-      name: 'FluxTickerPage',
-      component: FluxTicker
+      path: '/flux/stream',
+      name: 'FluxStreamPage',
+      component: FluxStream
     },
     {
       path: '/about',

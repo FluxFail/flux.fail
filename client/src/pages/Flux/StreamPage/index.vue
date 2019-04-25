@@ -11,7 +11,7 @@
           </v-btn>
         </v-toolbar>
 
-        <flux-ticker></flux-ticker>
+        <flux-stream></flux-stream>
       </v-card>
     </v-flex>
   </v-layout>
@@ -19,13 +19,13 @@
 </template>
 
 <script>
-import FluxTicker from './FluxTicker.vue'
+import FluxStream from './FluxStream.vue'
 import 'mdi-vue/ChevronDownIcon'
 import 'mdi-vue/MagnifyIcon'
 
 export default {
   components: {
-    FluxTicker
+    FluxStream
   }
 }
 </script>

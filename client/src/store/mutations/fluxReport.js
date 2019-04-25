@@ -10,11 +10,11 @@ export default {
         line: '',
         direction: '',
         vehicle: 0,
-        scheduledArrival: '',
-        scheduledDeparture: '',
+        scheduledAt: '',
+        actuallyAt: '',
         cancelled: false,
-        arrivedAt: '',
-        departedAt: '',
+        arrival: false,
+        departure: false,
         comment: ''
       }
     }
