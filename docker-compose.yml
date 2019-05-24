@@ -7,6 +7,7 @@ services:
     environment:
       POSTGRES_USER: fluxfail
       POSTGRES_DB: fluxfail
+
   server:
     image: fluxfail/server
     environment:
@@ -23,17 +24,17 @@ services:
     depends_on:
       - db
       - fakesmtp
+
   client:
     image: fluxfail/client
     ports:
       - '127.0.0.1:8081:80'
+
+  # The fakesmtp containeris an authentication helper for developers and should
+  # never be started in production.
   fakesmtp:
     image: fluxfail/fakesmtp
     container_name: fakesmtp
     ports:
       - '127.0.0.1:1025:1025'
       - '127.0.0.1:1080:1080'
-  site:
-    image: fluxfail/site
-    ports:
-      - '0.0.0.0:8082:80'

@@ -1,9 +1,8 @@
 FROM nginx
+LABEL maintainer Brian Wiborg <brian@flux.fail>
 
-# Copy assets over
-# NOTE: These have to be built first with "npm run build"
+ENV NPM_CONFIG_LOGLEVEL warn
+ENV NODE_ENV production
+
 COPY dist /usr/share/nginx/html
-
-# Configure Nginx for basic auth
-COPY nginx/htpasswd /etc/nginx/fluxfail.htpasswd
-COPY nginx/nginx_vhost.conf /etc/nginx/conf.d/default.conf
+COPY nginx/vhost.conf /etc/nginx/conf.d/default.conf

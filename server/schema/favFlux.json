@@ -1,0 +1,69 @@
+{
+  "title": "Public transport favourite route hop",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "user": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "connection": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "ride": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "country": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "city": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "vehicle": {
+      "type": "integer"
+    },
+    "line": {
+      "type": "string"
+    },
+    "direction": {
+      "type": "string"
+    },
+    "scheduledDeparture": {
+      "type": "string",
+      "format": "iso8601"
+    },
+    "scheduledArrival": {
+      "type": "string",
+      "format": "iso8601"
+    }
+  },
+  "required": [
+    "connection",
+    "ride",
+    "country",
+    "city",
+    "location",
+    "vehicle",
+    "line",
+    "direction"
+  ],
+  "additionalProperties": false
+}
