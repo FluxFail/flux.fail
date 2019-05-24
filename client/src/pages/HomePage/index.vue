@@ -14,12 +14,12 @@
       :pitchTitle="$t('homePage.privacySection.pitchTitle')"
       :title="$t('homePage.privacySection.title')"
     ></SectionPrivacy>
-    <SectionPrivacy
+    <SectionBenefits
       :paragraphs="$t('homePage.benefitsSection.paragraphs')"
       :pitchDescription="$t('homePage.benefitsSection.pitchDescription')"
       :pitchTitle="$t('homePage.benefitsSection.pitchTitle')"
       :title="$t('homePage.benefitsSection.title')"
-    ></SectionPrivacy>
+    ></SectionBenefits>
   </div>
 </template>
 
@@ -73,12 +73,15 @@ h2 {
   margin-left: 24px;
   font-style: italic;
 }
-.section:nth-child(even) {
+.section:nth-child(odd) {
   flex-direction: row-reverse;
   background-color: #333;
 }
 .section {
   background-color: #444;
   color: #5ccbf0;
+}
+.logo {
+  width: 300px;
 }
 </style>

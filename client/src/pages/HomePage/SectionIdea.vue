@@ -1,6 +1,20 @@
 <template>
-<v-layout row pa-4 class="section">
-  <v-flex xs12 sm6 pa-3>
+<v-layout wrap row pa-4 class="section">
+  <v-flex xs12 md5 pa-3>
+    <v-layout row wrap fill-height align-center>
+      <v-flex>
+        <center>
+          <object
+            :data="require('@/assets/rocket-01.svg')"
+            type="image/svg+xml"
+            class="logo"
+          ></object>
+        </center>
+      </v-flex>
+    </v-layout>
+  </v-flex>
+
+  <v-flex xs12 md7 pa-3>
     <h1 v-html="title"></h1>
     <br />
     <p
