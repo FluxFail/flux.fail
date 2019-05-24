@@ -24,6 +24,10 @@ server/test:
 server/build:
 	cd server && npm run image
 
+.PHONY: server/logs
+server/logs:
+	docker-compose logs -f server
+
 .PHONY: server
 server: server/install server/build
 
@@ -52,6 +56,10 @@ fakesmtp:
 .PHONY: migrate
 migrate:
 	docker-compose exec server npm run migrate
+
+.PHONY: seed
+seed:
+	docker-compose exec server npm run seed
 
 .PHONY: test
 test: server/test client/test
