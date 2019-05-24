@@ -59,7 +59,7 @@ export default {
   methods: {
     resetCurrentFluxForm () {
       this.$store.commit('fluxReportFormReset')
-      this.$router.push({ name: 'HomePage' })
+      this.$router.push({ name: 'FluxStreamPage' })
     }
   }
 }

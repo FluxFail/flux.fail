@@ -1,6 +1,6 @@
 <template>
-<v-layout row pa-4 class="section">
-  <v-flex xs12 md6 pa-3>
+<v-layout row wrap pa-4 class="section" justify-space-around>
+  <v-flex xs12 sm5 pa-3>
     <h1 v-html="title"></h1>
     <br />
     <p

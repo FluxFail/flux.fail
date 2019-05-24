@@ -93,7 +93,8 @@
       "step": {
         "where": "Where",
         "line": "Line",
-        "when": "When"
+        "when": "When",
+        "details": "Details"
       },
 
       "form": {

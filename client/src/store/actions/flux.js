@@ -23,7 +23,7 @@ export default {
           console.log(res.statusText)
         }
         context.commit('fluxReportFormReset')
-        router.push({ name: 'HomePage' })
+        router.push({ name: 'FluxStreamPage' })
       })
   }
 }

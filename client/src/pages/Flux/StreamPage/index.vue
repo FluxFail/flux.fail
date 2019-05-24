@@ -1,7 +1,7 @@
 <template>
 <v-container>
-  <v-layout row align-content-center align-content-space-between>
-    <v-flex>
+  <v-layout row wrap align-content-center justify-space-around>
+    <v-flex xl8>
       <v-card>
         <v-toolbar dark>
           <v-toolbar-title>{{ $t('fluxPage.stream.title') }}</v-toolbar-title>
